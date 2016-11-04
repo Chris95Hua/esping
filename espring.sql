@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2016 at 06:31 AM
+-- Generation Time: Nov 04, 2016 at 11:02 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -86,6 +86,17 @@ CREATE TABLE `order_log` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `title` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -96,6 +107,7 @@ CREATE TABLE `user` (
   `username` varchar(16) NOT NULL,
   `password` char(44) NOT NULL,
   `salt` char(44) NOT NULL,
+  `role` int(10) UNSIGNED NOT NULL,
   `department_id` int(11) NOT NULL,
   `c_user` int(10) UNSIGNED NOT NULL,
   `c_date` datetime NOT NULL,
@@ -107,8 +119,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `salt`, `department_id`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(14, 'Zero', 'Gravity', 'chye yee', '8TBLmgdzOtg4zrO6TfPXQ7r6NWm2cipZQQe1QeonvDQ=', 'cAMOVSXZ+ej7FJuuRt7xTRHLr3sU2x7ZUg7Gl4+34D7o', 1, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `salt`, `role`, `department_id`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
+(14, 'Zero', 'Gravity', 'chye yee', '8TBLmgdzOtg4zrO6TfPXQ7r6NWm2cipZQQe1QeonvDQ=', 'cAMOVSXZ+ej7FJuuRt7xTRHLr3sU2x7ZUg7Gl4+34D7o', 0, 1, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -131,6 +143,12 @@ ALTER TABLE `order_customer`
 --
 ALTER TABLE `order_log`
   ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`role_id`);
 
 --
 -- Indexes for table `user`
@@ -157,6 +175,11 @@ ALTER TABLE `order_customer`
 --
 ALTER TABLE `order_log`
   MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --

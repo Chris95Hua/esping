@@ -11,51 +11,21 @@ Public NotInheritable Class Method
     ''' </summary>
     ''' <param name="username">Username string</param>
     ''' <param name="password">Password string</param>
-    ''' <returns>Login status</returns>
-    Public Shared Function Login(ByVal username As String, ByVal password As String) As Integer
-
-        ' DUPLICATE USERNAME
+    ''' <returns>Integer array of login status and user role</returns>
+    Public Shared Function Login(ByVal username As String, ByVal password As String) As Integer()
         Dim users As List(Of Dictionary(Of String, Object))
-
-        users = Database.SelectRows("user", {"username", "=", username})
+        users = Database.SelectRows(TABLE.USER, {USER.USERNAME, "=", username}, {USER.USERNAME, USER.PASSWORD, USER.SALT, USER.ROLE})
 
         If users IsNot Nothing Then
             For Each user In users
                 Dim hashedPassword As String = Security.Hash(password, user.Item("salt").ToString)
 
                 If hashedPassword.CompareTo(user.Item("password").ToString) = 0 Then
-                    MessageBox.Show("Login successed")
-                    Return Constant.LOGIN.SUCCESSED
+                    Return {LOGIN_STATUS.SUCCESSED, user.Item("role")}
                 End If
             Next
-
-            MessageBox.Show("Login failed")
-            Return Constant.LOGIN.FAILED
         End If
 
-        MessageBox.Show("No such username available")
-        Return Constant.LOGIN.USER_NOT_AVAILABLE
-
-
-
-        ' ATOMIC USERNAME
-        'Dim user As Dictionary(Of String, Object)
-
-        'user = Database.SelectRow("user", "username", username)
-
-        'If user IsNot Nothing Then
-        '    Dim hashedPassword As String = Security.Hash(password, user.Item("salt").ToString)
-
-        '    If hashedPassword.CompareTo(user.Item("password").ToString) = 0 Then
-        '        MessageBox.Show("Login successed")
-        '        Return Constant.LOGIN.SUCCESSED
-        '    Else
-        '        MessageBox.Show("Login failed")
-        '        Return Constant.LOGIN.FAILED
-        '    End If
-        'Else
-        '    MessageBox.Show("No such username available")
-        '    Return Constant.LOGIN.USER_NOT_AVAILABLE
-        'End If
+        Return {LOGIN_STATUS.FAILED, -1}
     End Function
 End Class

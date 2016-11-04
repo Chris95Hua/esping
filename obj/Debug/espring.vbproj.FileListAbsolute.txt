@@ -53,3 +53,5 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Printing_Department.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Inventory_Preparation.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Sewing_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Inventory_Preparation.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Sewing_Department.resources

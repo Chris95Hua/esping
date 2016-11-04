@@ -22,67 +22,58 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txt_barcodeText = New System.Windows.Forms.TextBox()
-        Me.btn_generateBarcode = New System.Windows.Forms.Button()
-        Me.pic_barcode = New System.Windows.Forms.PictureBox()
         Me.btn_login = New System.Windows.Forms.Button()
-        CType(Me.pic_barcode, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.txt_username = New System.Windows.Forms.TextBox()
+        Me.txt_password = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
-        '
-        'txt_barcodeText
-        '
-        Me.txt_barcodeText.Location = New System.Drawing.Point(220, 192)
-        Me.txt_barcodeText.Name = "txt_barcodeText"
-        Me.txt_barcodeText.Size = New System.Drawing.Size(280, 26)
-        Me.txt_barcodeText.TabIndex = 0
-        '
-        'btn_generateBarcode
-        '
-        Me.btn_generateBarcode.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.btn_generateBarcode.Location = New System.Drawing.Point(559, 188)
-        Me.btn_generateBarcode.Name = "btn_generateBarcode"
-        Me.btn_generateBarcode.Size = New System.Drawing.Size(109, 34)
-        Me.btn_generateBarcode.TabIndex = 1
-        Me.btn_generateBarcode.Text = "Generate"
-        Me.btn_generateBarcode.UseVisualStyleBackColor = True
-        '
-        'pic_barcode
-        '
-        Me.pic_barcode.Location = New System.Drawing.Point(220, 47)
-        Me.pic_barcode.Name = "pic_barcode"
-        Me.pic_barcode.Size = New System.Drawing.Size(280, 88)
-        Me.pic_barcode.TabIndex = 2
-        Me.pic_barcode.TabStop = False
         '
         'btn_login
         '
         Me.btn_login.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btn_login.Location = New System.Drawing.Point(31, 281)
+        Me.btn_login.Location = New System.Drawing.Point(270, 200)
+        Me.btn_login.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_login.Name = "btn_login"
-        Me.btn_login.Size = New System.Drawing.Size(109, 34)
-        Me.btn_login.TabIndex = 1
+        Me.btn_login.Size = New System.Drawing.Size(73, 22)
+        Me.btn_login.TabIndex = 2
         Me.btn_login.Text = "Login"
         Me.btn_login.UseVisualStyleBackColor = True
         '
+        'txt_username
+        '
+        Me.txt_username.Location = New System.Drawing.Point(155, 105)
+        Me.txt_username.Margin = New System.Windows.Forms.Padding(2)
+        Me.txt_username.MaxLength = 16
+        Me.txt_username.Name = "txt_username"
+        Me.txt_username.Size = New System.Drawing.Size(188, 20)
+        Me.txt_username.TabIndex = 0
+        '
+        'txt_password
+        '
+        Me.txt_password.Location = New System.Drawing.Point(155, 145)
+        Me.txt_password.Margin = New System.Windows.Forms.Padding(2)
+        Me.txt_password.MaxLength = 16
+        Me.txt_password.Name = "txt_password"
+        Me.txt_password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.txt_password.Size = New System.Drawing.Size(188, 20)
+        Me.txt_password.TabIndex = 1
+        '
         'Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(814, 592)
-        Me.Controls.Add(Me.pic_barcode)
+        Me.ClientSize = New System.Drawing.Size(517, 275)
         Me.Controls.Add(Me.btn_login)
-        Me.Controls.Add(Me.btn_generateBarcode)
-        Me.Controls.Add(Me.txt_barcodeText)
+        Me.Controls.Add(Me.txt_password)
+        Me.Controls.Add(Me.txt_username)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Login"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Login"
-        CType(Me.pic_barcode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txt_barcodeText As System.Windows.Forms.TextBox
-    Friend WithEvents btn_generateBarcode As System.Windows.Forms.Button
-    Friend WithEvents pic_barcode As System.Windows.Forms.PictureBox
     Friend WithEvents btn_login As System.Windows.Forms.Button
-
+    Friend WithEvents txt_username As TextBox
+    Friend WithEvents txt_password As TextBox
 End Class
