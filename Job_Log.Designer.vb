@@ -84,7 +84,7 @@ Partial Class Job_Log
         Me.dgv_job_log.ReadOnly = True
         Me.dgv_job_log.RowTemplate.Height = 28
         Me.dgv_job_log.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_job_log.Size = New System.Drawing.Size(554, 351)
+        Me.dgv_job_log.Size = New System.Drawing.Size(978, 619)
         Me.dgv_job_log.TabIndex = 1
         '
         'Column1
@@ -109,12 +109,13 @@ Partial Class Job_Log
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(578, 444)
+        Me.ClientSize = New System.Drawing.Size(1002, 712)
         Me.Controls.Add(Me.dgv_job_log)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Job_Log"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "JOB LOG"

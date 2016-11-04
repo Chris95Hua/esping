@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Printing_Department
+Partial Class Sewing_Department
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -48,7 +48,7 @@ Partial Class Printing_Department
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
-        Me.MenuStrip1.TabIndex = 4
+        Me.MenuStrip1.TabIndex = 7
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'btn_logout
@@ -103,7 +103,7 @@ Partial Class Printing_Department
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgv_details.Location = New System.Drawing.Point(12, 92)
+        Me.dgv_details.Location = New System.Drawing.Point(12, 95)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -118,7 +118,7 @@ Partial Class Printing_Department
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv_details.Size = New System.Drawing.Size(978, 614)
-        Me.dgv_details.TabIndex = 5
+        Me.dgv_details.TabIndex = 8
         '
         'Column1
         '
@@ -159,13 +159,13 @@ Partial Class Printing_Department
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(12, 52)
+        Me.txt_search.Location = New System.Drawing.Point(12, 55)
         Me.txt_search.Name = "txt_search"
         Me.txt_search.Size = New System.Drawing.Size(203, 26)
-        Me.txt_search.TabIndex = 6
+        Me.txt_search.TabIndex = 9
         Me.txt_search.Text = "Search"
         '
-        'Printing_Department
+        'Sewing_Department
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -174,8 +174,8 @@ Partial Class Printing_Department
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.txt_search)
         Me.MinimumSize = New System.Drawing.Size(1024, 768)
-        Me.Name = "Printing_Department"
-        Me.Text = "Printing Department"
+        Me.Name = "Sewing_Department"
+        Me.Text = "Sewing Department"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

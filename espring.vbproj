@@ -117,6 +117,12 @@
     <Compile Include="Generate_Barcode.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventory_Preparation.Designer.vb">
+      <DependentUpon>Inventory_Preparation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_Preparation.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Job_Log.Designer.vb">
       <DependentUpon>Job_Log.vb</DependentUpon>
     </Compile>
@@ -171,6 +177,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Security.vb" />
+    <Compile Include="Sewing_Department.Designer.vb">
+      <DependentUpon>Sewing_Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sewing_Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Check_Details.resx">
@@ -190,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generate_Barcode.resx">
       <DependentUpon>Generate_Barcode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory_Preparation.resx">
+      <DependentUpon>Inventory_Preparation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Job_Log.resx">
       <DependentUpon>Job_Log.vb</DependentUpon>
@@ -214,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Printing_Department.resx">
       <DependentUpon>Printing_Department.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sewing_Department.resx">
+      <DependentUpon>Sewing_Department.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

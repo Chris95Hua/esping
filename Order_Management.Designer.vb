@@ -50,7 +50,7 @@ Partial Class Order_Management
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_newOrder, Me.btn_passUpdate, Me.btn_logout, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(778, 33)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -134,7 +134,7 @@ Partial Class Order_Management
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(754, 418)
+        Me.dgv_details.Size = New System.Drawing.Size(978, 586)
         Me.dgv_details.TabIndex = 1
         '
         'Column1
@@ -176,7 +176,7 @@ Partial Class Order_Management
         'btn_edit
         '
         Me.btn_edit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_edit.Location = New System.Drawing.Point(543, 505)
+        Me.btn_edit.Location = New System.Drawing.Point(767, 673)
         Me.btn_edit.Name = "btn_edit"
         Me.btn_edit.Size = New System.Drawing.Size(101, 29)
         Me.btn_edit.TabIndex = 3
@@ -186,7 +186,7 @@ Partial Class Order_Management
         'btn_delete
         '
         Me.btn_delete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_delete.Location = New System.Drawing.Point(665, 505)
+        Me.btn_delete.Location = New System.Drawing.Point(889, 673)
         Me.btn_delete.Name = "btn_delete"
         Me.btn_delete.Size = New System.Drawing.Size(101, 29)
         Me.btn_delete.TabIndex = 3
@@ -197,16 +197,18 @@ Partial Class Order_Management
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(778, 544)
+        Me.ClientSize = New System.Drawing.Size(1002, 712)
         Me.Controls.Add(Me.btn_delete)
         Me.Controls.Add(Me.btn_edit)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Order_Management"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Order Management"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).EndInit()

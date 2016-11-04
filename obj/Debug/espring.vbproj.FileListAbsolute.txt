@@ -2,9 +2,6 @@ c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.exe
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.pdb
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.xml
-c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\MySql.Data.dll
-c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\Newtonsoft.Json.dll
-c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\Zen.Barcode.Core.dll
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\Newtonsoft.Json.xml
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.Resources.resources
@@ -46,3 +43,13 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espri
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Password_Update.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Printing_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.vbproj.GenerateResource.Cache
+C:\Users\Nelson\Desktop\espring\bin\Debug\espring.exe.config
+C:\Users\Nelson\Desktop\espring\obj\Debug\espring.exe
+C:\Users\Nelson\Desktop\espring\obj\Debug\espring.xml
+C:\Users\Nelson\Desktop\espring\obj\Debug\espring.pdb
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\bin\Debug\MySql.Data.xml
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Embroidery_Department.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Generate_Barcode.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Printing_Department.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Inventory_Preparation.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Sewing_Department.resources

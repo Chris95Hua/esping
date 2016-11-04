@@ -47,7 +47,7 @@ Partial Class Cutting_Department
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(778, 33)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -117,7 +117,7 @@ Partial Class Cutting_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(754, 446)
+        Me.dgv_details.Size = New System.Drawing.Size(978, 614)
         Me.dgv_details.TabIndex = 2
         '
         'Column1
@@ -169,12 +169,14 @@ Partial Class Cutting_Department
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(778, 544)
+        Me.ClientSize = New System.Drawing.Size(1002, 712)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Cutting_Department"
         Me.Text = "Cutting Department"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).EndInit()
