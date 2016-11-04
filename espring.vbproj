@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C4CBEBC-4CFA-49E6-8FAF-A9B3147FACB4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>espring.My.MyApplication</StartupObject>
+    <RootNamespace>espring</RootNamespace>
+    <AssemblyName>espring</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>espring.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>espring.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\Desktop\espring\dependencies\mysql-connector-net-6.9.9-noinstall\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Desktop\espring\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Zen.Barcode.Core">
+      <HintPath>..\..\..\..\Desktop\espring\packages\Zen.Barcode.Core.Code128.3.1.0\lib\net45\Zen.Barcode.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Check_Details.Designer.vb">
+      <DependentUpon>Check_Details.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Check_Details.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Constant.vb" />
+    <Compile Include="Cutting_Department.Designer.vb">
+      <DependentUpon>Cutting_Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cutting_Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Approval_Management.Designer.vb">
+      <DependentUpon>Approval_Management.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Approval_Management.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database.vb" />
+    <Compile Include="Edit_Delivery_Date.Designer.vb">
+      <DependentUpon>Edit_Delivery_Date.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Edit_Delivery_Date.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Embroidery_Department.Designer.vb">
+      <DependentUpon>Embroidery_Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Embroidery_Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generate_Barcode.Designer.vb">
+      <DependentUpon>Generate_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Generate_Barcode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Job_Log.Designer.vb">
+      <DependentUpon>Job_Log.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Job_Log.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.vb">
+      <DependentUpon>Login.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Method.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="New_Order.Designer.vb">
+      <DependentUpon>New_Order.vb</DependentUpon>
+    </Compile>
+    <Compile Include="New_Order.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Order_Management.Designer.vb">
+      <DependentUpon>Order_Management.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Management.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Password_Update.Designer.vb">
+      <DependentUpon>Password_Update.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Password_Update.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printing_Department.Designer.vb">
+      <DependentUpon>Printing_Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Printing_Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Check_Details.resx">
+      <DependentUpon>Check_Details.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cutting_Department.resx">
+      <DependentUpon>Cutting_Department.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Approval_Management.resx">
+      <DependentUpon>Approval_Management.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Edit_Delivery_Date.resx">
+      <DependentUpon>Edit_Delivery_Date.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Embroidery_Department.resx">
+      <DependentUpon>Embroidery_Department.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generate_Barcode.resx">
+      <DependentUpon>Generate_Barcode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Job_Log.resx">
+      <DependentUpon>Job_Log.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="New_Order.resx">
+      <DependentUpon>New_Order.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order_Management.resx">
+      <DependentUpon>Order_Management.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Password_Update.resx">
+      <DependentUpon>Password_Update.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printing_Department.resx">
+      <DependentUpon>Printing_Department.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
