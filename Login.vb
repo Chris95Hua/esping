@@ -5,7 +5,6 @@
             '' TODO: open form based on user role
             Dim order As New Order_Management
             order.Show()
-
             Me.Close()
         Else
             ' error
