@@ -29,13 +29,26 @@
     End Sub
 
     Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
-        Dim passUpdateForm = New Password_Update
-        passUpdateForm.Show()
+        Dim passUpdateForm As New Password_Update
+        passUpdateForm.ShowDialog()
     End Sub
 
     Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
         Dim editDeliveryForm As New Edit_Delivery_Date
-        editDeliveryForm.Show()
+        If editDeliveryForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
+            Dim update As New Dictionary(Of String, Object)
+            Dim newDate As Date = editDeliveryForm.d_newDeliveryDate.Value
+
+            update.Add(ORDER_CUSTOMER.DELIVERY_DATE, newDate)
+
+            If Database.Update(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}, update) Then
+                dgv_details.SelectedCells.Item(4).Value = newDate.ToString("dd/MM/yyyy")
+                MessageBox.Show("Delivery date updated successfully")
+            Else
+                MessageBox.Show("Update failed.")
+            End If
+        End If
     End Sub
 
     ' background worker thread
@@ -67,10 +80,17 @@
     End Sub
 
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderLoader.RunWorkerCompleted
-
-        ' First, handle the case where an exception was thrown.
         If (e.Error Is Nothing) Then
             dgv_details.DataSource = e.Result
         End If
+    End Sub
+
+    Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
+        Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
+
+        If Database.Delete(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+            dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
+        End If
+
     End Sub
 End Class

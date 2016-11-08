@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2016 at 10:21 AM
+-- Generation Time: Nov 08, 2016 at 08:42 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -66,6 +66,13 @@ CREATE TABLE `order_customer` (
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `order_customer`
+--
+
+INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `amount`, `remarks`, `approval`, `e_user`, `e_date`) VALUES
+(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 0x7374756666, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +88,13 @@ CREATE TABLE `order_log` (
   `e_user` int(10) UNSIGNED DEFAULT NULL,
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_log`
+--
+
+INSERT INTO `order_log` (`log_id`, `order_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
+(1, 1, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +155,8 @@ ALTER TABLE `order_customer`
 -- Indexes for table `order_log`
 --
 ALTER TABLE `order_log`
-  ADD PRIMARY KEY (`log_id`);
+  ADD PRIMARY KEY (`log_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `role`
@@ -168,12 +183,12 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `order_customer`
 --
 ALTER TABLE `order_customer`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `order_log`
 --
 ALTER TABLE `order_log`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `role`
 --
@@ -184,6 +199,16 @@ ALTER TABLE `role`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `order_log`
+--
+ALTER TABLE `order_log`
+  ADD CONSTRAINT `order_log_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_customer` (`order_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
