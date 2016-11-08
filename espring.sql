@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2016 at 11:02 AM
+-- Generation Time: Nov 07, 2016 at 10:21 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -31,8 +31,8 @@ CREATE TABLE `department` (
   `name` varchar(64) NOT NULL,
   `c_user` int(10) UNSIGNED NOT NULL,
   `c_date` datetime NOT NULL,
-  `e_user` int(10) UNSIGNED NOT NULL,
-  `e_date` datetime NOT NULL
+  `e_user` int(10) UNSIGNED DEFAULT NULL,
+  `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -47,24 +47,23 @@ CREATE TABLE `order_customer` (
   `salesperson_id` int(10) UNSIGNED NOT NULL,
   `customer` varchar(128) NOT NULL,
   `fabric` varchar(128) NOT NULL COMMENT 'Assumed to be string of text only',
-  `collar` varchar(128) NOT NULL COMMENT 'Assumed to be string of text only',
-  `cuff` varchar(128) NOT NULL COMMENT 'Assumed to be string of text only',
-  `front` varchar(58) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `back` varchar(58) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
+  `collar` int(10) UNSIGNED NOT NULL,
+  `cuff` int(10) UNSIGNED NOT NULL,
+  `front` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
+  `back` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
   `artwork` longblob NOT NULL COMMENT '4mb max',
   `size` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
   `material` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
   `colour` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `packaging` tinyint(1) UNSIGNED NOT NULL COMMENT '1 int to indicate chosen packaging',
+  `packaging` varchar(128) NOT NULL,
   `issue_date` date NOT NULL,
   `delivery_date` date NOT NULL,
-  `payment` varchar(64) NOT NULL COMMENT 'Uses json string',
-  `remarks` varchar(255) NOT NULL,
-  `approval` tinyint(1) UNSIGNED NOT NULL,
-  `c_user` int(10) UNSIGNED NOT NULL,
-  `c_date` datetime NOT NULL,
-  `e_user` int(10) UNSIGNED NOT NULL,
-  `e_date` datetime NOT NULL
+  `payment` varchar(32) NOT NULL COMMENT 'Uses json string',
+  `amount` int(10) UNSIGNED NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `approval` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `e_user` int(10) UNSIGNED DEFAULT NULL,
+  `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -79,8 +78,8 @@ CREATE TABLE `order_log` (
   `datetime` datetime NOT NULL,
   `status` varchar(255) NOT NULL,
   `c_user` int(10) UNSIGNED NOT NULL,
-  `e_user` int(10) UNSIGNED NOT NULL,
-  `e_date` datetime NOT NULL
+  `e_user` int(10) UNSIGNED DEFAULT NULL,
+  `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -111,8 +110,8 @@ CREATE TABLE `user` (
   `department_id` int(11) NOT NULL,
   `c_user` int(10) UNSIGNED NOT NULL,
   `c_date` datetime NOT NULL,
-  `e_user` int(10) UNSIGNED NOT NULL,
-  `e_date` datetime NOT NULL
+  `e_user` int(10) UNSIGNED DEFAULT NULL,
+  `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -120,7 +119,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `salt`, `role`, `department_id`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(14, 'Zero', 'Gravity', 'chye yee', '8TBLmgdzOtg4zrO6TfPXQ7r6NWm2cipZQQe1QeonvDQ=', 'cAMOVSXZ+ej7FJuuRt7xTRHLr3sU2x7ZUg7Gl4+34D7o', 0, 1, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+(1, 'Zero', 'Gravity', 'admin', '8TBLmgdzOtg4zrO6TfPXQ7r6NWm2cipZQQe1QeonvDQ=', 'cAMOVSXZ+ej7FJuuRt7xTRHLr3sU2x7ZUg7Gl4+34D7o', 0, 1, 0, '2016-11-07 00:00:00', 0, '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -184,7 +183,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

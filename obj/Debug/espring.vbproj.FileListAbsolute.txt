@@ -27,8 +27,6 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\espri
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\espring.xml
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\MySql.Data.dll
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\MySql.Data.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\Newtonsoft.Json.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Check_Details.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Cutting_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Cutting_Details.resources
@@ -55,3 +53,4 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Sewing_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Inventory_Preparation.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Sewing_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.vbprojResolveAssemblyReference.cache

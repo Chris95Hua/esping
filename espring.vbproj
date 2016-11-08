@@ -183,7 +183,7 @@
     <Compile Include="Sewing_Department.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="userSession.vb" />
+    <Compile Include="Session.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Check_Details.resx">

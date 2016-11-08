@@ -2,11 +2,47 @@
 ''' Constants
 ''' </summary>
 Public Module Constant
-    '' Login
-    Public Enum LOGIN_STATUS
-        FAILED = 0
-        SUCCESSED = 1
+    '' File action (for OpenFileDialog)
+    Public Enum FILETYPE
+        ALL = 100
+        IMAGE = 101
+        AUDIO = 102
+        VIDEO = 103
+        DOCUMENT = 104
     End Enum
+
+    '' File filter (for OpenFileDialog)
+    Public Structure FILE_FILTER
+        Const IMAGE As String = "All Files|*.*|Bitmap (*.bmp;*.dip)|*.bmp;*.dip|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|GIF (*.gif)|*.gif|TIFF (*.tif;*.tiff)|*.tif;*.tiff"
+        Const DOCUMENT As String = "All Files|*.*|Word Document (*.docx))|*.docx|Word 97-2004 Document (*.doc)|*.doc|Excel 97-2003 Worksheet (*.xls)|*.xls|Excel workbook (*.xlsx)|*.xlsx|PDF (*.pdf)|*.pdf"
+    End Structure
+
+    '' Json fields (for order)
+    Public Structure JSON_FIELD
+        Const FABRIC As String = "fabric"
+        Const SPLIT As String = "split"
+
+        Const PRINTING As String = "printing"
+        Const HEAT As String = "heat"
+        Const EMBROIDERY As String = "embroidery"
+        Const PLAIN As String = "plain"
+
+        Const XS As String = "xs"
+        Const S As String = "s"
+        Const M As String = "m"
+        Const L As String = "l"
+        Const XL As String = "xl"
+        Const XXL As String = "2xl"
+        Const XXXL As String = "3xl"
+
+        Const NO_PACKAGE As String = "no"
+        Const NORMAL_PACKAGE As String = "normal"
+        Const SUGARBAG_PACKAGE As String = "sugerbag"
+        Const FOLLOW_PACKAGE As String = "follow"
+
+        Const CASH As String = "cash"
+        Const CHEQUE As String = "cheque"
+    End Structure
 
     '' List of table available in the database
     Public Structure TABLE
@@ -62,10 +98,9 @@ Public Module Constant
         Const ISSUE_DATE As String = "issue_date"
         Const DELIVERY_DATE As String = "delivery_date"
         Const PAYMENT As String = "payment"
+        Const AMOUNT As String = "amount"
         Const REMARKS As String = "remarks"
         Const APPROVAL As String = "approval"
-        Const C_USER As String = "c_user"
-        Const C_DATE As String = "c_date"
         Const E_USER As String = "e_user"
         Const E_DATE As String = "e_date"
     End Structure

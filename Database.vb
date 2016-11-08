@@ -8,7 +8,7 @@ Public NotInheritable Class Database
     ' constants
     Private Const open As Boolean = True
     Private Const close As Boolean = False
-    Private Const connectionString As String = "host=127.0.0.1; user=root; password=; database=espring"
+    Private Const connectionString As String = "host=127.0.0.1; user=root; password=; database=espring; convert zero datetime=True"
 
 
     Private Sub New()
@@ -111,6 +111,37 @@ Public NotInheritable Class Database
     End Function
 
 
+    Public Shared Function GetDataTable(ByVal sqlCommand As String, Optional ByVal values As Dictionary(Of String, Object) = Nothing) As DataTable
+        Using conn As New MySqlConnection(connectionString)
+            Using cmd As New MySqlCommand()
+                With cmd
+                    .CommandText = sqlCommand
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+
+                    If values IsNot Nothing Then
+                        For Each pair In values
+                            If TypeOf pair.Value Is String Then
+                                .Parameters.AddWithValue("@" & pair.Key, pair.Value.Trim())
+                            Else
+                                .Parameters.AddWithValue("@" & pair.Key, pair.Value)
+                            End If
+                        Next
+                    End If
+
+                    Using adapter As New MySqlDataAdapter(cmd)
+                        Using dt As New DataTable()
+                            adapter.Fill(dt)
+
+                            Return dt
+                        End Using
+                    End Using
+                End With
+            End Using
+        End Using
+    End Function
+
+
     ''' <summary>
     ''' Check if condition is valid
     ''' </summary>
@@ -160,7 +191,7 @@ Public NotInheritable Class Database
         Next
 
         ' append all strings
-        sqlStmt.Append(" ) VALUES (").Append(values).Append(")")
+        sqlStmt.Append(") VALUES (").Append(values).Append(")")
 
         If ExecuteNonQuery(sqlStmt.ToString(), data) <> -1 Then
             Return True
@@ -272,7 +303,7 @@ Public NotInheritable Class Database
     ''' from database, use ExecuteReader() for conditional selection instead
     ''' </remarks>
     ''' <returns>List of dictionary which consists of column name and its data</returns>
-    Public Shared Function SelectFromTable(ByVal table As String, ByVal ParamArray returnColumns() As String) As List(Of Dictionary(Of String, Object))
+    Public Shared Function SelectAllRows(ByVal table As String, ByVal ParamArray returnColumns() As String) As List(Of Dictionary(Of String, Object))
         Dim sqlStmt As New StringBuilder("SELECT ")
 
         sqlStmt.Append(ColumnsToReturn(returnColumns)).Append(" FROM ").Append(table)

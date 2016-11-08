@@ -1,4 +1,4 @@
-﻿Public Class userSession
+﻿Public Class Session
     Public Shared Property user_id As Integer
     Public Shared Property first_name As String
     Public Shared Property last_name As String
