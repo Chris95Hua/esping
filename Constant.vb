@@ -51,6 +51,7 @@ Public Module Constant
         Const ORDER_CUSTOMER As String = "order_customer"
         Const ORDER_LOG As String = "order_log"
         Const DEPARTMENT As String = "department"
+        Const STATUS As String = "status"
     End Structure
 
     '' List of columns available in "user" table
@@ -114,6 +115,12 @@ Public Module Constant
         Const C_USER As String = "c_user"
         Const E_USER As String = "e_user"
         Const E_DATE As String = "e_date"
+    End Structure
+
+    Public Structure APPROVAL
+        Const CHECK_ID As String = "check_id"
+        Const STATUS_ID As String = "status_id"
+        Const STATUS As String = "status"
     End Structure
 
     '' List of columns available in "department" table

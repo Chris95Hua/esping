@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2016 at 08:42 AM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: Nov 09, 2016 at 01:33 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -35,6 +35,19 @@ CREATE TABLE `department` (
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`department_id`, `name`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
+(1, 'Approval Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(2, 'Cutting Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(3, 'Embroidery Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(4, 'Inventory Preparation', 1, '2016-11-09 00:00:00', NULL, NULL),
+(5, 'Order Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(6, 'Printing Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(7, 'Sewing Department', 1, '2016-11-09 00:00:00', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +74,12 @@ CREATE TABLE `order_customer` (
   `payment` varchar(32) NOT NULL COMMENT 'Uses json string',
   `amount` int(10) UNSIGNED NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
-  `approval` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `approval` tinyint(1) UNSIGNED DEFAULT '0',
+  `inventory` tinyint(1) UNSIGNED DEFAULT '0',
+  `cutting` tinyint(1) UNSIGNED DEFAULT '0',
+  `embroidery` tinyint(1) UNSIGNED DEFAULT '0',
+  `printing` tinyint(1) UNSIGNED DEFAULT '0',
+  `sewing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `e_user` int(10) UNSIGNED DEFAULT NULL,
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -70,8 +88,8 @@ CREATE TABLE `order_customer` (
 -- Dumping data for table `order_customer`
 --
 
-INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `amount`, `remarks`, `approval`, `e_user`, `e_date`) VALUES
-(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 0x7374756666, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, NULL, NULL);
+INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `amount`, `remarks`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
+(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 0x7374756666, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, 0, 0, 0, 0, 0, NULL, '2016-11-09 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -82,6 +100,7 @@ INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `custo
 CREATE TABLE `order_log` (
   `log_id` int(10) UNSIGNED NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
+  `department_id` int(10) NOT NULL,
   `datetime` datetime NOT NULL,
   `status` varchar(255) NOT NULL,
   `c_user` int(10) UNSIGNED NOT NULL,
@@ -93,8 +112,8 @@ CREATE TABLE `order_log` (
 -- Dumping data for table `order_log`
 --
 
-INSERT INTO `order_log` (`log_id`, `order_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
-(1, 1, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL);
+INSERT INTO `order_log` (`log_id`, `order_id`, `department_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
+(1, 1, 0, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,6 +125,29 @@ CREATE TABLE `role` (
   `role_id` int(10) UNSIGNED NOT NULL,
   `title` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `check_id` int(11) NOT NULL,
+  `status_id` tinyint(1) NOT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`check_id`, `status_id`, `status`) VALUES
+(1, 1, 'Check-IN'),
+(2, 2, 'Check-OUT'),
+(3, 0, 'Processing'),
+(4, 3, 'Approved'),
+(5, 4, 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -165,6 +207,12 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`check_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -178,7 +226,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `department_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `order_customer`
 --
@@ -194,6 +242,11 @@ ALTER TABLE `order_log`
 --
 ALTER TABLE `role`
   MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --

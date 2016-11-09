@@ -16,7 +16,6 @@ c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.Job_Log.resources
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.new_order.resources
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.Cutting_Department.resources
-c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.Cutting_Details.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Check_Details.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\espring.exe.config
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.exe
@@ -54,3 +53,5 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Inventory_Preparation.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Sewing_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Registration.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Approval_Department.resources

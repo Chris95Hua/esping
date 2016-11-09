@@ -4,4 +4,8 @@
         Dim passUpdateForm = New Password_Update
         passUpdateForm.Show()
     End Sub
+
+    Private Sub Embroidery_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

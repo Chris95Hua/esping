@@ -87,10 +87,13 @@
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
         Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
-
-        If Database.Delete(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
-            dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
+        Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            If Database.Delete(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+                dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
+            Else
+                MessageBox.Show("Delete failed")
+            End If
         End If
-
     End Sub
 End Class

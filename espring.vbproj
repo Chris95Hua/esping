@@ -79,6 +79,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approval_Department.Designer.vb">
+      <DependentUpon>Approval_Department.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Approval_Department.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Check_Details.Designer.vb">
       <DependentUpon>Check_Details.vb</DependentUpon>
     </Compile>
@@ -90,12 +96,6 @@
       <DependentUpon>Cutting_Department.vb</DependentUpon>
     </Compile>
     <Compile Include="Cutting_Department.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Approval_Management.Designer.vb">
-      <DependentUpon>Approval_Management.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Approval_Management.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Database.vb" />
@@ -176,6 +176,12 @@
     <Compile Include="Printing_Department.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Registration.Designer.vb">
+      <DependentUpon>Registration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Registration.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Security.vb" />
     <Compile Include="Sewing_Department.Designer.vb">
       <DependentUpon>Sewing_Department.vb</DependentUpon>
@@ -186,14 +192,14 @@
     <Compile Include="Session.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Approval_Department.resx">
+      <DependentUpon>Approval_Department.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Check_Details.resx">
       <DependentUpon>Check_Details.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cutting_Department.resx">
       <DependentUpon>Cutting_Department.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Approval_Management.resx">
-      <DependentUpon>Approval_Management.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edit_Delivery_Date.resx">
       <DependentUpon>Edit_Delivery_Date.vb</DependentUpon>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Printing_Department.resx">
       <DependentUpon>Printing_Department.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registration.resx">
+      <DependentUpon>Registration.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sewing_Department.resx">
       <DependentUpon>Sewing_Department.vb</DependentUpon>
