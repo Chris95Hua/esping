@@ -1,6 +1,6 @@
 ﻿Public Class Approval_Department
-
-    Private Sub Approval_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
+        MyBase.OnLoad(e)
         bgw_ApprovalLoader.RunWorkerAsync()
     End Sub
 
@@ -33,8 +33,8 @@
         End If
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Session.temp_pageID = dgv_details.SelectedCells(0).Value
-        Check_Details.ShowDialog()
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+        details.ShowDialog()
     End Sub
 End Class

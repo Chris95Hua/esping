@@ -132,7 +132,6 @@ Public NotInheritable Class Database
                     Using adapter As New MySqlDataAdapter(cmd)
                         Using dt As New DataTable()
                             adapter.Fill(dt)
-
                             Return dt
                         End Using
                     End Using

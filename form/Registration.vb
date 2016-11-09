@@ -14,7 +14,7 @@
         If txt_firstName.Text = "" Or txt_lastName.Text = "" Or txt_password.Text = "" Or txt_userName.Text = "" Then
             MessageBox.Show("Please fill in all the information.")
         Else
-            If Method.registration(txt_firstName.Text, txt_lastName.Text, cb_department.SelectedIndex, cb_role.SelectedIndex, txt_userName.Text, txt_password.Text) Then
+            If Method.Registration(txt_firstName.Text, txt_lastName.Text, cb_department.SelectedIndex, cb_role.SelectedIndex, txt_userName.Text, txt_password.Text) Then
                 MessageBox.Show("You have successfully registered")
                 Me.Close()
             Else

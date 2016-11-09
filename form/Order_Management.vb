@@ -1,4 +1,10 @@
 ﻿Public Class Order_Management
+    Protected Overrides Sub OnLoad(e As EventArgs)
+        MyBase.OnLoad(e)
+
+        bgw_OrderLoader.RunWorkerAsync()
+    End Sub
+
     Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
         Dim login As New Login
         login.Show()
@@ -20,12 +26,6 @@
             txt_search.Text = "Search"
             txt_search.ForeColor = Color.Gray
         End If
-    End Sub
-
-    Private Sub dgv_details_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' use async task
-        '' pass argument, ID perhaps?
-        bgw_OrderLoader.RunWorkerAsync()
     End Sub
 
     Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
@@ -54,10 +54,6 @@
     ' background worker thread
     ' load data for order
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
-        ' get argument
-        'e.Argument
-        ' load and pass data
-
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUSTOMER, ", ",
@@ -74,7 +70,6 @@
                                               " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, " DESC"
                                         )
 
-        ' use array as datasource and bind to it
         e.Result = Database.GetDataTable(sqlStmt.ToString())
 
     End Sub
@@ -95,5 +90,10 @@
                 MessageBox.Show("Delete failed")
             End If
         End If
+    End Sub
+
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+        details.ShowDialog()
     End Sub
 End Class

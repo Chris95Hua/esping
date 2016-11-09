@@ -7,5 +7,4 @@
     Public Shared Property salt As String
     Public Shared Property role As Integer
     Public Shared Property department_id As Integer
-    Public Shared Property temp_pageID As Integer
 End Class

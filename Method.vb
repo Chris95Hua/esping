@@ -161,7 +161,7 @@ Public NotInheritable Class Method
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
 
-    Public Shared Function registration(ByVal firstName As String, ByVal lastName As String, ByVal department As Integer, ByVal role As Integer, ByVal username As String, ByVal password As String) As Boolean
+    Public Shared Function Registration(ByVal firstName As String, ByVal lastName As String, ByVal department As Integer, ByVal role As Integer, ByVal username As String, ByVal password As String) As Boolean
         Dim users As List(Of Dictionary(Of String, Object))
         Dim dataIn As New Dictionary(Of String, Object)
         Dim salt As String = Security.GenerateSalt()

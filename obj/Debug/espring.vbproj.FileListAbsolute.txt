@@ -26,9 +26,7 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\espri
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\espring.xml
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\MySql.Data.dll
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\bin\Debug\MySql.Data.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Check_Details.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Cutting_Department.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Cutting_Details.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Edit_Delivery_Date.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Embroidery_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Generate_Barcode.resources
@@ -55,3 +53,6 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espri
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Registration.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Approval_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Approval_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Registration.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Order_Details.resources
