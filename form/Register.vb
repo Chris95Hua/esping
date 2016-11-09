@@ -1,4 +1,4 @@
-﻿Public Class Registration
+﻿Public Class Register
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim dpmts As List(Of Dictionary(Of String, Object))

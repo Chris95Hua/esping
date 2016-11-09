@@ -79,10 +79,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="form\Approval_Department.Designer.vb">
-      <DependentUpon>Approval_Department.vb</DependentUpon>
+    <Compile Include="form\Approve_Order.Designer.vb">
+      <DependentUpon>Approve_Order.vb</DependentUpon>
     </Compile>
-    <Compile Include="form\Approval_Department.vb">
+    <Compile Include="form\Approve_Order.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="form\Order_Details.Designer.vb">
@@ -158,16 +158,16 @@
     <Compile Include="form\New_Order.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="form\Order_Management.Designer.vb">
-      <DependentUpon>Order_Management.vb</DependentUpon>
+    <Compile Include="form\Manage_Order.Designer.vb">
+      <DependentUpon>Manage_Order.vb</DependentUpon>
     </Compile>
-    <Compile Include="form\Order_Management.vb">
+    <Compile Include="form\Manage_Order.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="form\Password_Update.Designer.vb">
-      <DependentUpon>Password_Update.vb</DependentUpon>
+    <Compile Include="form\Update_Password.Designer.vb">
+      <DependentUpon>Update_Password.vb</DependentUpon>
     </Compile>
-    <Compile Include="form\Password_Update.vb">
+    <Compile Include="form\Update_Password.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="form\Printing_Department.Designer.vb">
@@ -176,10 +176,10 @@
     <Compile Include="form\Printing_Department.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="form\Registration.Designer.vb">
-      <DependentUpon>Registration.vb</DependentUpon>
+    <Compile Include="form\Register.Designer.vb">
+      <DependentUpon>Register.vb</DependentUpon>
     </Compile>
-    <Compile Include="form\Registration.vb">
+    <Compile Include="form\Register.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Security.vb" />
@@ -192,8 +192,8 @@
     <Compile Include="Session.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="form\Approval_Department.resx">
-      <DependentUpon>Approval_Department.vb</DependentUpon>
+    <EmbeddedResource Include="form\Approve_Order.resx">
+      <DependentUpon>Approve_Order.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Order_Details.resx">
       <DependentUpon>Order_Details.vb</DependentUpon>
@@ -228,17 +228,17 @@
     <EmbeddedResource Include="form\New_Order.resx">
       <DependentUpon>New_Order.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="form\Order_Management.resx">
-      <DependentUpon>Order_Management.vb</DependentUpon>
+    <EmbeddedResource Include="form\Manage_Order.resx">
+      <DependentUpon>Manage_Order.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="form\Password_Update.resx">
-      <DependentUpon>Password_Update.vb</DependentUpon>
+    <EmbeddedResource Include="form\Update_Password.resx">
+      <DependentUpon>Update_Password.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Printing_Department.resx">
       <DependentUpon>Printing_Department.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="form\Registration.resx">
-      <DependentUpon>Registration.vb</DependentUpon>
+    <EmbeddedResource Include="form\Register.resx">
+      <DependentUpon>Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Sewing_Department.resx">
       <DependentUpon>Sewing_Department.vb</DependentUpon>

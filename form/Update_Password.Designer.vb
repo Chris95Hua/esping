@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Password_Update
+Partial Class Update_Password
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -34,68 +34,75 @@ Partial Class Password_Update
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(19, 21)
+        Me.Label1.Location = New System.Drawing.Point(13, 14)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(106, 20)
+        Me.Label1.Size = New System.Drawing.Size(72, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Old Password"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(19, 62)
+        Me.Label2.Location = New System.Drawing.Point(13, 40)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(113, 20)
+        Me.Label2.Size = New System.Drawing.Size(78, 13)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "New Password"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(19, 103)
+        Me.Label3.Location = New System.Drawing.Point(13, 67)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(133, 20)
+        Me.Label3.Size = New System.Drawing.Size(90, 13)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Retype Password"
         '
         'txt_retypePass
         '
-        Me.txt_retypePass.Location = New System.Drawing.Point(186, 100)
+        Me.txt_retypePass.Location = New System.Drawing.Point(124, 65)
+        Me.txt_retypePass.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_retypePass.Name = "txt_retypePass"
         Me.txt_retypePass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txt_retypePass.Size = New System.Drawing.Size(275, 26)
+        Me.txt_retypePass.Size = New System.Drawing.Size(185, 20)
         Me.txt_retypePass.TabIndex = 1
         '
         'txt_newPass
         '
-        Me.txt_newPass.Location = New System.Drawing.Point(186, 59)
+        Me.txt_newPass.Location = New System.Drawing.Point(124, 38)
+        Me.txt_newPass.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_newPass.Name = "txt_newPass"
         Me.txt_newPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txt_newPass.Size = New System.Drawing.Size(275, 26)
+        Me.txt_newPass.Size = New System.Drawing.Size(185, 20)
         Me.txt_newPass.TabIndex = 1
         '
         'txt_oldPass
         '
-        Me.txt_oldPass.Location = New System.Drawing.Point(186, 18)
+        Me.txt_oldPass.Location = New System.Drawing.Point(124, 12)
+        Me.txt_oldPass.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_oldPass.Name = "txt_oldPass"
         Me.txt_oldPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txt_oldPass.Size = New System.Drawing.Size(275, 26)
+        Me.txt_oldPass.Size = New System.Drawing.Size(185, 20)
         Me.txt_oldPass.TabIndex = 1
         '
         'btn_update
         '
-        Me.btn_update.Location = New System.Drawing.Point(194, 167)
+        Me.btn_update.Location = New System.Drawing.Point(129, 109)
+        Me.btn_update.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_update.Name = "btn_update"
-        Me.btn_update.Size = New System.Drawing.Size(117, 43)
+        Me.btn_update.Size = New System.Drawing.Size(78, 28)
         Me.btn_update.TabIndex = 4
         Me.btn_update.Text = "Update"
         Me.btn_update.UseVisualStyleBackColor = True
         '
-        'Password_Update
+        'Update_Password
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(493, 236)
+        Me.ClientSize = New System.Drawing.Size(329, 153)
         Me.Controls.Add(Me.btn_update)
         Me.Controls.Add(Me.txt_oldPass)
         Me.Controls.Add(Me.txt_newPass)
@@ -103,11 +110,12 @@ Partial Class Password_Update
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Password_Update"
+        Me.Name = "Update_Password"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Password Update"
+        Me.Text = "Update Password"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

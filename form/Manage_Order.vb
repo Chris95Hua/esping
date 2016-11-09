@@ -1,4 +1,4 @@
-﻿Public Class Order_Management
+﻿Public Class Manage_Order
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
@@ -29,7 +29,7 @@
     End Sub
 
     Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
-        Dim passUpdateForm As New Password_Update
+        Dim passUpdateForm As New Update_Password
         passUpdateForm.ShowDialog()
     End Sub
 

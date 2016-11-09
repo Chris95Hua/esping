@@ -3,7 +3,7 @@
         If Method.Login(txt_username.Text, txt_password.Text) Then
             ' open form
             '' TODO: open form based on user role
-            Dim order As New Order_Management
+            Dim order As New Manage_Order
             order.Show()
 
             Me.Close()
