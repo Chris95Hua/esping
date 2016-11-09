@@ -1,7 +1,6 @@
 ﻿Public Class Cutting_Department
-
     Private Sub Cutting_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        bgw_CutLoader.RunWorkerAsync()
     End Sub
 
     Private Sub txt_Search_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.GotFocus
@@ -28,13 +27,15 @@
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUSTOMER, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS,
+                                              TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS, ", ",
+                                              TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
                                               "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
-                                              " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
+                                              " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DEPARTMENT_ID,
+                                              " = ", Session.department_id,
+                                              " AND ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", ORDER_LOG.DATETIME, ") FROM ", TABLE.ORDER_LOG,
                                               " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
                                               " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, " DESC"
@@ -49,5 +50,10 @@
         If (e.Error Is Nothing) Then
             dgv_details.DataSource = e.Result
         End If
+    End Sub
+
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+        details.ShowDialog()
     End Sub
 End Class

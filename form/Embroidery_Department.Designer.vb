@@ -37,6 +37,7 @@ Partial Class Embroidery_Department
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_EmbroideryLoader = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -196,4 +197,5 @@ Partial Class Embroidery_Department
     Friend WithEvents Column5 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
+    Friend WithEvents bgw_EmbroideryLoader As System.ComponentModel.BackgroundWorker
 End Class

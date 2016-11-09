@@ -37,6 +37,7 @@ Partial Class Printing_Department
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_PrintLoader = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -117,7 +118,7 @@ Partial Class Printing_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(978, 614)
+        Me.dgv_details.Size = New System.Drawing.Size(978, 608)
         Me.dgv_details.TabIndex = 5
         '
         'Column1
@@ -196,4 +197,5 @@ Partial Class Printing_Department
     Friend WithEvents Column5 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
+    Friend WithEvents bgw_PrintLoader As System.ComponentModel.BackgroundWorker
 End Class

@@ -30,6 +30,7 @@ Partial Class Job_Log
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bgw_JobLogLoader = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgv_job_log, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -132,4 +133,5 @@ Partial Class Job_Log
     Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents bgw_JobLogLoader As System.ComponentModel.BackgroundWorker
 End Class

@@ -74,7 +74,7 @@ Partial Class Inventory_Preparation
         '
         'btn_add
         '
-        Me.btn_add.Location = New System.Drawing.Point(420, 248)
+        Me.btn_add.Location = New System.Drawing.Point(420, 264)
         Me.btn_add.Name = "btn_add"
         Me.btn_add.Size = New System.Drawing.Size(147, 47)
         Me.btn_add.TabIndex = 3
@@ -92,7 +92,7 @@ Partial Class Inventory_Preparation
         '
         'btn_delete
         '
-        Me.btn_delete.Location = New System.Drawing.Point(420, 344)
+        Me.btn_delete.Location = New System.Drawing.Point(420, 360)
         Me.btn_delete.Name = "btn_delete"
         Me.btn_delete.Size = New System.Drawing.Size(147, 47)
         Me.btn_delete.TabIndex = 3

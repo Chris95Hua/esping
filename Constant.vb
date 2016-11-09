@@ -111,6 +111,7 @@ Public Module Constant
         Const LOG_ID As String = "log_id"
         Const ORDER_ID As String = "order_id"
         Const DATETIME As String = "datetime"
+        Const DEPARTMENT_ID As String = "department_id"
         Const STATUS As String = "status"
         Const C_USER As String = "c_user"
         Const E_USER As String = "e_user"
