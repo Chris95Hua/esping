@@ -4,4 +4,8 @@
         Dim passUpdateForm = New Update_Password
         passUpdateForm.Show()
     End Sub
+
+    Private Sub Sewing_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

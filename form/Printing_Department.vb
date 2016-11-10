@@ -36,7 +36,7 @@
         End If
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
         Session.temp_pageID = dgv_details.SelectedCells(0).Value
         Check_Details.ShowDialog()
     End Sub

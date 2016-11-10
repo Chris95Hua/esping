@@ -30,14 +30,14 @@ Partial Class Embroidery_Department
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_EmbroideryLoader = New System.ComponentModel.BackgroundWorker()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.bgw_EmbroideryLoader = New System.ComponentModel.BackgroundWorker()
+        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.datetime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -95,7 +95,7 @@ Partial Class Embroidery_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column6, Me.status, Me.datetime})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -121,6 +121,18 @@ Partial Class Embroidery_Department
         Me.dgv_details.Size = New System.Drawing.Size(978, 614)
         Me.dgv_details.TabIndex = 5
         '
+        'txt_search
+        '
+        Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
+        Me.txt_search.Location = New System.Drawing.Point(12, 52)
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.Size = New System.Drawing.Size(203, 26)
+        Me.txt_search.TabIndex = 6
+        Me.txt_search.Text = "Search"
+        '
+        'bgw_EmbroideryLoader
+        '
+        '
         'Column1
         '
         Me.Column1.HeaderText = "Job Sheet No."
@@ -139,32 +151,25 @@ Partial Class Embroidery_Department
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
-        'Column4
-        '
-        Me.Column4.HeaderText = "Scan-IN Date"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        '
-        'Column5
-        '
-        Me.Column5.HeaderText = "Scan-OUT Date"
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        '
         'Column6
         '
         Me.Column6.HeaderText = "Delivery Date"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
         '
-        'txt_search
+        'status
         '
-        Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(12, 52)
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(203, 26)
-        Me.txt_search.TabIndex = 6
-        Me.txt_search.Text = "Search"
+        Me.status.DataPropertyName = "status"
+        Me.status.HeaderText = "Status"
+        Me.status.Name = "status"
+        Me.status.ReadOnly = True
+        '
+        'datetime
+        '
+        Me.datetime.DataPropertyName = "datetime"
+        Me.datetime.HeaderText = "Respond Date"
+        Me.datetime.Name = "datetime"
+        Me.datetime.ReadOnly = True
         '
         'Embroidery_Department
         '
@@ -190,12 +195,12 @@ Partial Class Embroidery_Department
     Friend WithEvents btn_passUpdate As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txt_welcome As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
+    Friend WithEvents txt_search As System.Windows.Forms.TextBox
+    Friend WithEvents bgw_EmbroideryLoader As System.ComponentModel.BackgroundWorker
     Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents txt_search As System.Windows.Forms.TextBox
-    Friend WithEvents bgw_EmbroideryLoader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents datetime As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

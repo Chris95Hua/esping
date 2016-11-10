@@ -52,7 +52,7 @@
         End If
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs)
         Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
         details.ShowDialog()
     End Sub
