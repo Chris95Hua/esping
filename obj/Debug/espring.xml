@@ -48,6 +48,14 @@ espring
  <param name="values">Conditions (optional)</param>
  <returns>List of dictionary which consists of column name and its data</returns>
 </member>
+<member name="M:espring.Database.GetDataTable(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+ <summary>
+ Get data from table in DataTable
+ </summary>
+ <param name="sqlCommand">SQL statement</param>
+ <param name="values">Parameters</param>
+ <returns>DataTable of selected rows</returns>
+</member>
 <member name="M:espring.Database.IsConditionValid(System.Object[])">
  <summary>
  Check if condition is valid

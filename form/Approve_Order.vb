@@ -16,11 +16,12 @@
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              TABLE.STATUS, ".", APPROVAL.STATUS, ", ",
+                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.APPROVAL, ", ",
+                                              TABLE.STATUS, ".", Constant.STATUS.STATUS, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.E_DATE,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.STATUS,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.APPROVAL,
-                                              " = ", TABLE.STATUS, ".", APPROVAL.STATUS_ID,
+                                              " = ", TABLE.STATUS, ".", Constant.STATUS.STATUS_ID,
                                               " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.APPROVAL,
                                               " ASC, ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.E_DATE, " DESC"
                                         )
@@ -34,7 +35,7 @@
     End Sub
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(8).Value)
         details.ShowDialog()
     End Sub
 End Class

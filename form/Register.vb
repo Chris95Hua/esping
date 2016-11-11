@@ -14,7 +14,20 @@
         If txt_firstName.Text = "" Or txt_lastName.Text = "" Or txt_password.Text = "" Or txt_userName.Text = "" Then
             MessageBox.Show("Please fill in all the information.")
         Else
-            If Method.Registration(txt_firstName.Text, txt_lastName.Text, cb_department.SelectedIndex, cb_role.SelectedIndex, txt_userName.Text, txt_password.Text) Then
+            Dim newUser As New Dictionary(Of String, Object)
+            Dim salt As String = Security.GenerateSalt()
+
+            newUser.Add(USER.FIRST_NAME, txt_firstName.Text)
+            newUser.Add(USER.LAST_NAME, txt_lastName.Text)
+            newUser.Add(USER.USERNAME, txt_userName.Text)
+            newUser.Add(USER.SALT, salt)
+            newUser.Add(USER.PASSWORD, Security.Hash(txt_password.Text, salt))
+            newUser.Add(USER.DEPARTMENT_ID, cb_department.SelectedIndex)
+            newUser.Add(USER.ROLE, cb_role.SelectedIndex)
+            newUser.Add(USER.C_USER, Session.user_id)
+            newUser.Add(USER.C_DATE, DateTime.Now)
+
+            If Database.Insert(TABLE.USER, newUser) Then
                 MessageBox.Show("You have successfully registered")
                 Me.Close()
             Else

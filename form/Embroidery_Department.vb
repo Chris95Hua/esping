@@ -16,10 +16,11 @@
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS, ", ",
-                                              TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME,
+                                              TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, ", ",
+                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.EMBROIDERY,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
+                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
                                               " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DEPARTMENT_ID,
                                               " = ", Session.department_id,
                                               " AND ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
@@ -37,7 +38,7 @@
     End Sub
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(6).Value)
         details.ShowDialog()
     End Sub
 End Class

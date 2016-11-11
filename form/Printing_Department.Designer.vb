@@ -38,6 +38,7 @@ Partial Class Printing_Department
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datetime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.printing_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,7 +49,8 @@ Partial Class Printing_Department
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -60,14 +62,14 @@ Partial Class Printing_Department
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 22)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 22)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'txt_welcome
@@ -75,15 +77,16 @@ Partial Class Printing_Department
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 22)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(12, 52)
+        Me.txt_search.Location = New System.Drawing.Point(8, 34)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(203, 26)
+        Me.txt_search.Size = New System.Drawing.Size(137, 20)
         Me.txt_search.TabIndex = 6
         Me.txt_search.Text = "Search"
         '
@@ -107,7 +110,7 @@ Partial Class Printing_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column6, Me.status, Me.datetime})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column6, Me.status, Me.datetime, Me.printing_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -116,7 +119,8 @@ Partial Class Printing_Department
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgv_details.Location = New System.Drawing.Point(12, 94)
+        Me.dgv_details.Location = New System.Drawing.Point(8, 61)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -130,29 +134,33 @@ Partial Class Printing_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(978, 606)
+        Me.dgv_details.Size = New System.Drawing.Size(652, 394)
         Me.dgv_details.TabIndex = 7
         '
         'Column1
         '
+        Me.Column1.DataPropertyName = "order_id"
         Me.Column1.HeaderText = "Job Sheet No."
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
         '
         'Column2
         '
+        Me.Column2.DataPropertyName = "customer"
         Me.Column2.HeaderText = "Customer Name"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         '
         'Column3
         '
+        Me.Column3.DataPropertyName = "order_name"
         Me.Column3.HeaderText = "Order Name"
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
         'Column6
         '
+        Me.Column6.DataPropertyName = "delivery_date"
         Me.Column6.HeaderText = "Delivery Date"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
@@ -167,19 +175,28 @@ Partial Class Printing_Department
         'datetime
         '
         Me.datetime.DataPropertyName = "datetime"
-        Me.datetime.HeaderText = "Respond Date"
+        Me.datetime.HeaderText = "Date"
         Me.datetime.Name = "datetime"
         Me.datetime.ReadOnly = True
         '
+        'printing_status
+        '
+        Me.printing_status.DataPropertyName = "printing"
+        Me.printing_status.HeaderText = "printing"
+        Me.printing_status.Name = "printing_status"
+        Me.printing_status.ReadOnly = True
+        Me.printing_status.Visible = False
+        '
         'Printing_Department
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.txt_search)
-        Me.MinimumSize = New System.Drawing.Size(1024, 768)
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Printing_Department"
         Me.Text = "Printing Department"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -197,10 +214,11 @@ Partial Class Printing_Department
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
     Friend WithEvents bgw_PrintLoader As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents datetime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents status As DataGridViewTextBoxColumn
+    Friend WithEvents datetime As DataGridViewTextBoxColumn
+    Friend WithEvents printing_status As DataGridViewTextBoxColumn
 End Class

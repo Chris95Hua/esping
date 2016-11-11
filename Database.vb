@@ -6,8 +6,6 @@ Imports System.Text
 ''' </summary>
 Public NotInheritable Class Database
     ' constants
-    Private Const open As Boolean = True
-    Private Const close As Boolean = False
     Private Const connectionString As String = "host=127.0.0.1; user=root; password=; database=espring; convert zero datetime=True"
 
 
@@ -23,36 +21,31 @@ Public NotInheritable Class Database
     ''' <param name="values">Parameters</param>
     ''' <returns>Number of rows affected</returns>
     Public Shared Function ExecuteNonQuery(ByVal sqlCommand As String, ByVal values As Dictionary(Of String, Object)) As Integer
-        ' establish connection
-        Using conn As New MySqlConnection(connectionString)
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .CommandText = sqlCommand
-                    .Connection = conn
-                    .CommandType = CommandType.Text
+        Dim conn As New MySqlConnection(connectionString)
+        Dim cmd As New MySqlCommand(sqlCommand, conn)
 
-                    ' substitute parameters with values
-                    For Each pair In values
-                        ' remove leading and trailing whitespace
-                        ''TODO: add sqldatatype
-                        ''.Parameters.Add("@" & pair.Key, MySqlDbType.Int16).Value = pair.Value
-                        If TypeOf pair.Value Is String Then
-                            .Parameters.AddWithValue("@" & pair.Key, pair.Value.Trim())
-                        Else
-                            .Parameters.AddWithValue("@" & pair.Key, pair.Value)
-                        End If
-                    Next
-                End With
+        ' substitute parameters with values
+        For Each pair In values
+            ' remove leading and trailing whitespace
+            ''TODO: add sqldatatype
+            ''.Parameters.Add("@" & pair.Key, MySqlDbType.Int16).Value = pair.Value
+            If TypeOf pair.Value Is String Then
+                cmd.Parameters.AddWithValue("@" & pair.Key, pair.Value.Trim())
+            Else
+                cmd.Parameters.AddWithValue("@" & pair.Key, pair.Value)
+            End If
+        Next
 
-                Try
-                    conn.Open()
-                    Return cmd.ExecuteNonQuery()
-                Catch ex As MySqlException
-                    MessageBox.Show(ex.Message.ToString(), "Database Error")
-                    Return -1
-                End Try
-            End Using
-        End Using
+        Try
+            conn.Open()
+            Return cmd.ExecuteNonQuery()
+        Catch ex As MySqlException
+            MessageBox.Show(ex.Message.ToString(), "Database Error")
+        Finally
+            conn.Dispose()
+        End Try
+
+        Return -1
     End Function
 
 
@@ -63,81 +56,83 @@ Public NotInheritable Class Database
     ''' <param name="values">Conditions (optional)</param>
     ''' <returns>List of dictionary which consists of column name and its data</returns>
     Public Shared Function ExecuteReader(ByVal sqlCommand As String, Optional ByVal values As Dictionary(Of String, Object) = Nothing) As List(Of Dictionary(Of String, Object))
-        Dim data As New List(Of Dictionary(Of String, Object))
+        Dim conn As New MySqlConnection(connectionString)
+        Dim cmd As New MySqlCommand(sqlCommand, conn)
         Dim reader As MySqlDataReader
+        Dim data As New List(Of Dictionary(Of String, Object))
 
-        ' establish connection
-        Using conn As New MySqlConnection(connectionString)
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .CommandText = sqlCommand
-                    .Connection = conn
-                    .CommandType = CommandType.Text
+        ' substitute parameters with values
+        If values IsNot Nothing Then
+            For Each pair In values
+                ''TODO: add sqldatatype
+                ''.Parameters.Add("@" & pair.Key, MySqlDbType.Int16).Value = pair.Value
+                cmd.Parameters.AddWithValue("@" & pair.Key, pair.Value)
+            Next
+        End If
 
-                    ' substitute parameters with values
-                    If values IsNot Nothing Then
-                        For Each pair In values
-                            ''TODO: add sqldatatype
-                            ''.Parameters.Add("@" & pair.Key, MySqlDbType.Int16).Value = pair.Value
-                            .Parameters.AddWithValue("@" & pair.Key, pair.Value)
-                        Next
-                    End If
-                End With
+        Try
+            conn.Open()
+            reader = cmd.ExecuteReader()
 
-                Try
-                    conn.Open()
-                    reader = cmd.ExecuteReader()
+            ' populate and return dictionary list if contain results
+            If reader.HasRows Then
+                While (reader.Read())
+                    Dim pair As New Dictionary(Of String, Object)
+                    For colIndex As Integer = 0 To reader.FieldCount - 1
+                        pair.Add(reader.GetName(colIndex), reader.GetValue(colIndex))
+                    Next
 
-                    ' populate and return dictionary list if contain results
-                    If reader.HasRows Then
-                        While (reader.Read())
-                            Dim pair As New Dictionary(Of String, Object)
-                            For colIndex As Integer = 0 To reader.FieldCount - 1
-                                pair.Add(reader.GetName(colIndex), reader.GetValue(colIndex))
-                            Next
-                            data.Add(pair)
-                        End While
+                    data.Add(pair)
+                End While
 
-                        Return data
-                    Else
-                        Return Nothing
-                    End If
-                Catch ex As MySqlException
-                    MessageBox.Show(ex.Message.ToString(), "Database Error")
-                    Return Nothing
-                End Try
-            End Using
-        End Using
+                Return data
+            End If
+
+        Catch ex As MySqlException
+            MessageBox.Show(ex.Message.ToString(), "Database Error")
+        Finally
+            conn.Dispose()
+        End Try
+
+        Return data
     End Function
 
 
+    ''' <summary>
+    ''' Get data from table in DataTable
+    ''' </summary>
+    ''' <param name="sqlCommand">SQL statement</param>
+    ''' <param name="values">Parameters</param>
+    ''' <returns>DataTable of selected rows</returns>
     Public Shared Function GetDataTable(ByVal sqlCommand As String, Optional ByVal values As Dictionary(Of String, Object) = Nothing) As DataTable
-        Using conn As New MySqlConnection(connectionString)
-            Using cmd As New MySqlCommand()
-                With cmd
-                    .CommandText = sqlCommand
-                    .Connection = conn
-                    .CommandType = CommandType.Text
+        Dim conn As New MySqlConnection(connectionString)
+        Dim cmd As New MySqlCommand(sqlCommand, conn)
+        Dim dt As New DataTable()
 
-                    If values IsNot Nothing Then
-                        For Each pair In values
-                            If TypeOf pair.Value Is String Then
-                                .Parameters.AddWithValue("@" & pair.Key, pair.Value.Trim())
-                            Else
-                                .Parameters.AddWithValue("@" & pair.Key, pair.Value)
-                            End If
-                        Next
-                    End If
+        If values IsNot Nothing Then
+            For Each pair In values
+                If TypeOf pair.Value Is String Then
+                    cmd.Parameters.AddWithValue("@" & pair.Key, pair.Value.Trim())
+                Else
+                    cmd.Parameters.AddWithValue("@" & pair.Key, pair.Value)
+                End If
+            Next
+        End If
 
-                    Using adapter As New MySqlDataAdapter(cmd)
-                        Using dt As New DataTable()
-                            adapter.Fill(dt)
-                            Return dt
-                        End Using
-                    End Using
-                End With
-            End Using
-        End Using
+        Try
+            conn.Open()
+
+            Dim adapter As New MySqlDataAdapter(cmd)
+            adapter.Fill(dt)
+
+            Return dt
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString(), "Database Error")
+        Finally
+            conn.Dispose()
+        End Try
+
+        Return dt
     End Function
 
 

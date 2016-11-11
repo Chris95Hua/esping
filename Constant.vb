@@ -102,6 +102,11 @@ Public Module Constant
         Const AMOUNT As String = "amount"
         Const REMARKS As String = "remarks"
         Const APPROVAL As String = "approval"
+        Const INVENTORY As String = "inventory"
+        Const CUTTING As String = "cutting"
+        Const EMBROIDERY As String = "embroidery"
+        Const PRINTING As String = "printing"
+        Const SEWING As String = "sewing"
         Const E_USER As String = "e_user"
         Const E_DATE As String = "e_date"
     End Structure
@@ -118,12 +123,6 @@ Public Module Constant
         Const E_DATE As String = "e_date"
     End Structure
 
-    Public Structure APPROVAL
-        Const CHECK_ID As String = "check_id"
-        Const STATUS_ID As String = "status_id"
-        Const STATUS As String = "status"
-    End Structure
-
     '' List of columns available in "department" table
     Public Structure DEPARTMENT
         Const DEPARTMENT_ID As String = "department_id"
@@ -132,6 +131,13 @@ Public Module Constant
         Const C_DATE As String = "c_date"
         Const E_USER As String = "e_user"
         Const E_DATE As String = "e_date"
+    End Structure
+
+    '' List of columns available in "status" table
+    Public Structure STATUS
+        Const CHECK_ID = "check_id"
+        Const STATUS_ID = "status_id"
+        Const STATUS = "status"
     End Structure
 End Module
 

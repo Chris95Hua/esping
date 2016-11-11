@@ -1,17 +1,29 @@
-﻿Public Class Order_Details
-    Dim orderID As Integer
+﻿Imports System.Text
 
-    Sub New(ByVal orderID As Integer)
+Public Class Order_Details
+    Dim orderID As Integer
+    Dim curStatus As Integer
+
+    Sub New(ByVal orderID As Integer, ByVal curStatus As Integer)
         ' This call is required by the designer.
         InitializeComponent()
 
+        ' get cur status of the item in the specified department
         Me.orderID = orderID
+        Me.curStatus = curStatus
     End Sub
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
         bgw_DetailsLoader.RunWorkerAsync(orderID)
+
+        If curStatus = 0 Then
+            btn_multi.Text = "Check In"
+        Else
+            btn_multi.Text = "Check Out"
+        End If
+
     End Sub
 
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_DetailsLoader.DoWork
@@ -34,7 +46,7 @@
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
+                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
                                               " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", ORDER_LOG.DATETIME, ") FROM ", TABLE.ORDER_LOG,
                                               " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
@@ -236,6 +248,77 @@
     End Sub
 
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
-        'this button can perform multiple function (generate barcode, approve order and etc) based on which department 
+        Dim sqlStmt As New StringBuilder()
+        Dim values As New StringBuilder()
+        Dim log As New StringBuilder()
+        Dim updateValues As New Dictionary(Of String, Object)
+        Dim addComma As Boolean = False
+
+        If curStatus = 0 Then
+            curStatus = 1
+        End If
+
+        log.Append("; INSERT INTO ").Append(TABLE.ORDER_LOG).Append(" (")
+
+        updateValues.Add(ORDER_LOG.ORDER_ID, orderID)
+        updateValues.Add(ORDER_LOG.DEPARTMENT_ID, Session.department_id)
+        updateValues.Add(ORDER_LOG.DATETIME, DateTime.Now)
+        updateValues.Add(ORDER_LOG.STATUS, "Check in")
+        updateValues.Add(ORDER_LOG.C_USER, Session.user_id)
+
+        For Each key In updateValues.Keys
+            ' add comma
+            If addComma Then
+                log.Append(", ")
+                values.Append(", ")
+            End If
+
+            ' put in table fields and parameter
+            log.Append(key)
+            values.Append("@").Append(key)
+
+            ' skip the first field and value
+            addComma = True
+        Next
+
+        log.Append(") VALUES (").Append(values).Append(");")
+
+        sqlStmt.Append("BEGIN; UPDATE ").Append(TABLE.ORDER_CUSTOMER).Append(" SET ")
+
+        ' ==================================
+        Session.department_id = 5
+        ' ==================================
+
+        Select Case Session.department_id
+            Case 1
+                ' approval
+                sqlStmt.Append(ORDER_CUSTOMER.APPROVAL).Append("=@").Append(ORDER_CUSTOMER.APPROVAL)
+                updateValues.Add(ORDER_CUSTOMER.APPROVAL, curStatus)
+            Case 2
+                ' inventory preparation
+                sqlStmt.Append(ORDER_CUSTOMER.INVENTORY).Append("=@").Append(ORDER_CUSTOMER.INVENTORY)
+                updateValues.Add(ORDER_CUSTOMER.INVENTORY, curStatus)
+            Case 3
+                ' cutting department
+                sqlStmt.Append(ORDER_CUSTOMER.CUTTING).Append("=@").Append(ORDER_CUSTOMER.CUTTING)
+                updateValues.Add(ORDER_CUSTOMER.CUTTING, curStatus)
+                ' generate barcode
+            Case 4
+                ' embroidery department
+                sqlStmt.Append(ORDER_CUSTOMER.EMBROIDERY).Append("=@").Append(ORDER_CUSTOMER.EMBROIDERY)
+                updateValues.Add(ORDER_CUSTOMER.EMBROIDERY, curStatus)
+            Case 5
+                ' printing department
+                sqlStmt.Append(ORDER_CUSTOMER.PRINTING).Append("=@").Append(ORDER_CUSTOMER.PRINTING)
+                updateValues.Add(ORDER_CUSTOMER.PRINTING, curStatus)
+            Case 6
+                ' sewing department
+                sqlStmt.Append(ORDER_CUSTOMER.SEWING).Append("=@").Append(ORDER_CUSTOMER.SEWING)
+                updateValues.Add(ORDER_CUSTOMER.SEWING, curStatus)
+        End Select
+
+        sqlStmt.Append(" WHERE ").Append(ORDER_CUSTOMER.ORDER_ID).Append("=@").Append(ORDER_CUSTOMER.ORDER_ID).Append(log).Append(" COMMIT;")
+
+        Database.ExecuteNonQuery(sqlStmt.ToString(), updateValues)
     End Sub
 End Class

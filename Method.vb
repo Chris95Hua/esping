@@ -160,27 +160,4 @@ Public NotInheritable Class Method
 
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
-
-    Public Shared Function Registration(ByVal firstName As String, ByVal lastName As String, ByVal department As Integer, ByVal role As Integer, ByVal username As String, ByVal password As String) As Boolean
-        Dim users As List(Of Dictionary(Of String, Object))
-        Dim dataIn As New Dictionary(Of String, Object)
-        Dim salt As String = Security.GenerateSalt()
-        dataIn.Add(USER.FIRST_NAME, firstName)
-        dataIn.Add(USER.LAST_NAME, lastName)
-        dataIn.Add(USER.USERNAME, username)
-        dataIn.Add(USER.SALT, salt)
-        dataIn.Add(USER.PASSWORD, Security.Hash(password, salt))
-        dataIn.Add(USER.DEPARTMENT_ID, department)
-        dataIn.Add(USER.ROLE, role)
-        dataIn.Add(USER.C_USER, Session.user_id)
-        dataIn.Add(USER.C_DATE, DateTime.Now)
-
-        users = Database.SelectRows(TABLE.USER, {USER.USERNAME, "=", username})
-        If users Is Nothing Then
-            If Database.Insert(TABLE.USER, dataIn) Then
-                Return True
-            End If
-        End If
-        Return False
-    End Function
 End Class

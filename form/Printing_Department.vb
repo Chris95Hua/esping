@@ -16,10 +16,11 @@
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS, ", ",
-                                              TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME,
+                                              TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, ", ",
+                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.PRINTING,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
+                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
                                               " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DEPARTMENT_ID,
                                               " = ", Session.department_id,
                                               " AND ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
@@ -27,6 +28,7 @@
                                               " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
                                               " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, " DESC"
                                         )
+
         e.Result = Database.GetDataTable(sqlStmt.ToString())
     End Sub
 
@@ -36,8 +38,8 @@
         End If
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
-        Session.temp_pageID = dgv_details.SelectedCells(0).Value
-        Check_Details.ShowDialog()
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(6).Value)
+        details.ShowDialog()
     End Sub
 End Class
