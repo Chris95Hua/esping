@@ -123,17 +123,17 @@
     <Compile Include="form\Inventory_Preparation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="form\Job_Log.Designer.vb">
-      <DependentUpon>Job_Log.vb</DependentUpon>
-    </Compile>
-    <Compile Include="form\Job_Log.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="form\Login.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="form\Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\Job_Log.Designer.vb">
+      <DependentUpon>Job_Log.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Job_Log.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Method.vb" />
@@ -213,11 +213,11 @@
     <EmbeddedResource Include="form\Inventory_Preparation.resx">
       <DependentUpon>Inventory_Preparation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="form\Job_Log.resx">
-      <DependentUpon>Job_Log.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="form\Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\Job_Log.resx">
+      <DependentUpon>Job_Log.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -256,7 +256,9 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="images\logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

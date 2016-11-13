@@ -31,7 +31,6 @@ Public NotInheritable Class Method
                     Session.salt = user.Item(Constant.USER.SALT)
                     Session.role = user.Item(Constant.USER.ROLE)
                     Session.department_id = user.Item(Constant.USER.DEPARTMENT_ID)
-
                     Return True
                 End If
             Next
@@ -160,4 +159,70 @@ Public NotInheritable Class Method
 
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
+
+    Public Shared Function Registration(ByVal firstName As String, ByVal lastName As String, ByVal department As Integer, ByVal role As Integer, ByVal username As String, ByVal password As String) As Boolean
+        Dim users As List(Of Dictionary(Of String, Object))
+        Dim dataIn As New Dictionary(Of String, Object)
+        Dim salt As String = Security.GenerateSalt()
+        dataIn.Add(USER.FIRST_NAME, firstName)
+        dataIn.Add(USER.LAST_NAME, lastName)
+        dataIn.Add(USER.USERNAME, username)
+        dataIn.Add(USER.SALT, salt)
+        dataIn.Add(USER.PASSWORD, Security.Hash(password, salt))
+        dataIn.Add(USER.DEPARTMENT_ID, department)
+        dataIn.Add(USER.ROLE, role)
+        dataIn.Add(USER.C_USER, Session.user_id)
+        dataIn.Add(USER.C_DATE, DateTime.Now)
+
+        users = Database.SelectRows(TABLE.USER, {USER.USERNAME, "=", username})
+        If users Is Nothing Then
+            If Database.Insert(TABLE.USER, dataIn) Then
+                Return True
+            End If
+        End If
+        Return False
+    End Function
+
+    Public Shared Sub clearSession()
+        Session.department_id = Nothing
+        Session.first_name = Nothing
+        Session.last_name = Nothing
+        Session.password = Nothing
+        Session.role = Nothing
+        Session.salt = Nothing
+        Session.user_id = Nothing
+        Session.username = Nothing
+    End Sub
+
+    Public Shared Sub openForm()
+        If Session.department_id = 1 Then
+            'Approve Order
+            Dim approve As New Approve_Order
+            approve.Show()
+        ElseIf Session.department_id = 2 Then
+            'Cutting Department
+            Dim cutting As New Cutting_Department
+            cutting.Show()
+        ElseIf Session.department_id = 3 Then
+            'Embroidery Department
+            Dim embroidery As New Embroidery_Department
+            embroidery.Show()
+        ElseIf Session.department_id = 4 Then
+            'Inventory Preparation
+            Dim inventory As New Inventory_Preparation
+            inventory.Show()
+        ElseIf Session.department_id = 5 Then
+            'Manage Order 
+            Dim order As New Manage_Order
+            order.Show()
+        ElseIf Session.department_id = 6 Then
+            'Printing Department
+            Dim printing As New Printing_Department
+            printing.Show()
+        ElseIf Session.department_id = 7 Then
+            'Sewing Department
+            Dim sewing As New Sewing_Department
+            sewing.Show()
+        End If
+    End Sub
 End Class

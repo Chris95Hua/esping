@@ -22,53 +22,17 @@ Partial Class Job_Log
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.dgv_job_log = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.bgw_JobLogLoader = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgv_job_log, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(137, 20)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Customer Name  -"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 48)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(136, 20)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Order Name         -"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(153, 9)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(45, 20)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Hello"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(153, 48)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(46, 20)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "world"
         '
         'dgv_job_log
         '
@@ -80,13 +44,13 @@ Partial Class Job_Log
         Me.dgv_job_log.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgv_job_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_job_log.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
-        Me.dgv_job_log.Location = New System.Drawing.Point(12, 81)
+        Me.dgv_job_log.Location = New System.Drawing.Point(12, 83)
         Me.dgv_job_log.Name = "dgv_job_log"
         Me.dgv_job_log.ReadOnly = True
         Me.dgv_job_log.RowTemplate.Height = 28
         Me.dgv_job_log.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv_job_log.Size = New System.Drawing.Size(978, 619)
-        Me.dgv_job_log.TabIndex = 1
+        Me.dgv_job_log.TabIndex = 6
         '
         'Column1
         '
@@ -106,6 +70,45 @@ Partial Class Job_Log
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(153, 50)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(46, 20)
+        Me.Label4.TabIndex = 2
+        Me.Label4.Text = "world"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(153, 11)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(45, 20)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "Hello"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(12, 50)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(136, 20)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Order Name         -"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(137, 20)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Customer Name  -"
+        '
+        'bgw_JobLogLoader
+        '
+        '
         'Job_Log
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -118,20 +121,19 @@ Partial Class Job_Log
         Me.Controls.Add(Me.Label1)
         Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Job_Log"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "JOB LOG"
+        Me.Text = "Job Log"
         CType(Me.dgv_job_log, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents dgv_job_log As System.Windows.Forms.DataGridView
     Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents bgw_JobLogLoader As System.ComponentModel.BackgroundWorker
 End Class

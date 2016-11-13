@@ -1,5 +1,6 @@
 ﻿Public Class Cutting_Department
     Private Sub Cutting_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_CutLoader.RunWorkerAsync()
     End Sub
 
@@ -28,7 +29,6 @@
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUSTOMER, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUTTING, ", ",
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS, ", ",
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
@@ -54,7 +54,13 @@
     End Sub
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs)
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(7).Value)
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
         details.ShowDialog()
+    End Sub
+
+    Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
+        Dim login As New Login
+        login.Show()
+        Me.Close()
     End Sub
 End Class

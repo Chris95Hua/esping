@@ -63,7 +63,7 @@
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
+                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
                                               " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", ORDER_LOG.DATETIME, ") FROM ", TABLE.ORDER_LOG,
                                               " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
@@ -93,7 +93,11 @@
     End Sub
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, -1)
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
         details.ShowDialog()
+    End Sub
+
+    Private Sub Manage_Order_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txt_welcome.Text = "Welcome: " + Session.first_name
     End Sub
 End Class
