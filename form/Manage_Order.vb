@@ -63,7 +63,7 @@
                                               TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS,
                                               " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
                                               " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.LOG_ID,
+                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
                                               " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", ORDER_LOG.DATETIME, ") FROM ", TABLE.ORDER_LOG,
                                               " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
