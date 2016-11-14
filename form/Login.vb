@@ -4,7 +4,7 @@
     End Sub
 
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Method.clearSession()
+        Session.Clear()
     End Sub
 
     Private Sub txt_password_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_password.KeyDown
@@ -16,28 +16,11 @@
     Private Sub LogInFunction()
         If Method.Login(txt_username.Text, txt_password.Text) Then
             ' open form
-            '' TODO: open form based on department id
-            Method.openForm()
+            Method.OpenForm()
             Me.Close()
         Else
             ' error
             MessageBox.Show("No such username available")
         End If
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub txt_username_TextChanged(sender As Object, e As EventArgs) Handles txt_username.TextChanged
-
-    End Sub
-
-    Private Sub txt_password_TextChanged(sender As Object, e As EventArgs) Handles txt_password.TextChanged
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
     End Sub
 End Class

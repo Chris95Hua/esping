@@ -16,21 +16,21 @@ Public NotInheritable Class Method
     ''' <returns>True if success, else false</returns>
     Public Shared Function Login(ByVal username As String, ByVal password As String) As Boolean
         Dim users As List(Of Dictionary(Of String, Object))
-        users = Database.SelectRows(TABLE.USER, {USER.USERNAME, "=", username})
+        users = Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", username})
 
         If users IsNot Nothing Then
             For Each user In users
-                Dim hashedPassword As String = Security.Hash(password, user.Item(Constant.USER.SALT).ToString())
+                Dim hashedPassword As String = Security.Hash(password, user.Item(_USER.SALT).ToString())
 
-                If hashedPassword.CompareTo(user.Item(Constant.USER.PASSWORD).ToString()) = 0 Then
-                    Session.user_id = user.Item(Constant.USER.USER_ID)
-                    Session.first_name = user.Item(Constant.USER.FIRST_NAME)
-                    Session.last_name = user.Item(Constant.USER.LAST_NAME)
-                    Session.username = user.Item(Constant.USER.USERNAME)
-                    Session.password = user.Item(Constant.USER.PASSWORD)
-                    Session.salt = user.Item(Constant.USER.SALT)
-                    Session.role = user.Item(Constant.USER.ROLE)
-                    Session.department_id = user.Item(Constant.USER.DEPARTMENT_ID)
+                If hashedPassword.CompareTo(user.Item(_USER.PASSWORD).ToString()) = 0 Then
+                    Session.user_id = user.Item(_USER.USER_ID)
+                    Session.first_name = user.Item(_USER.FIRST_NAME)
+                    Session.last_name = user.Item(_USER.LAST_NAME)
+                    Session.username = user.Item(_USER.USERNAME)
+                    Session.password = user.Item(_USER.PASSWORD)
+                    Session.salt = user.Item(_USER.SALT)
+                    Session.role = user.Item(_USER.ROLE)
+                    Session.department_id = user.Item(_USER.DEPARTMENT_ID)
                     Return True
                 End If
             Next
@@ -54,14 +54,14 @@ Public NotInheritable Class Method
             Dim hashedNewPass As String = Security.Hash(newPass, newSalt)
             Dim update As New Dictionary(Of String, Object)
 
-            update.Add(USER.PASSWORD, hashedNewPass)
-            update.Add(USER.SALT, newSalt)
-            update.Add(USER.E_USER, Session.user_id)
-            update.Add(USER.E_DATE, DateTime.Now)
+            update.Add(_USER.PASSWORD, hashedNewPass)
+            update.Add(_USER.SALT, newSalt)
+            update.Add(_USER.E_USER, Session.user_id)
+            update.Add(_USER.E_DATE, DateTime.Now)
             Session.salt = newSalt
             Session.password = hashedNewPass
 
-            If Database.Update(TABLE.USER, {USER.USER_ID, "=", Session.user_id}, update) Then
+            If Database.Update(_TABLE.USER, {_USER.USER_ID, "=", Session.user_id}, update) Then
                 Return True
             End If
         End If
@@ -83,15 +83,15 @@ Public NotInheritable Class Method
                 .Title = "Open"
 
                 Select Case type
-                    Case FILETYPE.ALL
+                    Case _FILE.TYPE.ALL
                         .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                         .Filter = "All files (*.*)|*.*"
-                    Case FILETYPE.IMAGE
+                    Case _FILE.TYPE.IMAGE
                         .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
-                        .Filter = FILE_FILTER.IMAGE
-                    Case FILETYPE.DOCUMENT
+                        .Filter = _FILE.FILTER.IMAGE
+                    Case _FILE.TYPE.DOCUMENT
                         .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                        .Filter = FILE_FILTER.DOCUMENT
+                        .Filter = _FILE.FILTER.DOCUMENT
                 End Select
 
                 .FilterIndex = 1
@@ -119,7 +119,7 @@ Public NotInheritable Class Method
         Dim logValues As New StringBuilder("LAST_INSERT_ID()")
         Dim addComma As Boolean = False
 
-        sqlStmt.Append("BEGIN; INSERT INTO ").Append(TABLE.ORDER_CUSTOMER).Append(" (")
+        sqlStmt.Append("BEGIN; INSERT INTO ").Append(_TABLE.ORDER_CUSTOMER).Append(" (")
 
         For Each key In order.Keys
             If addComma Then
@@ -136,15 +136,15 @@ Public NotInheritable Class Method
         With sqlStmt
             .Append(" ) VALUES (").Append(orderValues)
             .Append("); INSERT INTO ")
-            .Append(TABLE.ORDER_LOG).Append(" (").Append(ORDER_LOG.ORDER_ID)
+            .Append(_TABLE.ORDER_LOG).Append(" (").Append(_ORDER_LOG.ORDER_ID)
         End With
 
         ' add log
         Dim log As New Dictionary(Of String, Object)
 
-        log.Add(ORDER_LOG.DATETIME, DateTime.Now)
-        log.Add(ORDER_LOG.STATUS, "Processing")
-        log.Add(ORDER_LOG.C_USER, Session.user_id)
+        log.Add(_ORDER_LOG.DATETIME, DateTime.Now)
+        log.Add(_ORDER_LOG.STATUS, "Processing")
+        log.Add(_ORDER_LOG.C_USER, Session.user_id)
 
         For Each field In log
             sqlStmt.Append(", ")
@@ -164,62 +164,51 @@ Public NotInheritable Class Method
         Dim users As List(Of Dictionary(Of String, Object))
         Dim dataIn As New Dictionary(Of String, Object)
         Dim salt As String = Security.GenerateSalt()
-        dataIn.Add(USER.FIRST_NAME, firstName)
-        dataIn.Add(USER.LAST_NAME, lastName)
-        dataIn.Add(USER.USERNAME, username)
-        dataIn.Add(USER.SALT, salt)
-        dataIn.Add(USER.PASSWORD, Security.Hash(password, salt))
-        dataIn.Add(USER.DEPARTMENT_ID, department)
-        dataIn.Add(USER.ROLE, role)
-        dataIn.Add(USER.C_USER, Session.user_id)
-        dataIn.Add(USER.C_DATE, DateTime.Now)
+        dataIn.Add(_USER.FIRST_NAME, firstName)
+        dataIn.Add(_USER.LAST_NAME, lastName)
+        dataIn.Add(_USER.USERNAME, username)
+        dataIn.Add(_USER.SALT, salt)
+        dataIn.Add(_USER.PASSWORD, Security.Hash(password, salt))
+        dataIn.Add(_USER.DEPARTMENT_ID, department)
+        dataIn.Add(_USER.ROLE, role)
+        dataIn.Add(_USER.C_USER, Session.user_id)
+        dataIn.Add(_USER.C_DATE, DateTime.Now)
 
-        users = Database.SelectRows(TABLE.USER, {USER.USERNAME, "=", username})
+        users = Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", username})
         If users Is Nothing Then
-            If Database.Insert(TABLE.USER, dataIn) Then
+            If Database.Insert(_TABLE.USER, dataIn) Then
                 Return True
             End If
         End If
         Return False
     End Function
 
-    Public Shared Sub clearSession()
-        Session.department_id = Nothing
-        Session.first_name = Nothing
-        Session.last_name = Nothing
-        Session.password = Nothing
-        Session.role = Nothing
-        Session.salt = Nothing
-        Session.user_id = Nothing
-        Session.username = Nothing
-    End Sub
-
-    Public Shared Sub openForm()
-        If Session.department_id = 1 Then
+    Public Shared Sub OpenForm()
+        If Session.department_id = _PROCESS.APPROVAL Then
             'Approve Order
             Dim approve As New Approve_Order
             approve.Show()
-        ElseIf Session.department_id = 2 Then
+        ElseIf Session.department_id = _PROCESS.CUTTING Then
             'Cutting Department
             Dim cutting As New Cutting_Department
             cutting.Show()
-        ElseIf Session.department_id = 3 Then
+        ElseIf Session.department_id = _PROCESS.EMBROIDERY Then
             'Embroidery Department
             Dim embroidery As New Embroidery_Department
             embroidery.Show()
-        ElseIf Session.department_id = 4 Then
+        ElseIf Session.department_id = _PROCESS.INVENTORY Then
             'Inventory Preparation
             Dim inventory As New Inventory_Preparation
             inventory.Show()
-        ElseIf Session.department_id = 5 Then
+        ElseIf Session.department_id = _PROCESS.ORDER Then
             'Manage Order 
             Dim order As New Manage_Order
             order.Show()
-        ElseIf Session.department_id = 6 Then
+        ElseIf Session.department_id = _PROCESS.PRINTING Then
             'Printing Department
             Dim printing As New Printing_Department
             printing.Show()
-        ElseIf Session.department_id = 7 Then
+        ElseIf Session.department_id = _PROCESS.SEWING Then
             'Sewing Department
             Dim sewing As New Sewing_Department
             sewing.Show()

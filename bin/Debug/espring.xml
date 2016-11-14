@@ -22,11 +22,6 @@ espring
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
-<member name="T:espring.Constant">
- <summary>
- Constants
- </summary>
-</member>
 <member name="T:espring.Database">
  <summary>
  Database operations

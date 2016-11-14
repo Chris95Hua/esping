@@ -2,9 +2,9 @@
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim dpmts As List(Of Dictionary(Of String, Object))
-        dpmts = Database.SelectAllRows(TABLE.DEPARTMENT, {"*"})
+        dpmts = Database.SelectAllRows(_TABLE.DEPARTMENT, {"*"})
         For Each dpmt In dpmts
-            cb_department.Items.Add(dpmt.Item(DEPARTMENT.NAME))
+            cb_department.Items.Add(dpmt.Item(_DEPARTMENT.NAME))
         Next
         cb_department.SelectedIndex = 0
         cb_role.SelectedIndex = 0

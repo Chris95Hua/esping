@@ -2,6 +2,7 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_OrderLoader.RunWorkerAsync()
     End Sub
 
@@ -40,9 +41,9 @@
             Dim update As New Dictionary(Of String, Object)
             Dim newDate As Date = editDeliveryForm.d_newDeliveryDate.Value
 
-            update.Add(ORDER_CUSTOMER.DELIVERY_DATE, newDate)
+            update.Add(_ORDER_CUSTOMER.DELIVERY_DATE, newDate)
 
-            If Database.Update(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}, update) Then
+            If Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}, update) Then
                 dgv_details.SelectedCells.Item(4).Value = newDate.ToString("dd/MM/yyyy")
                 MessageBox.Show("Delivery date updated successfully")
             Else
@@ -55,19 +56,19 @@
     ' load data for order
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUSTOMER, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              TABLE.ORDER_LOG, ".", ORDER_LOG.STATUS,
-                                              " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.ORDER_LOG,
-                                              " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID,
-                                              "=", TABLE.ORDER_LOG, ".", ORDER_LOG.ORDER_ID,
-                                              " WHERE ", TABLE.ORDER_LOG, ".", ORDER_LOG.DATETIME, " IN ",
-                                              " (SELECT MAX(", ORDER_LOG.DATETIME, ") FROM ", TABLE.ORDER_LOG,
-                                              " GROUP BY ", ORDER_LOG.ORDER_ID, ")",
-                                              " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, " DESC"
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
+                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
+                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
+                                              "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
+                                              " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                              " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
+                                              " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC"
                                         )
 
         e.Result = Database.GetDataTable(sqlStmt.ToString())
@@ -84,7 +85,7 @@
         Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
         Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
-            If Database.Delete(TABLE.ORDER_CUSTOMER, {ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+            If Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
                 dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
             Else
                 MessageBox.Show("Delete failed")
@@ -97,7 +98,8 @@
         details.ShowDialog()
     End Sub
 
-    Private Sub Manage_Order_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txt_welcome.Text = "Welcome: " + Session.first_name
+    Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
+        dgv_details.DataSource = Nothing
+        bgw_OrderLoader.RunWorkerAsync()
     End Sub
 End Class

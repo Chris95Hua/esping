@@ -1,9 +1,154 @@
-﻿''' <summary>
-''' Constants
-''' </summary>
-Public Module Constant
-    '' File action (for OpenFileDialog)
-    Public Enum FILETYPE
+﻿' Database settings
+Public NotInheritable Class _DATABASE
+    Public Const HOST As String = "127.0.0.1"
+    Public Const USER As String = "root"
+    Public Const PASSWORD As String = ""
+    Public Const NAME As String = "espring"
+End Class
+
+
+' List of table available in the database
+Public NotInheritable Class _TABLE
+    Public Const USER As String = "user"
+    Public Const ROLE As String = "role"
+    Public Const ORDER_CUSTOMER As String = "order_customer"
+    Public Const ORDER_LOG As String = "order_log"
+    Public Const DEPARTMENT As String = "department"
+    Public Const STATUS As String = "status"
+End Class
+
+
+' List of columns available in "user" table
+Public NotInheritable Class _USER
+    Public Const USER_ID As String = "user_id"
+    Public Const FIRST_NAME As String = "first_name"
+    Public Const LAST_NAME As String = "last_name"
+    Public Const USERNAME As String = "username"
+    Public Const PASSWORD As String = "password"
+    Public Const SALT As String = "salt"
+    Public Const ROLE As String = "role"
+    Public Const DEPARTMENT_ID As String = "department_id"
+    Public Const C_USER As String = "c_user"
+    Public Const C_DATE As String = "c_date"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "role" table
+Public NotInheritable Class _ROLE
+    Public Const ROLE_ID As String = "role_id"
+    Public Const TITLE As String = "title"
+    Public Const C_USER As String = "c_user"
+    Public Const C_DATE As String = "c_date"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "order_customer" table
+Public NotInheritable Class _ORDER_CUSTOMER
+    Public Const ORDER_ID As String = "order_id"
+    Public Const ORDER_NAME As String = "order_name"
+    Public Const SALESPERSON_ID As String = "salesperson_id"
+    Public Const CUSTOMER As String = "customer"
+    Public Const FABRIC As String = "fabric"
+    Public Const COLLAR As String = "collar"
+    Public Const CUFF As String = "cuff"
+    Public Const FRONT As String = "front"
+    Public Const BACK As String = "back"
+    Public Const ARTWORK As String = "artwork"
+    Public Const SIZE As String = "size"
+    Public Const MATERIAL As String = "material"
+    Public Const COLOUR As String = "colour"
+    Public Const PACKAGING As String = "packaging"
+    Public Const ISSUE_DATE As String = "issue_date"
+    Public Const DELIVERY_DATE As String = "delivery_date"
+    Public Const PAYMENT As String = "payment"
+    Public Const AMOUNT As String = "amount"
+    Public Const REMARKS As String = "remarks"
+    Public Const APPROVAL As String = "approval"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "order_log" table
+Public NotInheritable Class _ORDER_LOG
+    Public Const LOG_ID As String = "log_id"
+    Public Const ORDER_ID As String = "order_id"
+    Public Const DATETIME As String = "datetime"
+    Public Const DEPARTMENT_ID As String = "department_id"
+    Public Const STATUS As String = "status"
+    Public Const C_USER As String = "c_user"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "department" table
+Public NotInheritable Class _DEPARTMENT
+    Public Const DEPARTMENT_ID As String = "department_id"
+    Public Const NAME As String = "name"
+    Public Const C_USER As String = "c_user"
+    Public Const C_DATE As String = "c_date"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "status" table
+Public NotInheritable Class _STATUS
+    Public Const CHECK_ID As String = "check_id"
+    Public Const STATUS_ID As String = "status_id"
+    Public Const STATUS As String = "status"
+End Class
+
+
+' Json fields
+Public NotInheritable Class _JSON_FIELD
+    Public Const FABRIC As String = "fabric"
+    Public Const SPLIT As String = "split"
+
+    Public Const PRINTING As String = "printing"
+    Public Const HEAT As String = "heat"
+    Public Const EMBROIDERY As String = "embroidery"
+    Public Const PLAIN As String = "plain"
+
+    Public Const XS As String = "xs"
+    Public Const S As String = "s"
+    Public Const M As String = "m"
+    Public Const L As String = "l"
+    Public Const XL As String = "xl"
+    Public Const XXL As String = "2xl"
+    Public Const XXXL As String = "3xl"
+
+    Public Const NO_PACKAGE As String = "no"
+    Public Const NORMAL_PACKAGE As String = "normal"
+    Public Const SUGARBAG_PACKAGE As String = "sugerbag"
+    Public Const FOLLOW_PACKAGE As String = "follow"
+
+    Public Const CASH As String = "cash"
+    Public Const CHEQUE As String = "cheque"
+End Class
+
+
+' Department/process
+Public Enum _PROCESS
+    APPROVAL = 1
+    CUTTING = 2
+    EMBROIDERY = 3
+    INVENTORY = 4
+    ORDER = 5
+    PRINTING = 6
+    SEWING = 7
+End Enum
+
+
+' File config/constant when opening/saving images/files
+Public NotInheritable Class _FILE
+    ' File action (for OpenFileDialog)
+    Public Enum TYPE
         ALL = 100
         IMAGE = 101
         AUDIO = 102
@@ -11,129 +156,13 @@ Public Module Constant
         DOCUMENT = 104
     End Enum
 
-    '' File filter (for OpenFileDialog)
-    Public Structure FILE_FILTER
+    ' File filter (for OpenFileDialog)
+    Public Structure FILTER
         Const IMAGE As String = "All Files|*.*|Bitmap (*.bmp;*.dip)|*.bmp;*.dip|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|GIF (*.gif)|*.gif|TIFF (*.tif;*.tiff)|*.tif;*.tiff"
         Const DOCUMENT As String = "All Files|*.*|Word Document (*.docx))|*.docx|Word 97-2004 Document (*.doc)|*.doc|Excel 97-2003 Worksheet (*.xls)|*.xls|Excel workbook (*.xlsx)|*.xlsx|PDF (*.pdf)|*.pdf"
     End Structure
+End Class
 
-    '' Json fields (for order)
-    Public Structure JSON_FIELD
-        Const FABRIC As String = "fabric"
-        Const SPLIT As String = "split"
-
-        Const PRINTING As String = "printing"
-        Const HEAT As String = "heat"
-        Const EMBROIDERY As String = "embroidery"
-        Const PLAIN As String = "plain"
-
-        Const XS As String = "xs"
-        Const S As String = "s"
-        Const M As String = "m"
-        Const L As String = "l"
-        Const XL As String = "xl"
-        Const XXL As String = "2xl"
-        Const XXXL As String = "3xl"
-
-        Const NO_PACKAGE As String = "no"
-        Const NORMAL_PACKAGE As String = "normal"
-        Const SUGARBAG_PACKAGE As String = "sugerbag"
-        Const FOLLOW_PACKAGE As String = "follow"
-
-        Const CASH As String = "cash"
-        Const CHEQUE As String = "cheque"
-    End Structure
-
-    '' List of table available in the database
-    Public Structure TABLE
-        Const USER As String = "user"
-        Const ROLE As String = "role"
-        Const ORDER_CUSTOMER As String = "order_customer"
-        Const ORDER_LOG As String = "order_log"
-        Const DEPARTMENT As String = "department"
-        Const STATUS As String = "status"
-    End Structure
-
-    '' List of columns available in "user" table
-    Public Structure USER
-        Const USER_ID As String = "user_id"
-        Const FIRST_NAME As String = "first_name"
-        Const LAST_NAME As String = "last_name"
-        Const USERNAME As String = "username"
-        Const PASSWORD As String = "password"
-        Const SALT As String = "salt"
-        Const ROLE As String = "role"
-        Const DEPARTMENT_ID As String = "department_id"
-        Const C_USER As String = "c_user"
-        Const C_DATE As String = "c_date"
-        Const E_USER As String = "e_user"
-        Const E_DATE As String = "e_date"
-    End Structure
-
-    '' List of columns available in "role" table
-    Public Structure ROLE
-        Const ROLE_ID As String = "role_id"
-        Const TITLE As String = "title"
-        Const C_USER As String = "c_user"
-        Const C_DATE As String = "c_date"
-        Const E_USER As String = "e_user"
-        Const E_DATE As String = "e_date"
-    End Structure
-
-    '' List of columns available in "order_customer" table
-    Public Structure ORDER_CUSTOMER
-        Const ORDER_ID As String = "order_id"
-        Const ORDER_NAME As String = "order_name"
-        Const SALESPERSON_ID As String = "salesperson_id"
-        Const CUSTOMER As String = "customer"
-        Const FABRIC As String = "fabric"
-        Const COLLAR As String = "collar"
-        Const CUFF As String = "cuff"
-        Const FRONT As String = "front"
-        Const BACK As String = "back"
-        Const ARTWORK As String = "artwork"
-        Const SIZE As String = "size"
-        Const MATERIAL As String = "material"
-        Const COLOUR As String = "colour"
-        Const PACKAGING As String = "packaging"
-        Const ISSUE_DATE As String = "issue_date"
-        Const DELIVERY_DATE As String = "delivery_date"
-        Const PAYMENT As String = "payment"
-        Const AMOUNT As String = "amount"
-        Const REMARKS As String = "remarks"
-        Const APPROVAL As String = "approval"
-        Const E_USER As String = "e_user"
-        Const E_DATE As String = "e_date"
-    End Structure
-
-    '' List of columns available in "order_log" table
-    Public Structure ORDER_LOG
-        Const LOG_ID As String = "log_id"
-        Const ORDER_ID As String = "order_id"
-        Const DATETIME As String = "datetime"
-        Const DEPARTMENT_ID As String = "department_id"
-        Const STATUS As String = "status"
-        Const C_USER As String = "c_user"
-        Const E_USER As String = "e_user"
-        Const E_DATE As String = "e_date"
-    End Structure
-
-    Public Structure APPROVAL
-        Const CHECK_ID As String = "check_id"
-        Const STATUS_ID As String = "status_id"
-        Const STATUS As String = "status"
-    End Structure
-
-    '' List of columns available in "department" table
-    Public Structure DEPARTMENT
-        Const DEPARTMENT_ID As String = "department_id"
-        Const NAME As String = "name"
-        Const C_USER As String = "c_user"
-        Const C_DATE As String = "c_date"
-        Const E_USER As String = "e_user"
-        Const E_DATE As String = "e_date"
-    End Structure
-End Module
 
 
 '' BARCODE USAGE
@@ -144,26 +173,6 @@ End Module
 
 
 '' DB USAGE
-' ADD
-'Dim asd As Integer = Constant.LOGIN.FAILED
-'Dim salt As String = Security.GenerateSalt()
-'Dim test As New Dictionary(Of String, Object)
-'test.Add("username", "dikur")
-'test.Add("password", Security.Hash("123456", salt))
-'test.Add("salt", salt)
-'Database.Insert("user", test)
-
-
-' UPDATE
-'Dim update As New Dictionary(Of String, Object)
-'update.Add("username", "    chye yee")
-'Database.Update("user", "user_id", 11, update)
-
-
-' DELETE
-' Database.Delete("user", "user_id", 5)
-
-
 ' SELECT MULTIPLE
 'Dim dictionaries As New List(Of Dictionary(Of String, Object))
 'dictionaries = Database.SelectFromTable("user", "username")

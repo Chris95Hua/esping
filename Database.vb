@@ -5,10 +5,7 @@ Imports System.Text
 ''' Database operations
 ''' </summary>
 Public NotInheritable Class Database
-    ' constants
-    Private Const open As Boolean = True
-    Private Const close As Boolean = False
-    Private Const connectionString As String = "host=127.0.0.1; user=root; password=; database=espring; convert zero datetime=True"
+    Private Shared ReadOnly connectionString As String = String.Concat("host=", _DATABASE.HOST, "; user=", _DATABASE.USER, "; password=", _DATABASE.PASSWORD, "; database=", _DATABASE.NAME, "; convert zero datetime=True")
 
 
     Private Sub New()

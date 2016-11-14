@@ -1,6 +1,8 @@
 ﻿Public Class Approve_Order
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
+
+        txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_ApprovalLoader.RunWorkerAsync()
     End Sub
 
@@ -11,18 +13,18 @@
 
     Private Sub bgw_ApprovalLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_ApprovalLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_ID, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.CUSTOMER, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              TABLE.STATUS, ".", APPROVAL.STATUS, ", ",
-                                              TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.E_DATE,
-                                              " FROM ", TABLE.ORDER_CUSTOMER, " INNER JOIN ", TABLE.STATUS,
-                                              " ON ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.APPROVAL,
-                                              " = ", TABLE.STATUS, ".", APPROVAL.STATUS_ID,
-                                              " ORDER BY ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.APPROVAL,
-                                              " ASC, ", TABLE.ORDER_CUSTOMER, ".", ORDER_CUSTOMER.E_DATE, " DESC"
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _TABLE.STATUS, ".", _STATUS.STATUS, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.E_DATE,
+                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.STATUS,
+                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL,
+                                              " = ", _TABLE.STATUS, ".", _STATUS.STATUS_ID,
+                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL,
+                                              " ASC, ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.E_DATE, " DESC"
                                         )
         e.Result = Database.GetDataTable(sqlStmt.ToString())
     End Sub
@@ -42,9 +44,5 @@
         Dim login As New Login
         login.Show()
         Me.Close()
-    End Sub
-
-    Private Sub Approve_Order_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txt_welcome.Text = "Welcome: " + Session.first_name
     End Sub
 End Class

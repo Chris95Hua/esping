@@ -29,15 +29,15 @@ Partial Class Approve_Order
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
         Me.order_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.issue_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.status_column = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.e_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,15 +48,14 @@ Partial Class Approve_Order
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_passUpdate, Me.btn_logout, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 35)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 20)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'btn_logout
@@ -67,7 +66,7 @@ Partial Class Approve_Order
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 20)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
@@ -76,7 +75,7 @@ Partial Class Approve_Order
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 20)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'dgv_details
@@ -96,7 +95,7 @@ Partial Class Approve_Order
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status, Me.e_date})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status_column, Me.e_date})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -105,15 +104,26 @@ Partial Class Approve_Order
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgv_details.Location = New System.Drawing.Point(14, 102)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.dgv_details.Location = New System.Drawing.Point(9, 66)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(976, 597)
+        Me.dgv_details.Size = New System.Drawing.Size(651, 388)
         Me.dgv_details.TabIndex = 2
+        '
+        'txt_search
+        '
+        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.txt_search.Location = New System.Drawing.Point(9, 37)
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.Size = New System.Drawing.Size(203, 20)
+        Me.txt_search.TabIndex = 3
+        Me.txt_search.Text = "Search"
+        '
+        'bgw_ApprovalLoader
+        '
         '
         'order_id
         '
@@ -150,12 +160,12 @@ Partial Class Approve_Order
         Me.delivery_date.Name = "delivery_date"
         Me.delivery_date.ReadOnly = True
         '
-        'status
+        'status_column
         '
-        Me.status.DataPropertyName = "status"
-        Me.status.HeaderText = "Status"
-        Me.status.Name = "status"
-        Me.status.ReadOnly = True
+        Me.status_column.DataPropertyName = "status"
+        Me.status_column.HeaderText = "Status"
+        Me.status_column.Name = "status_column"
+        Me.status_column.ReadOnly = True
         '
         'e_date
         '
@@ -164,28 +174,16 @@ Partial Class Approve_Order
         Me.e_date.Name = "e_date"
         Me.e_date.ReadOnly = True
         '
-        'txt_search
-        '
-        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.txt_search.Location = New System.Drawing.Point(14, 57)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(302, 26)
-        Me.txt_search.TabIndex = 3
-        Me.txt_search.Text = "Search"
-        '
-        'bgw_ApprovalLoader
-        '
-        '
         'Approve_Order
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 729)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.MinimumSize = New System.Drawing.Size(1021, 759)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MinimumSize = New System.Drawing.Size(686, 507)
         Me.Name = "Approve_Order"
         Me.Text = "Approve Order"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -202,12 +200,12 @@ Partial Class Approve_Order
     Friend WithEvents txt_welcome As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
-    Friend WithEvents order_id As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents customer As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents order_name As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents issue_date As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents delivery_date As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents e_date As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents bgw_ApprovalLoader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents order_id As DataGridViewTextBoxColumn
+    Friend WithEvents customer As DataGridViewTextBoxColumn
+    Friend WithEvents order_name As DataGridViewTextBoxColumn
+    Friend WithEvents issue_date As DataGridViewTextBoxColumn
+    Friend WithEvents delivery_date As DataGridViewTextBoxColumn
+    Friend WithEvents status_column As DataGridViewTextBoxColumn
+    Friend WithEvents e_date As DataGridViewTextBoxColumn
 End Class
