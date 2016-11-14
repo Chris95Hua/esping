@@ -29,8 +29,6 @@ Partial Class Approve_Order
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
         Me.order_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -38,6 +36,9 @@ Partial Class Approve_Order
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status_column = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.e_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
+        Me.btn_refresh = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -104,6 +105,7 @@ Partial Class Approve_Order
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgv_details.Enabled = False
         Me.dgv_details.Location = New System.Drawing.Point(9, 66)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
@@ -112,18 +114,6 @@ Partial Class Approve_Order
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv_details.Size = New System.Drawing.Size(651, 388)
         Me.dgv_details.TabIndex = 2
-        '
-        'txt_search
-        '
-        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.txt_search.Location = New System.Drawing.Point(9, 37)
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(203, 20)
-        Me.txt_search.TabIndex = 3
-        Me.txt_search.Text = "Search"
-        '
-        'bgw_ApprovalLoader
-        '
         '
         'order_id
         '
@@ -174,15 +164,38 @@ Partial Class Approve_Order
         Me.e_date.Name = "e_date"
         Me.e_date.ReadOnly = True
         '
+        'txt_search
+        '
+        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.txt_search.Location = New System.Drawing.Point(9, 37)
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.Size = New System.Drawing.Size(203, 20)
+        Me.txt_search.TabIndex = 3
+        Me.txt_search.Text = "Search"
+        '
+        'bgw_ApprovalLoader
+        '
+        '
+        'btn_refresh
+        '
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 34)
+        Me.btn_refresh.Name = "btn_refresh"
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
+        Me.btn_refresh.TabIndex = 4
+        Me.btn_refresh.Text = "Refresh"
+        Me.btn_refresh.UseVisualStyleBackColor = True
+        '
         'Approve_Order
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(672, 474)
+        Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(686, 507)
         Me.Name = "Approve_Order"
         Me.Text = "Approve Order"
@@ -208,4 +221,5 @@ Partial Class Approve_Order
     Friend WithEvents delivery_date As DataGridViewTextBoxColumn
     Friend WithEvents status_column As DataGridViewTextBoxColumn
     Friend WithEvents e_date As DataGridViewTextBoxColumn
+    Friend WithEvents btn_refresh As Button
 End Class

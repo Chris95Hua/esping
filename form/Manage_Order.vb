@@ -79,6 +79,8 @@
         If (e.Error Is Nothing) Then
             dgv_details.DataSource = e.Result
         End If
+
+        dgv_details.Enabled = True
     End Sub
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
@@ -99,6 +101,7 @@
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
+        dgv_details.Enabled = False
         dgv_details.DataSource = Nothing
         bgw_OrderLoader.RunWorkerAsync()
     End Sub

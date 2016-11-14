@@ -106,6 +106,7 @@ Partial Class Manage_Order
         Me.dgv_details.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status})
+        Me.dgv_details.Enabled = False
         Me.dgv_details.Location = New System.Drawing.Point(15, 106)
         Me.dgv_details.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.dgv_details.MultiSelect = False
@@ -185,7 +186,8 @@ Partial Class Manage_Order
         '
         'btn_refresh
         '
-        Me.btn_refresh.Location = New System.Drawing.Point(912, 58)
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(912, 59)
         Me.btn_refresh.Name = "btn_refresh"
         Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 2

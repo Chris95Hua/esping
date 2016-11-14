@@ -45,8 +45,9 @@ Partial Class Job_Log
         Me.dgv_job_log.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgv_job_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_job_log.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
+        Me.dgv_job_log.Enabled = False
         Me.dgv_job_log.Location = New System.Drawing.Point(8, 54)
-        Me.dgv_job_log.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgv_job_log.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_job_log.Name = "dgv_job_log"
         Me.dgv_job_log.ReadOnly = True
         Me.dgv_job_log.RowTemplate.Height = 28
@@ -135,7 +136,7 @@ Partial Class Job_Log
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Job_Log"
         Me.Text = "Job Log"

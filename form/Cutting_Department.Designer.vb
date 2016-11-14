@@ -84,7 +84,7 @@ Partial Class Cutting_Department
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.txt_search.Location = New System.Drawing.Point(8, 30)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_search.Name = "txt_search"
         Me.txt_search.Size = New System.Drawing.Size(137, 20)
         Me.txt_search.TabIndex = 3
@@ -119,8 +119,9 @@ Partial Class Cutting_Department
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgv_details.Enabled = False
         Me.dgv_details.Location = New System.Drawing.Point(8, 56)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -177,7 +178,8 @@ Partial Class Cutting_Department
         '
         'btn_refresh
         '
-        Me.btn_refresh.Location = New System.Drawing.Point(584, 26)
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 28)
         Me.btn_refresh.Name = "btn_refresh"
         Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 7
@@ -193,7 +195,7 @@ Partial Class Cutting_Department
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Cutting_Department"
         Me.Text = "Cutting Department"

@@ -9,6 +9,7 @@
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
+
         bgw_JobLogLoader.RunWorkerAsync()
     End Sub
 
@@ -31,9 +32,12 @@
         If (e.Error Is Nothing) Then
             dgv_job_log.DataSource = e.Result
         End If
+
+        dgv_job_log.Enabled = True
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
+        dgv_job_log.Enabled = False
         dgv_job_log.DataSource = Nothing
         bgw_JobLogLoader.RunWorkerAsync()
     End Sub
