@@ -5,7 +5,7 @@ Public NotInheritable Class _CONNECTION
     Public Const DB_PASSWORD As String = ""
     Public Const DB_NAME As String = "espring"
 
-    Public Const FTP_URL As String = "ftp://localhost/espring/"
+    Public Const FTP_URL As String = "ftp://192.168.1.23/espring/"
     Public Const FTP_USER As String = "espring"
     Public Const FTP_PASSWORD As String = "1234"
 End Class
@@ -72,6 +72,11 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
     Public Const APPROVAL As String = "approval"
+    Public Const INVENTORY As String = "inventory"
+    Public Const CUTTING As String = "cutting"
+    Public Const EMBROIDERY As String = "embroidery"
+    Public Const PRINTING As String = "printing"
+    Public Const SEWING As String = "sewing"
     Public Const E_USER As String = "e_user"
     Public Const E_DATE As String = "e_date"
 End Class

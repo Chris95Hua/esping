@@ -22,6 +22,8 @@ Partial Class Manage_Order
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.btn_newOrder = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
@@ -48,22 +50,23 @@ Partial Class Manage_Order
         Me.MenuStrip1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_newOrder, Me.btn_passUpdate, Me.btn_logout, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.MinimumSize = New System.Drawing.Size(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(14, 5, 0, 5)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 29)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(21, 8, 0, 8)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 45)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'btn_newOrder
         '
         Me.btn_newOrder.Name = "btn_newOrder"
-        Me.btn_newOrder.Size = New System.Drawing.Size(87, 19)
+        Me.btn_newOrder.Size = New System.Drawing.Size(127, 29)
         Me.btn_newOrder.Text = "+ New Order"
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 19)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'btn_logout
@@ -74,7 +77,7 @@ Partial Class Manage_Order
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(58, 19)
+        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
@@ -83,16 +86,16 @@ Partial Class Manage_Order
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(112, 19)
+        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.txt_search.Location = New System.Drawing.Point(15, 61)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.txt_search.Location = New System.Drawing.Point(22, 66)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(9, 12, 9, 12)
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(341, 20)
+        Me.txt_search.Size = New System.Drawing.Size(510, 26)
         Me.txt_search.TabIndex = 1
         Me.txt_search.Text = "Search"
         '
@@ -104,17 +107,33 @@ Partial Class Manage_Order
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv_details.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
-        Me.dgv_details.Location = New System.Drawing.Point(15, 106)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.dgv_details.Location = New System.Drawing.Point(22, 115)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(9, 12, 9, 12)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(972, 530)
+        Me.dgv_details.Size = New System.Drawing.Size(962, 504)
         Me.dgv_details.TabIndex = 1
         '
         'order_id
@@ -162,10 +181,10 @@ Partial Class Manage_Order
         'btn_edit
         '
         Me.btn_edit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_edit.Location = New System.Drawing.Point(681, 652)
-        Me.btn_edit.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.btn_edit.Location = New System.Drawing.Point(678, 643)
+        Me.btn_edit.Margin = New System.Windows.Forms.Padding(9, 12, 9, 12)
         Me.btn_edit.Name = "btn_edit"
-        Me.btn_edit.Size = New System.Drawing.Size(147, 43)
+        Me.btn_edit.Size = New System.Drawing.Size(144, 48)
         Me.btn_edit.TabIndex = 3
         Me.btn_edit.Text = "Edit"
         Me.btn_edit.UseVisualStyleBackColor = True
@@ -173,10 +192,10 @@ Partial Class Manage_Order
         'btn_delete
         '
         Me.btn_delete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_delete.Location = New System.Drawing.Point(840, 652)
-        Me.btn_delete.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.btn_delete.Location = New System.Drawing.Point(840, 643)
+        Me.btn_delete.Margin = New System.Windows.Forms.Padding(9, 12, 9, 12)
         Me.btn_delete.Name = "btn_delete"
-        Me.btn_delete.Size = New System.Drawing.Size(147, 43)
+        Me.btn_delete.Size = New System.Drawing.Size(144, 48)
         Me.btn_delete.TabIndex = 4
         Me.btn_delete.Text = "Delete"
         Me.btn_delete.UseVisualStyleBackColor = True
@@ -187,18 +206,19 @@ Partial Class Manage_Order
         'btn_refresh
         '
         Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(912, 59)
+        Me.btn_refresh.Location = New System.Drawing.Point(858, 63)
+        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
+        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
         Me.btn_refresh.TabIndex = 2
         Me.btn_refresh.Text = "Refresh"
         Me.btn_refresh.UseVisualStyleBackColor = True
         '
         'Manage_Order
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 729)
+        Me.ClientSize = New System.Drawing.Size(1002, 712)
         Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.btn_delete)
         Me.Controls.Add(Me.btn_edit)
@@ -206,7 +226,7 @@ Partial Class Manage_Order
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.Margin = New System.Windows.Forms.Padding(9, 12, 9, 12)
         Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Manage_Order"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
