@@ -4,7 +4,6 @@
     Sub New(ByVal orderID As Integer)
         ' This call is required by the designer.
         InitializeComponent()
-
         Me.orderID = orderID
     End Sub
 
@@ -252,9 +251,5 @@
             'Generate Barcode (Sewing Department)
             btn_multi.Text = "Generate Barcode"
         End If
-    End Sub
-
-    Private Sub Order_Details_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class

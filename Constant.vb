@@ -68,6 +68,11 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
     Public Const APPROVAL As String = "approval"
+    Public Const INVENTORY As String = "inventory"
+    Public Const CUTTING As String = "cutting"
+    Public Const EMBROIDERY As String = "embroidery"
+    Public Const PRINTING As String = "printing"
+    Public Const SEWING As String = "sewing"
     Public Const E_USER As String = "e_user"
     Public Const E_DATE As String = "e_date"
 End Class

@@ -10,7 +10,14 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
-        bgw_JobLogLoader.RunWorkerAsync()
+        Dim orderDetails As List(Of Dictionary(Of String, Object))
+        orderDetails = Database.SelectRows(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", Me.orderID})
+        If orderDetails IsNot Nothing Then
+            lbl_customer.Text = orderDetails.Item(_ORDER_CUSTOMER.CUSTOMER).ToString
+            lbl_orderName.Text = orderDetails.Item(_ORDER_CUSTOMER.ORDER_NAME).ToString
+            bgw_JobLogLoader.RunWorkerAsync()
+        End If
+
     End Sub
 
     Private Sub bgw_JobLogLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_JobLogLoader.DoWork
@@ -40,5 +47,9 @@
         dgv_job_log.Enabled = False
         dgv_job_log.DataSource = Nothing
         bgw_JobLogLoader.RunWorkerAsync()
+    End Sub
+
+    Private Sub Job_Log_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

@@ -85,6 +85,12 @@
     <Compile Include="form\Approve_Order.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\Job_Log.Designer.vb">
+      <DependentUpon>Job_Log.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Job_Log.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\Order_Details.Designer.vb">
       <DependentUpon>Order_Details.vb</DependentUpon>
     </Compile>
@@ -128,12 +134,6 @@
     </Compile>
     <Compile Include="form\Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="form\Job_Log.Designer.vb">
-      <DependentUpon>Job_Log.vb</DependentUpon>
-    </Compile>
-    <Compile Include="form\Job_Log.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Method.vb" />
@@ -195,6 +195,9 @@
     <EmbeddedResource Include="form\Approve_Order.resx">
       <DependentUpon>Approve_Order.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\Job_Log.resx">
+      <DependentUpon>Job_Log.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\Order_Details.resx">
       <DependentUpon>Order_Details.vb</DependentUpon>
     </EmbeddedResource>
@@ -215,9 +218,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="form\Job_Log.resx">
-      <DependentUpon>Job_Log.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
