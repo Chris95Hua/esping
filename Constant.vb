@@ -1,9 +1,13 @@
 ﻿' Database settings
-Public NotInheritable Class _DATABASE
-    Public Const HOST As String = "127.0.0.1"
-    Public Const USER As String = "root"
-    Public Const PASSWORD As String = ""
-    Public Const NAME As String = "espring"
+Public NotInheritable Class _CONNECTION
+    Public Const DB_HOST As String = "127.0.0.1"
+    Public Const DB_USER As String = "root"
+    Public Const DB_PASSWORD As String = ""
+    Public Const DB_NAME As String = "espring"
+
+    Public Const FTP_URL As String = "ftp://localhost/espring/"
+    Public Const FTP_USER As String = "espring"
+    Public Const FTP_PASSWORD As String = "1234"
 End Class
 
 
@@ -68,11 +72,6 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
     Public Const APPROVAL As String = "approval"
-    Public Const INVENTORY As String = "inventory"
-    Public Const CUTTING As String = "cutting"
-    Public Const EMBROIDERY As String = "embroidery"
-    Public Const PRINTING As String = "printing"
-    Public Const SEWING As String = "sewing"
     Public Const E_USER As String = "e_user"
     Public Const E_DATE As String = "e_date"
 End Class

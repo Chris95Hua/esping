@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2016 at 01:33 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Nov 15, 2016 at 09:30 AM
+-- Server version: 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -64,10 +64,10 @@ CREATE TABLE `order_customer` (
   `cuff` int(10) UNSIGNED NOT NULL,
   `front` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
   `back` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `artwork` longblob NOT NULL COMMENT '4mb max',
+  `artwork` char(51) DEFAULT NULL,
   `size` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `material` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `colour` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
+  `material` varchar(128) NOT NULL,
+  `colour` varchar(128) NOT NULL,
   `packaging` varchar(128) NOT NULL,
   `issue_date` date NOT NULL,
   `delivery_date` date NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `order_customer` (
 --
 
 INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `amount`, `remarks`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
-(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 0x7374756666, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, 0, 0, 0, 0, 0, NULL, '2016-11-09 00:00:00');
+(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 'stuff', '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,8 @@ CREATE TABLE `order_log` (
 --
 
 INSERT INTO `order_log` (`log_id`, `order_id`, `department_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
-(1, 1, 0, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL);
+(1, 1, 0, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL),
+(2, 1, 0, '2016-11-11 15:54:44', 'Check out', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -236,7 +237,7 @@ ALTER TABLE `order_customer`
 -- AUTO_INCREMENT for table `order_log`
 --
 ALTER TABLE `order_log`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `role`
 --

@@ -1,5 +1,4 @@
 ﻿Public Class new_order
-
     Private Sub form_load(sender As Object, e As System.EventArgs) Handles Me.Load
         d_delivery.Value = DateTime.Now
     End Sub
@@ -9,6 +8,11 @@
     End Sub
 
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
+        bgw_createOrder.RunWorkerAsync()
+    End Sub
+
+    Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_createOrder.DoWork
+        Dim imgStore As String = DateTime.Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork.Text)
         Dim order As New Dictionary(Of String, Object)
 
         ' order details
@@ -136,8 +140,7 @@
 
 
         ' image
-        order.Add(_ORDER_CUSTOMER.ARTWORK, "stuff")
-        ' get filepath/image here
+        order.Add(_ORDER_CUSTOMER.ARTWORK, imgStore)
 
 
         ' payment
@@ -155,13 +158,20 @@
 
 
         ' document
-        'order.Add(ORDER_CUSTOMER.)
+        'order.Add(_ORDER_CUSTOMER.)
         ' get filepath/document here
 
 
         ' user and date
         order.Add(_ORDER_CUSTOMER.SALESPERSON_ID, Session.user_id)
         order.Add(_ORDER_CUSTOMER.ISSUE_DATE, DateTime.Now)
+
+
+        If Method.FtpUpload(txt_artwork.Text, imgStore) Then
+            MessageBox.Show("upload completed")
+        End If
+
+
 
         If Method.CreateOrder(order) Then
             ' add back to datagridview
@@ -171,8 +181,14 @@
         End If
     End Sub
 
+    Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_createOrder.RunWorkerCompleted
+        If (e.Error Is Nothing) Then
+            'Me.Close()
+        End If
+    End Sub
+
     Private Sub btn_artwork_Click(sender As Object, e As EventArgs) Handles btn_artwork.Click
-        Dim file As String = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+        txt_artwork.Text = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
     End Sub
 
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click

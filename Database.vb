@@ -5,7 +5,11 @@ Imports System.Text
 ''' Database operations
 ''' </summary>
 Public NotInheritable Class Database
-    Private Shared ReadOnly connectionString As String = String.Concat("host=", _DATABASE.HOST, "; user=", _DATABASE.USER, "; password=", _DATABASE.PASSWORD, "; database=", _DATABASE.NAME, "; convert zero datetime=True")
+    Private Shared ReadOnly connectionString As String = String.Concat("host=", _CONNECTION.DB_HOST,
+                                                                       "; user=", _CONNECTION.DB_USER,
+                                                                       "; password=", _CONNECTION.DB_PASSWORD,
+                                                                       "; database=", _CONNECTION.DB_NAME,
+                                                                       "; convert zero datetime=True")
 
 
     Private Sub New()

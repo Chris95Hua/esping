@@ -48,6 +48,7 @@
 
         ' use array as datasource and bind to it
         e.Result = Database.GetDataTable(sqlStmt.ToString())
+
     End Sub
 
     Private Sub bgw_CutLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_CutLoader.RunWorkerCompleted
@@ -73,9 +74,5 @@
         dgv_details.Enabled = False
         dgv_details.DataSource = Nothing
         bgw_CutLoader.RunWorkerAsync()
-    End Sub
-
-    Private Sub Cutting_Department_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class

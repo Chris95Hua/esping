@@ -1,4 +1,5 @@
 ﻿Imports System.Text
+Imports System.Net
 
 ''' <summary>
 ''' Generic class for housing all the methods/models
@@ -113,6 +114,51 @@ Public NotInheritable Class Method
         Return files
     End Function
 
+
+    Public Shared Function FtpUpload(ByVal file As String, ByVal savedName As String) As Boolean
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(_CONNECTION.FTP_URL & savedName), FtpWebRequest)
+
+        Try
+            Dim bytes() As Byte = IO.File.ReadAllBytes(file)
+
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile
+            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+            ftpRequest.UseBinary = True
+            ftpRequest.ContentLength = bytes.Length()
+
+            Using uploadStream As IO.Stream = ftpRequest.GetRequestStream()
+                uploadStream.Write(bytes, 0, bytes.Length())
+                uploadStream.Close()
+            End Using
+
+            Return True
+        Catch ex As WebException
+            MessageBox.Show(ex.Message.ToString(), "Upload Error")
+        End Try
+
+        Return False
+    End Function
+
+
+    Public Shared Function FtpDownloadImage(ByVal imageName As String) As Image
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(_CONNECTION.FTP_URL & imageName), FtpWebRequest)
+
+        Try
+            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile
+            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+
+            Return Image.FromStream(ftpRequest.GetResponse.GetResponseStream())
+        Catch ex As WebException
+            MessageBox.Show(ex.Message.ToString(), "Download Error")
+        End Try
+
+        Return Nothing
+
+        'Dim ImageStream As New IO.MemoryStream(ImageInBytes)
+        'PictureBox1.Image = New System.Drawing.Bitmap(ImageStream)
+    End Function
+
+
     Public Shared Function CreateOrder(ByVal order As Dictionary(Of String, Object)) As Boolean
         Dim sqlStmt As New StringBuilder()
         Dim orderValues As New StringBuilder()
@@ -186,7 +232,8 @@ Public NotInheritable Class Method
     Public Shared Sub OpenForm()
         If Session.department_id = _PROCESS.APPROVAL Then
             'Approve Order
-            Dim approve As New Approve_Order
+            Dim approve As New Manage_Order
+            'Dim approve As New Approve_Order
             approve.Show()
         ElseIf Session.department_id = _PROCESS.CUTTING Then
             'Cutting Department

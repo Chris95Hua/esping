@@ -52,8 +52,6 @@
         End If
     End Sub
 
-    ' background worker thread
-    ' load data for order
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",

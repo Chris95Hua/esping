@@ -4,6 +4,7 @@
     Sub New(ByVal orderID As Integer)
         ' This call is required by the designer.
         InitializeComponent()
+
         Me.orderID = orderID
     End Sub
 
@@ -27,6 +28,7 @@
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUFF, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ARTWORK, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SIZE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.MATERIAL, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLOUR, ", ",
@@ -48,7 +50,14 @@
         Dim orderID As New Dictionary(Of String, Object)
         orderID.Add(_ORDER_CUSTOMER.ORDER_ID, e.Argument)
 
-        e.Result = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
+        Dim results As New Dictionary(Of String, Object)
+        results = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
+
+        If results.ContainsKey(_ORDER_CUSTOMER.ARTWORK) Then
+            results.Add("image", Method.FtpDownloadImage(results.Item(_ORDER_CUSTOMER.ARTWORK)))
+        End If
+
+        e.Result = results
 
     End Sub
 
@@ -136,6 +145,9 @@
             End If
 
             ' artwork
+            If results.ContainsKey("image") Then
+                pic_artwork.Image = results.Item("image")
+            End If
 
             ' size
             If results.ContainsKey(_ORDER_CUSTOMER.SIZE) Then
@@ -251,5 +263,9 @@
             'Generate Barcode (Sewing Department)
             btn_multi.Text = "Generate Barcode"
         End If
+    End Sub
+
+    Private Sub Order_Details_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class
