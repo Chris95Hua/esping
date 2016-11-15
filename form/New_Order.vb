@@ -13,6 +13,7 @@
 
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_createOrder.DoWork
         Dim imgStore As String = DateTime.Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork.Text)
+        Dim docStore As String = DateTime.Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_docPath.Text)
         Dim order As New Dictionary(Of String, Object)
 
         ' order details
@@ -141,7 +142,7 @@
 
         ' image
         order.Add(_ORDER_CUSTOMER.ARTWORK, imgStore)
-
+        order.Add(_ORDER_CUSTOMER.PAYMENT_DOC, imgStore)
 
         ' payment
         Dim payment As New Dictionary(Of String, Integer)
@@ -167,11 +168,9 @@
         order.Add(_ORDER_CUSTOMER.ISSUE_DATE, DateTime.Now)
 
 
-        If Method.FtpUpload(txt_artwork.Text, imgStore) Then
+        If Method.FtpUpload(txt_artwork.Text, imgStore) And Method.FtpUpload(txt_docPath.Text, docStore) Then
             MessageBox.Show("upload completed")
         End If
-
-
 
         If Method.CreateOrder(order) Then
             ' add back to datagridview
@@ -192,6 +191,6 @@
     End Sub
 
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
-        Dim file As String = Method.DialogGetFile(_FILE.TYPE.DOCUMENT).First
+        txt_docPath.Text = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
     End Sub
 End Class

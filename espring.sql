@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2016 at 09:30 AM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: Nov 15, 2016 at 02:05 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -72,6 +72,7 @@ CREATE TABLE `order_customer` (
   `issue_date` date NOT NULL,
   `delivery_date` date NOT NULL,
   `payment` varchar(32) NOT NULL COMMENT 'Uses json string',
+  `payment_doc` char(51) NOT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
   `approval` tinyint(1) UNSIGNED DEFAULT '0',
@@ -88,8 +89,8 @@ CREATE TABLE `order_customer` (
 -- Dumping data for table `order_customer`
 --
 
-INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `amount`, `remarks`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
-(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 'stuff', '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', 120, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
+INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `payment_doc`, `amount`, `remarks`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
+(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 'stuff', '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', '', 120, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
 
 -- --------------------------------------------------------
 

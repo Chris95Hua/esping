@@ -1,5 +1,7 @@
 ﻿Public Class Order_Details
-    Dim orderID As Integer
+    Private orderID As Integer
+    Private tempArtworkImgPath As String
+    Private tempPaymentImgPath As String
 
     Sub New(ByVal orderID As Integer)
         ' This call is required by the designer.
@@ -36,6 +38,7 @@
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT, ", ",
                                               _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
                                               " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
@@ -54,11 +57,14 @@
         results = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
 
         If results.ContainsKey(_ORDER_CUSTOMER.ARTWORK) Then
-            results.Add("image", Method.FtpDownloadImage(results.Item(_ORDER_CUSTOMER.ARTWORK)))
+            tempArtworkImgPath = results.Item(_ORDER_CUSTOMER.ARTWORK)
+            results.Add("image", Method.FtpDownloadImage(tempArtworkImgPath))
+        End If
+        If results.ContainsKey(_ORDER_CUSTOMER.PAYMENT_DOC) Then
+            tempPaymentImgPath = results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
         End If
 
         e.Result = results
-
     End Sub
 
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_DetailsLoader.RunWorkerCompleted
@@ -146,7 +152,7 @@
 
             ' artwork
             If results.ContainsKey("image") Then
-                pic_artwork.Image = results.Item("image")
+                pic_artwork.Image = Method.FtpDownloadImage(results.Item("image"))
             End If
 
             ' size
@@ -265,7 +271,17 @@
         End If
     End Sub
 
-    Private Sub Order_Details_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub pic_artwork_Click(sender As Object, e As EventArgs) Handles pic_artwork.Click
+        If tempArtworkImgPath IsNot Nothing Then
+            Dim showImg As New View_image(tempArtworkImgPath)
+            showImg.ShowDialog()
+        End If
+    End Sub
 
+    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
+        If tempPaymentImgPath IsNot Nothing Then
+            Dim showImg As New View_image(tempPaymentImgPath)
+            showImg.ShowDialog()
+        End If
     End Sub
 End Class

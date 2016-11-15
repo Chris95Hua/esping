@@ -136,6 +136,12 @@
     <Compile Include="form\Job_Log.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\View_image.Designer.vb">
+      <DependentUpon>View_image.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\View_image.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Method.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -218,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\Job_Log.resx">
       <DependentUpon>Job_Log.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\View_image.resx">
+      <DependentUpon>View_image.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

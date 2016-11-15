@@ -50,7 +50,6 @@ Partial Class Manage_Order
         Me.MenuStrip1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_newOrder, Me.btn_passUpdate, Me.btn_logout, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.MinimumSize = New System.Drawing.Size(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(21, 8, 0, 8)
         Me.MenuStrip1.Size = New System.Drawing.Size(1002, 45)

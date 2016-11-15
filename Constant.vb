@@ -69,6 +69,7 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const ISSUE_DATE As String = "issue_date"
     Public Const DELIVERY_DATE As String = "delivery_date"
     Public Const PAYMENT As String = "payment"
+    Public Const PAYMENT_DOC As String = "payment_doc"
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
     Public Const APPROVAL As String = "approval"

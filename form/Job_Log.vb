@@ -1,5 +1,5 @@
 ﻿Public Class Job_Log
-    Dim orderID As Integer
+    Private orderID As Integer
 
     Sub New(ByVal orderID As Integer)
         ' This call is required by the designer.
