@@ -79,7 +79,7 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const PAYMENT_DOC As String = "payment_doc"
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
-    Public Const inventory_order As String = "inventory_order"
+    Public Const INVENTORY_ORDER As String = "inventory_order"
     Public Const APPROVAL As String = "approval"
     Public Const INVENTORY As String = "inventory"
     Public Const CUTTING As String = "cutting"

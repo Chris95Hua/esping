@@ -25,18 +25,20 @@ Partial Class Inventory_Preparation
         Me.txt_barcode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
-        Me.ListBox2 = New System.Windows.Forms.ListBox()
         Me.btn_add = New System.Windows.Forms.Button()
         Me.btn_submit = New System.Windows.Forms.Button()
         Me.btn_delete = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
-        Me.nud_quantity = New System.Windows.Forms.NumericUpDown()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.btn_newInventorty = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_deleteItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
+        Me.nud_quantity = New System.Windows.Forms.NumericUpDown()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.item = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.quantity = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         CType(Me.nud_quantity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -67,19 +69,9 @@ Partial Class Inventory_Preparation
         Me.ListBox1.Size = New System.Drawing.Size(297, 504)
         Me.ListBox1.TabIndex = 2
         '
-        'ListBox2
-        '
-        Me.ListBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.ItemHeight = 25
-        Me.ListBox2.Location = New System.Drawing.Point(629, 111)
-        Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(297, 504)
-        Me.ListBox2.TabIndex = 2
-        '
         'btn_add
         '
-        Me.btn_add.Location = New System.Drawing.Point(420, 285)
+        Me.btn_add.Location = New System.Drawing.Point(428, 285)
         Me.btn_add.Name = "btn_add"
         Me.btn_add.Size = New System.Drawing.Size(147, 47)
         Me.btn_add.TabIndex = 3
@@ -97,7 +89,7 @@ Partial Class Inventory_Preparation
         '
         'btn_delete
         '
-        Me.btn_delete.Location = New System.Drawing.Point(420, 381)
+        Me.btn_delete.Location = New System.Drawing.Point(428, 381)
         Me.btn_delete.Name = "btn_delete"
         Me.btn_delete.Size = New System.Drawing.Size(147, 47)
         Me.btn_delete.TabIndex = 3
@@ -126,12 +118,6 @@ Partial Class Inventory_Preparation
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
-        'btn_passUpdate
-        '
-        Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
-        Me.btn_passUpdate.Text = "Password Update"
-        '
         'txt_welcome
         '
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
@@ -139,25 +125,6 @@ Partial Class Inventory_Preparation
         Me.txt_welcome.Name = "txt_welcome"
         Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
         Me.txt_welcome.Text = "Welcome: Nelson"
-        '
-        'nud_quantity
-        '
-        Me.nud_quantity.Location = New System.Drawing.Point(420, 223)
-        Me.nud_quantity.Maximum = New Decimal(New Integer() {99999999, 0, 0, 0})
-        Me.nud_quantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nud_quantity.Name = "nud_quantity"
-        Me.nud_quantity.Size = New System.Drawing.Size(147, 26)
-        Me.nud_quantity.TabIndex = 12
-        Me.nud_quantity.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(416, 200)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 20)
-        Me.Label2.TabIndex = 11
-        Me.Label2.Text = "Quantity"
         '
         'btn_newInventorty
         '
@@ -171,18 +138,65 @@ Partial Class Inventory_Preparation
         Me.btn_deleteItem.Size = New System.Drawing.Size(154, 29)
         Me.btn_deleteItem.Text = "Delete Inventory"
         '
+        'btn_passUpdate
+        '
+        Me.btn_passUpdate.Name = "btn_passUpdate"
+        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Text = "Password Update"
+        '
+        'nud_quantity
+        '
+        Me.nud_quantity.Location = New System.Drawing.Point(428, 223)
+        Me.nud_quantity.Maximum = New Decimal(New Integer() {99999999, 0, 0, 0})
+        Me.nud_quantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nud_quantity.Name = "nud_quantity"
+        Me.nud_quantity.Size = New System.Drawing.Size(147, 26)
+        Me.nud_quantity.TabIndex = 12
+        Me.nud_quantity.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(424, 200)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(68, 20)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Quantity"
+        '
+        'ListView1
+        '
+        Me.ListView1.AllowColumnReorder = True
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.item, Me.quantity})
+        Me.ListView1.FullRowSelect = True
+        Me.ListView1.Location = New System.Drawing.Point(638, 111)
+        Me.ListView1.MultiSelect = False
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(297, 504)
+        Me.ListView1.TabIndex = 16
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
+        '
+        'item
+        '
+        Me.item.Text = "Item Name"
+        Me.item.Width = 135
+        '
+        'quantity
+        '
+        Me.quantity.Text = "Quantity"
+        '
         'Inventory_Preparation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.nud_quantity)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.btn_delete)
         Me.Controls.Add(Me.btn_submit)
         Me.Controls.Add(Me.btn_add)
-        Me.Controls.Add(Me.ListBox2)
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt_barcode)
@@ -200,7 +214,6 @@ Partial Class Inventory_Preparation
     Friend WithEvents txt_barcode As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
-    Friend WithEvents ListBox2 As System.Windows.Forms.ListBox
     Friend WithEvents btn_add As System.Windows.Forms.Button
     Friend WithEvents btn_submit As System.Windows.Forms.Button
     Friend WithEvents btn_delete As System.Windows.Forms.Button
@@ -212,4 +225,7 @@ Partial Class Inventory_Preparation
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents btn_newInventorty As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btn_deleteItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents item As System.Windows.Forms.ColumnHeader
+    Friend WithEvents quantity As System.Windows.Forms.ColumnHeader
 End Class
