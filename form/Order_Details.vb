@@ -1,23 +1,31 @@
 ﻿Public Class Order_Details
     Private orderID As Integer
+    Private status As Integer
     Private artworkImg As String
     Private paymentImg As String
 
-    Sub New(ByVal orderID As Integer)
+    Sub New(ByVal orderID As Integer, ByVal status As Integer)
         ' This call is required by the designer.
         InitializeComponent()
 
         Me.orderID = orderID
+        Me.status = status
     End Sub
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
         bgw_DetailsLoader.RunWorkerAsync(orderID)
-        If Session.department_id = 1 Or Session.department_id = 2 Or Session.department_id = 7 Then
+
+        If Session.department_id = _PROCESS.APPROVAL Then
+            btn_multi.Text = "Approve"
             btn_multi.Show()
-        Else
-            btn_multi.Hide()
+        ElseIf Session.department_id = _PROCESS.CUTTING Then
+            btn_multi.Text = "Generate Barcode"
+            btn_multi.Show()
+        ElseIf Session.department_id = _PROCESS.SEWING Then
+            btn_multi.Text = "Generate Barcode"
+            btn_multi.Show()
         End If
     End Sub
 
@@ -264,16 +272,15 @@
     End Sub
 
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
-        'this button can perform multiple function (generate barcode (cutting & sewing department), approve order) based on which department 
+        Dim update As New Dictionary(Of String, Object)
+
         If Session.department_id = _PROCESS.APPROVAL Then
+
             'Approve function (Approve Order)
-            btn_multi.Text = "Approve"
         ElseIf Session.department_id = _PROCESS.CUTTING Then
             'Generate Barcode (Cutting Department)
-            btn_multi.Text = "Generate Barcode"
         ElseIf Session.department_id = _PROCESS.SEWING Then
             'Generate Barcode (Sewing Department)
-            btn_multi.Text = "Generate Barcode"
         End If
     End Sub
 

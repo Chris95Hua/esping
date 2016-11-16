@@ -84,3 +84,6 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.View_image.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.New_Inventory.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Delete_Item.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.New_Inventory.resources

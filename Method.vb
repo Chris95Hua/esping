@@ -260,8 +260,7 @@ Public NotInheritable Class Method
     Public Shared Sub OpenForm()
         If Session.department_id = _PROCESS.APPROVAL Then
             'Approve Order
-            Dim approve As New Manage_Order
-            'Dim approve As New Approve_Order
+            Dim approve As New Approve_Order
             approve.Show()
         ElseIf Session.department_id = _PROCESS.CUTTING Then
             'Cutting Department

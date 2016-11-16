@@ -20,16 +20,15 @@
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
         dgv_details.Enabled = False
         dgv_details = Nothing
-        ' run background worker async
-        ' enable dgv_details if the work is done
+        bgw_SewingLoader.RunWorkerAsync()
     End Sub
 
-    Private Sub txt_Search_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.GotFocus
+    Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
         txt_search.Text = ""
         txt_search.ForeColor = Color.Black
     End Sub
 
-    Private Sub btn_search_LostFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.LostFocus
+    Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
             txt_search.Text = "Search"
             txt_search.ForeColor = Color.Gray
@@ -43,7 +42,8 @@
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               " CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " WHEN 3 THEN 'CHECKED-IN' ELSE '-' END AS embroidery,",
-                                              " CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " WHEN 3 THEN 'CHECKED-IN' ELSE '-' END AS printing",
+                                              " CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " WHEN 3 THEN 'CHECKED-IN' ELSE '-' END AS printing,",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 1"
                                         )
@@ -56,5 +56,10 @@
         End If
 
         dgv_details.Enabled = True
+    End Sub
+
+    Private Sub dgv_details_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_details.CellContentClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(6).Value)
+        details.ShowDialog()
     End Sub
 End Class

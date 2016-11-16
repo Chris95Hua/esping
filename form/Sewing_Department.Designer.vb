@@ -38,6 +38,7 @@ Partial Class Sewing_Department
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.embroidery = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Printing = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.sewing_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.bgw_SewingLoader = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,7 +50,8 @@ Partial Class Sewing_Department
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 7
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -61,14 +63,14 @@ Partial Class Sewing_Department
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 22)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 22)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'txt_welcome
@@ -76,25 +78,25 @@ Partial Class Sewing_Department
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 22)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(12, 55)
+        Me.txt_search.Location = New System.Drawing.Point(8, 36)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(204, 26)
+        Me.txt_search.Size = New System.Drawing.Size(137, 20)
         Me.txt_search.TabIndex = 9
         Me.txt_search.Text = "Search"
         '
         'btn_refresh
         '
         Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(878, 52)
-        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 34)
         Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 11
         Me.btn_refresh.Text = "Refresh"
         Me.btn_refresh.UseVisualStyleBackColor = True
@@ -116,7 +118,7 @@ Partial Class Sewing_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.embroidery, Me.Printing})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.embroidery, Me.Printing, Me.sewing_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -126,7 +128,8 @@ Partial Class Sewing_Department
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
-        Me.dgv_details.Location = New System.Drawing.Point(12, 115)
+        Me.dgv_details.Location = New System.Drawing.Point(8, 75)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -140,7 +143,7 @@ Partial Class Sewing_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(978, 602)
+        Me.dgv_details.Size = New System.Drawing.Size(652, 391)
         Me.dgv_details.TabIndex = 12
         '
         'order_id
@@ -185,16 +188,28 @@ Partial Class Sewing_Department
         Me.Printing.Name = "Printing"
         Me.Printing.ReadOnly = True
         '
+        'sewing_status
+        '
+        Me.sewing_status.DataPropertyName = "sewing"
+        Me.sewing_status.HeaderText = "Sewing Status"
+        Me.sewing_status.Name = "sewing_status"
+        Me.sewing_status.ReadOnly = True
+        Me.sewing_status.Visible = False
+        '
+        'bgw_SewingLoader
+        '
+        '
         'Sewing_Department
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 729)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.txt_search)
-        Me.MinimumSize = New System.Drawing.Size(1021, 759)
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MinimumSize = New System.Drawing.Size(686, 507)
         Me.Name = "Sewing_Department"
         Me.Text = "Sewing Department"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -212,11 +227,12 @@ Partial Class Sewing_Department
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
     Friend WithEvents btn_refresh As Button
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
-    Friend WithEvents order_id As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents customer As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents order_name As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents delivery_date As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents embroidery As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Printing As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents bgw_SewingLoader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents order_id As DataGridViewTextBoxColumn
+    Friend WithEvents customer As DataGridViewTextBoxColumn
+    Friend WithEvents order_name As DataGridViewTextBoxColumn
+    Friend WithEvents delivery_date As DataGridViewTextBoxColumn
+    Friend WithEvents embroidery As DataGridViewTextBoxColumn
+    Friend WithEvents Printing As DataGridViewTextBoxColumn
+    Friend WithEvents sewing_status As DataGridViewTextBoxColumn
 End Class

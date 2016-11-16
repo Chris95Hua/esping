@@ -18,7 +18,8 @@
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS, ", ",
-                                              _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME,
+                                              _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING,
                                               " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                               " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
                                               "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
@@ -40,8 +41,8 @@
         dgv_details.Enabled = True
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(6).Value)
         details.ShowDialog()
     End Sub
 
@@ -57,12 +58,12 @@
         bgw_PrintLoader.RunWorkerAsync()
     End Sub
 
-    Private Sub txt_Search_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.GotFocus
+    Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
         txt_search.Text = ""
         txt_search.ForeColor = Color.Black
     End Sub
 
-    Private Sub btn_search_LostFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.LostFocus
+    Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
             txt_search.Text = "Search"
             txt_search.ForeColor = Color.Gray

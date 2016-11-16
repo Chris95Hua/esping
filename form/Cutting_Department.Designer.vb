@@ -32,13 +32,14 @@ Partial Class Cutting_Department
         Me.txt_search = New System.Windows.Forms.TextBox()
         Me.bgw_CutLoader = New System.ComponentModel.BackgroundWorker()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
+        Me.btn_refresh = New System.Windows.Forms.Button()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datetime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btn_refresh = New System.Windows.Forms.Button()
+        Me.cutting_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -110,7 +111,7 @@ Partial Class Cutting_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column6, Me.status, Me.datetime})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column6, Me.status, Me.datetime, Me.cutting_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -138,26 +139,40 @@ Partial Class Cutting_Department
         Me.dgv_details.Size = New System.Drawing.Size(652, 399)
         Me.dgv_details.TabIndex = 6
         '
+        'btn_refresh
+        '
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 28)
+        Me.btn_refresh.Name = "btn_refresh"
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
+        Me.btn_refresh.TabIndex = 7
+        Me.btn_refresh.Text = "Refresh"
+        Me.btn_refresh.UseVisualStyleBackColor = True
+        '
         'Column1
         '
+        Me.Column1.DataPropertyName = "order_id"
         Me.Column1.HeaderText = "Job Sheet No."
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
         '
         'Column2
         '
+        Me.Column2.DataPropertyName = "customer"
         Me.Column2.HeaderText = "Customer Name"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         '
         'Column3
         '
+        Me.Column3.DataPropertyName = "order_name"
         Me.Column3.HeaderText = "Order Name"
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
         'Column6
         '
+        Me.Column6.DataPropertyName = "delivery_date"
         Me.Column6.HeaderText = "Delivery Date"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
@@ -176,15 +191,13 @@ Partial Class Cutting_Department
         Me.datetime.Name = "datetime"
         Me.datetime.ReadOnly = True
         '
-        'btn_refresh
+        'cutting_status
         '
-        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(585, 28)
-        Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
-        Me.btn_refresh.TabIndex = 7
-        Me.btn_refresh.Text = "Refresh"
-        Me.btn_refresh.UseVisualStyleBackColor = True
+        Me.cutting_status.DataPropertyName = "cutting"
+        Me.cutting_status.HeaderText = "Cutting Status"
+        Me.cutting_status.Name = "cutting_status"
+        Me.cutting_status.ReadOnly = True
+        Me.cutting_status.Visible = False
         '
         'Cutting_Department
         '
@@ -214,11 +227,12 @@ Partial Class Cutting_Department
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
     Friend WithEvents bgw_CutLoader As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents datetime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btn_refresh As Button
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents status As DataGridViewTextBoxColumn
+    Friend WithEvents datetime As DataGridViewTextBoxColumn
+    Friend WithEvents cutting_status As DataGridViewTextBoxColumn
 End Class

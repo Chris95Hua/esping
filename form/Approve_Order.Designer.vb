@@ -29,6 +29,9 @@ Partial Class Approve_Order
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
+        Me.btn_refresh = New System.Windows.Forms.Button()
         Me.order_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -36,9 +39,7 @@ Partial Class Approve_Order
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status_column = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.e_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.bgw_ApprovalLoader = New System.ComponentModel.BackgroundWorker()
-        Me.btn_refresh = New System.Windows.Forms.Button()
+        Me.approval_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -96,7 +97,7 @@ Partial Class Approve_Order
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status_column, Me.e_date})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.issue_date, Me.delivery_date, Me.status_column, Me.e_date, Me.approval_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -114,6 +115,28 @@ Partial Class Approve_Order
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv_details.Size = New System.Drawing.Size(651, 388)
         Me.dgv_details.TabIndex = 2
+        '
+        'txt_search
+        '
+        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.txt_search.Location = New System.Drawing.Point(9, 37)
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.Size = New System.Drawing.Size(203, 20)
+        Me.txt_search.TabIndex = 3
+        Me.txt_search.Text = "Search"
+        '
+        'bgw_ApprovalLoader
+        '
+        '
+        'btn_refresh
+        '
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 34)
+        Me.btn_refresh.Name = "btn_refresh"
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
+        Me.btn_refresh.TabIndex = 4
+        Me.btn_refresh.Text = "Refresh"
+        Me.btn_refresh.UseVisualStyleBackColor = True
         '
         'order_id
         '
@@ -164,27 +187,13 @@ Partial Class Approve_Order
         Me.e_date.Name = "e_date"
         Me.e_date.ReadOnly = True
         '
-        'txt_search
+        'approval_status
         '
-        Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.txt_search.Location = New System.Drawing.Point(9, 37)
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(203, 20)
-        Me.txt_search.TabIndex = 3
-        Me.txt_search.Text = "Search"
-        '
-        'bgw_ApprovalLoader
-        '
-        '
-        'btn_refresh
-        '
-        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(585, 34)
-        Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
-        Me.btn_refresh.TabIndex = 4
-        Me.btn_refresh.Text = "Refresh"
-        Me.btn_refresh.UseVisualStyleBackColor = True
+        Me.approval_status.DataPropertyName = "approval"
+        Me.approval_status.HeaderText = "Approval Status"
+        Me.approval_status.Name = "approval_status"
+        Me.approval_status.ReadOnly = True
+        Me.approval_status.Visible = False
         '
         'Approve_Order
         '
@@ -214,6 +223,7 @@ Partial Class Approve_Order
     Friend WithEvents dgv_details As System.Windows.Forms.DataGridView
     Friend WithEvents txt_search As System.Windows.Forms.TextBox
     Friend WithEvents bgw_ApprovalLoader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btn_refresh As Button
     Friend WithEvents order_id As DataGridViewTextBoxColumn
     Friend WithEvents customer As DataGridViewTextBoxColumn
     Friend WithEvents order_name As DataGridViewTextBoxColumn
@@ -221,5 +231,5 @@ Partial Class Approve_Order
     Friend WithEvents delivery_date As DataGridViewTextBoxColumn
     Friend WithEvents status_column As DataGridViewTextBoxColumn
     Friend WithEvents e_date As DataGridViewTextBoxColumn
-    Friend WithEvents btn_refresh As Button
+    Friend WithEvents approval_status As DataGridViewTextBoxColumn
 End Class

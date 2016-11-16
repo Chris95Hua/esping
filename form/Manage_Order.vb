@@ -17,12 +17,12 @@
         newOrderForm.Show()
     End Sub
 
-    Private Sub txt_Search_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.GotFocus
+    Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
         txt_search.Text = ""
         txt_search.ForeColor = Color.Black
     End Sub
 
-    Private Sub btn_search_LostFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_search.LostFocus
+    Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
             txt_search.Text = "Search"
             txt_search.ForeColor = Color.Gray
@@ -121,8 +121,8 @@
         End If
     End Sub
 
-    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As System.Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value)
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
+        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, -1)
         details.ShowDialog()
     End Sub
 
