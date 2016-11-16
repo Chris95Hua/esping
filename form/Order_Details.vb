@@ -273,14 +273,30 @@
 
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
         Dim update As New Dictionary(Of String, Object)
+        Dim updatedStatus As Integer = -1
+
+        Select Case Me.status
+            Case 0
+                updatedStatus = 1
+            Case 1
+                updatedStatus = 2
+            Case 2
+                updatedStatus = 3
+        End Select
 
         If Session.department_id = _PROCESS.APPROVAL Then
-
+            update.Add(_ORDER_CUSTOMER.APPROVAL, updatedStatus)
             'Approve function (Approve Order)
         ElseIf Session.department_id = _PROCESS.CUTTING Then
+            update.Add(_ORDER_CUSTOMER.CUTTING, updatedStatus)
             'Generate Barcode (Cutting Department)
         ElseIf Session.department_id = _PROCESS.SEWING Then
+            update.Add(_ORDER_CUSTOMER.SEWING, updatedStatus)
             'Generate Barcode (Sewing Department)
+        End If
+
+        If update.Count = 1 Then
+            Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", orderID}, update)
         End If
     End Sub
 
