@@ -2,7 +2,6 @@ c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.exe
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.pdb
 c:\users\nelson\documents\visual studio 2012\Projects\espring\bin\Debug\espring.xml
-c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.Resources.resources
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
 c:\users\nelson\documents\visual studio 2012\Projects\espring\obj\Debug\espring.exe
@@ -83,3 +82,5 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Register.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.View_image.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.View_image.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Delete_Item.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.New_Inventory.resources

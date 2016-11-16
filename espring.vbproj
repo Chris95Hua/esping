@@ -85,6 +85,18 @@
     <Compile Include="form\Approve_Order.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\Delete_Item.Designer.vb">
+      <DependentUpon>Delete_Item.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Delete_Item.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\New_Inventory.Designer.vb">
+      <DependentUpon>New_Inventory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\New_Inventory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\Order_Details.Designer.vb">
       <DependentUpon>Order_Details.vb</DependentUpon>
     </Compile>
@@ -200,6 +212,12 @@
   <ItemGroup>
     <EmbeddedResource Include="form\Approve_Order.resx">
       <DependentUpon>Approve_Order.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\Delete_Item.resx">
+      <DependentUpon>Delete_Item.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\New_Inventory.resx">
+      <DependentUpon>New_Inventory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Order_Details.resx">
       <DependentUpon>Order_Details.vb</DependentUpon>

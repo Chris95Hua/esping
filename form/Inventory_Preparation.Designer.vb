@@ -33,12 +33,17 @@ Partial Class Inventory_Preparation
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
+        Me.nud_quantity = New System.Windows.Forms.NumericUpDown()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.btn_newInventorty = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_deleteItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.nud_quantity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txt_barcode
         '
-        Me.txt_barcode.Location = New System.Drawing.Point(95, 45)
+        Me.txt_barcode.Location = New System.Drawing.Point(95, 53)
         Me.txt_barcode.Name = "txt_barcode"
         Me.txt_barcode.Size = New System.Drawing.Size(337, 26)
         Me.txt_barcode.TabIndex = 0
@@ -46,7 +51,7 @@ Partial Class Inventory_Preparation
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 48)
+        Me.Label1.Location = New System.Drawing.Point(12, 56)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(77, 20)
         Me.Label1.TabIndex = 1
@@ -57,7 +62,7 @@ Partial Class Inventory_Preparation
         Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.ItemHeight = 25
-        Me.ListBox1.Location = New System.Drawing.Point(66, 90)
+        Me.ListBox1.Location = New System.Drawing.Point(66, 111)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(297, 504)
         Me.ListBox1.TabIndex = 2
@@ -67,14 +72,14 @@ Partial Class Inventory_Preparation
         Me.ListBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 25
-        Me.ListBox2.Location = New System.Drawing.Point(629, 90)
+        Me.ListBox2.Location = New System.Drawing.Point(629, 111)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(297, 504)
         Me.ListBox2.TabIndex = 2
         '
         'btn_add
         '
-        Me.btn_add.Location = New System.Drawing.Point(420, 264)
+        Me.btn_add.Location = New System.Drawing.Point(420, 285)
         Me.btn_add.Name = "btn_add"
         Me.btn_add.Size = New System.Drawing.Size(147, 47)
         Me.btn_add.TabIndex = 3
@@ -83,7 +88,7 @@ Partial Class Inventory_Preparation
         '
         'btn_submit
         '
-        Me.btn_submit.Location = New System.Drawing.Point(31, 638)
+        Me.btn_submit.Location = New System.Drawing.Point(12, 653)
         Me.btn_submit.Name = "btn_submit"
         Me.btn_submit.Size = New System.Drawing.Size(147, 47)
         Me.btn_submit.TabIndex = 3
@@ -92,7 +97,7 @@ Partial Class Inventory_Preparation
         '
         'btn_delete
         '
-        Me.btn_delete.Location = New System.Drawing.Point(420, 360)
+        Me.btn_delete.Location = New System.Drawing.Point(420, 381)
         Me.btn_delete.Name = "btn_delete"
         Me.btn_delete.Size = New System.Drawing.Size(147, 47)
         Me.btn_delete.TabIndex = 3
@@ -102,7 +107,7 @@ Partial Class Inventory_Preparation
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.txt_welcome, Me.btn_newInventorty, Me.btn_deleteItem, Me.btn_passUpdate})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
@@ -135,11 +140,44 @@ Partial Class Inventory_Preparation
         Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
+        'nud_quantity
+        '
+        Me.nud_quantity.Location = New System.Drawing.Point(420, 223)
+        Me.nud_quantity.Maximum = New Decimal(New Integer() {99999999, 0, 0, 0})
+        Me.nud_quantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nud_quantity.Name = "nud_quantity"
+        Me.nud_quantity.Size = New System.Drawing.Size(147, 26)
+        Me.nud_quantity.TabIndex = 12
+        Me.nud_quantity.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(416, 200)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(68, 20)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Quantity"
+        '
+        'btn_newInventorty
+        '
+        Me.btn_newInventorty.Name = "btn_newInventorty"
+        Me.btn_newInventorty.Size = New System.Drawing.Size(139, 29)
+        Me.btn_newInventorty.Text = "New Inventory"
+        '
+        'btn_deleteItem
+        '
+        Me.btn_deleteItem.Name = "btn_deleteItem"
+        Me.btn_deleteItem.Size = New System.Drawing.Size(154, 29)
+        Me.btn_deleteItem.Text = "Delete Inventory"
+        '
         'Inventory_Preparation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.Controls.Add(Me.nud_quantity)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.btn_delete)
         Me.Controls.Add(Me.btn_submit)
@@ -154,6 +192,7 @@ Partial Class Inventory_Preparation
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.nud_quantity, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -169,4 +208,8 @@ Partial Class Inventory_Preparation
     Friend WithEvents btn_logout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btn_passUpdate As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txt_welcome As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents nud_quantity As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents btn_newInventorty As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btn_deleteItem As System.Windows.Forms.ToolStripMenuItem
 End Class

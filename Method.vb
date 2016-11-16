@@ -289,4 +289,18 @@ Public NotInheritable Class Method
             sewing.Show()
         End If
     End Sub
+
+    Public Shared Function addInventory(ByVal inventory_name As String) As Boolean
+        Dim invList As List(Of Dictionary(Of String, Object))
+        Dim itemName As New Dictionary(Of String, Object)
+        itemName.Add(_INVENTORY.ITEM, inventory_name)
+
+        invList = Database.SelectRows(_TABLE.INVENTORY, {_INVENTORY.ITEM, "=", inventory_name})
+        If invList Is Nothing Then
+            If Database.Insert(_TABLE.INVENTORY, itemName) Then
+                Return True
+            End If
+        End If
+        Return False
+    End Function
 End Class
