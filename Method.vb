@@ -139,7 +139,7 @@ Public NotInheritable Class Method
 
             Return True
         Catch ex As WebException
-            MessageBox.Show(ex.Message.ToString(), "Upload Error")
+            MessageBox.Show(ex.Message.ToString(), "File Upload Error")
         End Try
 
         Return False
@@ -161,7 +161,7 @@ Public NotInheritable Class Method
 
             Return ftpRequest.GetResponse.GetResponseStream()
         Catch ex As WebException
-            MessageBox.Show(ex.Message.ToString(), "Download Error")
+            MessageBox.Show(ex.Message.ToString(), "File Download Error")
         End Try
 
         Return Nothing
@@ -169,10 +169,23 @@ Public NotInheritable Class Method
 
 
     Public Shared Function FtpDelete(ByVal ParamArray filepath() As String) As Boolean
+        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+
+        For Each directory In filepath
+            ftpUri.Append("/").Append(directory)
+        Next
+
+        Try
+            Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(ftpUri.ToString()), FtpWebRequest)
+            ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile
+
+            Return True
+        Catch ex As WebException
+            MessageBox.Show(ex.Message.ToString(), "File Deletion Error")
+        End Try
 
         Return False
     End Function
-
 
     Public Shared Function CreateOrder(ByVal order As Dictionary(Of String, Object)) As Boolean
         Dim sqlStmt As New StringBuilder()

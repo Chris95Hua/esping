@@ -82,15 +82,42 @@
     End Sub
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
-        Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
         Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
-            If Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+            bgw_OrderDelete.RunWorkerAsync(dgv_details.SelectedCells.Item(0).Value)
+        End If
+    End Sub
 
-                dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
-            Else
-                MessageBox.Show("Delete failed")
+
+    Private Sub bgw_OrderDelete_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderDelete.DoWork
+        Dim result As Boolean = False
+        Dim id As Integer = e.Argument
+        Dim ftpFiles As New Dictionary(Of String, Object)
+
+        ftpFiles = Database.SelectRows(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}, _ORDER_CUSTOMER.ARTWORK, _ORDER_CUSTOMER.PAYMENT_DOC).First
+
+        If ftpFiles IsNot Nothing And Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+            If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK)) Then
+                Method.FtpDelete(_FTP_DIRECTORY.ARTWORK, ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK))
+
             End If
+
+            If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
+                Method.FtpDelete(_FTP_DIRECTORY.PAYMENT, ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC))
+            End If
+
+            result = True
+        End If
+
+        e.Result = result
+    End Sub
+
+    Private Sub bgw_OrderDelete_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderDelete.RunWorkerCompleted
+        If e.Result Then
+            dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
+            MessageBox.Show("Order has been removed successfully", "Task Completed")
+        Else
+            MessageBox.Show("Failed to remove order", "Error")
         End If
     End Sub
 

@@ -56,11 +56,11 @@
         Dim results As New Dictionary(Of String, Object)
         results = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
 
-        If results.ContainsKey(_ORDER_CUSTOMER.ARTWORK) And Not IsDBNull(results.Item(_ORDER_CUSTOMER.ARTWORK)) Then
+        If Not IsDBNull(results.Item(_ORDER_CUSTOMER.ARTWORK)) Then
             artworkImg = results.Item(_ORDER_CUSTOMER.ARTWORK)
         End If
 
-        If results.ContainsKey(_ORDER_CUSTOMER.PAYMENT_DOC) And Not IsDBNull(results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
+        If Not IsDBNull(results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
             paymentImg = results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
         End If
 
