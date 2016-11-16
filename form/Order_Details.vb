@@ -1,7 +1,7 @@
 ﻿Public Class Order_Details
     Private orderID As Integer
-    Private tempArtworkImgPath As String
-    Private tempPaymentImgPath As String
+    Private artworkImg As String
+    Private paymentImg As String
 
     Sub New(ByVal orderID As Integer)
         ' This call is required by the designer.
@@ -56,12 +56,12 @@
         Dim results As New Dictionary(Of String, Object)
         results = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
 
-        If results.ContainsKey(_ORDER_CUSTOMER.ARTWORK) Then
-            tempArtworkImgPath = results.Item(_ORDER_CUSTOMER.ARTWORK)
-            results.Add("image", Method.FtpDownloadImage(tempArtworkImgPath))
+        If results.ContainsKey(_ORDER_CUSTOMER.ARTWORK) And Not IsDBNull(results.Item(_ORDER_CUSTOMER.ARTWORK)) Then
+            artworkImg = results.Item(_ORDER_CUSTOMER.ARTWORK)
         End If
-        If results.ContainsKey(_ORDER_CUSTOMER.PAYMENT_DOC) Then
-            tempPaymentImgPath = results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
+
+        If results.ContainsKey(_ORDER_CUSTOMER.PAYMENT_DOC) And Not IsDBNull(results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
+            paymentImg = results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
         End If
 
         e.Result = results
@@ -151,8 +151,14 @@
             End If
 
             ' artwork
-            If results.ContainsKey("image") Then
-                pic_artwork.Image = Method.FtpDownloadImage(results.Item("image"))
+            If artworkImg Is Nothing Then
+                lbl_artwork.Text = "No artwork available"
+                pic_artwork.Enabled = False
+            End If
+
+            If paymentImg Is Nothing Then
+                lbl_docPath.Text = "No payment document available"
+                lbl_docPath.Enabled = False
             End If
 
             ' size
@@ -272,16 +278,12 @@
     End Sub
 
     Private Sub pic_artwork_Click(sender As Object, e As EventArgs) Handles pic_artwork.Click
-        If tempArtworkImgPath IsNot Nothing Then
-            Dim showImg As New View_image(tempArtworkImgPath)
-            showImg.ShowDialog()
-        End If
+        Dim showImg As New View_image(_FTP_DIRECTORY.ARTWORK, artworkImg)
+        showImg.ShowDialog()
     End Sub
 
     Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
-        If tempPaymentImgPath IsNot Nothing Then
-            Dim showImg As New View_image(tempPaymentImgPath)
-            showImg.ShowDialog()
-        End If
+        Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
+        showImg.ShowDialog()
     End Sub
 End Class

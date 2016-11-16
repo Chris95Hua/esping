@@ -115,8 +115,14 @@ Public NotInheritable Class Method
     End Function
 
 
-    Public Shared Function FtpUpload(ByVal file As String, ByVal savedName As String) As Boolean
-        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(_CONNECTION.FTP_URL & savedName), FtpWebRequest)
+    Public Shared Function FtpUpload(ByVal file As String, ByVal ParamArray saveDirectory() As String) As Boolean
+        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+
+        For Each directory In saveDirectory
+            ftpUri.Append("/").Append(directory)
+        Next
+
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(ftpUri.ToString()), FtpWebRequest)
 
         Try
             Dim bytes() As Byte = IO.File.ReadAllBytes(file)
@@ -140,22 +146,31 @@ Public NotInheritable Class Method
     End Function
 
 
-    Public Shared Function FtpDownloadImage(ByVal imageName As String) As Image
-        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(_CONNECTION.FTP_URL & imageName), FtpWebRequest)
+    Public Shared Function FtpDownload(ByVal ParamArray filepath() As String) As IO.Stream
+        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+
+        For Each directory In filepath
+            ftpUri.Append("/").Append(directory)
+        Next
+
+        Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(ftpUri.ToString()), FtpWebRequest)
 
         Try
             ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile
             ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
 
-            Return Image.FromStream(ftpRequest.GetResponse.GetResponseStream())
+            Return ftpRequest.GetResponse.GetResponseStream()
         Catch ex As WebException
             MessageBox.Show(ex.Message.ToString(), "Download Error")
         End Try
 
         Return Nothing
+    End Function
 
-        'Dim ImageStream As New IO.MemoryStream(ImageInBytes)
-        'PictureBox1.Image = New System.Drawing.Bitmap(ImageStream)
+
+    Public Shared Function FtpDelete(ByVal ParamArray filepath() As String) As Boolean
+
+        Return False
     End Function
 
 

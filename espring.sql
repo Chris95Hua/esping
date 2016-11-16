@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2016 at 02:05 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Nov 16, 2016 at 04:23 AM
+-- Server version: 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,6 +51,22 @@ INSERT INTO `department` (`department_id`, `name`, `c_user`, `c_date`, `e_user`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inventory`
+--
+
+CREATE TABLE `inventory` (
+  `inventory_id` int(10) UNSIGNED NOT NULL,
+  `item` varchar(64) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `c_user` int(10) UNSIGNED NOT NULL,
+  `c_date` datetime NOT NULL,
+  `e_user` int(10) UNSIGNED DEFAULT NULL,
+  `e_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order_customer`
 --
 
@@ -72,9 +88,10 @@ CREATE TABLE `order_customer` (
   `issue_date` date NOT NULL,
   `delivery_date` date NOT NULL,
   `payment` varchar(32) NOT NULL COMMENT 'Uses json string',
-  `payment_doc` char(51) NOT NULL,
+  `payment_doc` char(51) DEFAULT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
+  `inventory_order` varchar(255) DEFAULT NULL,
   `approval` tinyint(1) UNSIGNED DEFAULT '0',
   `inventory` tinyint(1) UNSIGNED DEFAULT '0',
   `cutting` tinyint(1) UNSIGNED DEFAULT '0',
@@ -89,8 +106,8 @@ CREATE TABLE `order_customer` (
 -- Dumping data for table `order_customer`
 --
 
-INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `payment_doc`, `amount`, `remarks`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
-(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', 'stuff', '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', '', 120, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
+INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `payment_doc`, `amount`, `remarks`, `inventory_order`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
+(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', NULL, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', '', 120, NULL, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -190,6 +207,12 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`department_id`);
 
 --
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`inventory_id`);
+
+--
 -- Indexes for table `order_customer`
 --
 ALTER TABLE `order_customer`
@@ -229,6 +252,11 @@ ALTER TABLE `user`
 --
 ALTER TABLE `department`
   MODIFY `department_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `inventory_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_customer`
 --

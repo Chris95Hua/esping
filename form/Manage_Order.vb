@@ -86,6 +86,7 @@
         Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
             If Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+
                 dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
             Else
                 MessageBox.Show("Delete failed")

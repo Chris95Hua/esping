@@ -5,9 +5,15 @@ Public NotInheritable Class _CONNECTION
     Public Const DB_PASSWORD As String = ""
     Public Const DB_NAME As String = "espring"
 
-    Public Const FTP_URL As String = "ftp://192.168.1.23/espring/"
+    Public Const FTP_URL As String = "ftp://192.168.1.23/espring"
     Public Const FTP_USER As String = "espring"
     Public Const FTP_PASSWORD As String = "1234"
+End Class
+
+
+Public NotInheritable Class _FTP_DIRECTORY
+    Public Const PAYMENT As String = "payment"
+    Public Const ARTWORK As String = "artwork"
 End Class
 
 
@@ -18,6 +24,7 @@ Public NotInheritable Class _TABLE
     Public Const ORDER_CUSTOMER As String = "order_customer"
     Public Const ORDER_LOG As String = "order_log"
     Public Const DEPARTMENT As String = "department"
+    Public Const INVENTORY As String = "inventory"
     Public Const STATUS As String = "status"
 End Class
 
@@ -72,6 +79,7 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const PAYMENT_DOC As String = "payment_doc"
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
+    Public Const inventory_order As String = "inventory_order"
     Public Const APPROVAL As String = "approval"
     Public Const INVENTORY As String = "inventory"
     Public Const CUTTING As String = "cutting"
@@ -100,6 +108,18 @@ End Class
 Public NotInheritable Class _DEPARTMENT
     Public Const DEPARTMENT_ID As String = "department_id"
     Public Const NAME As String = "name"
+    Public Const C_USER As String = "c_user"
+    Public Const C_DATE As String = "c_date"
+    Public Const E_USER As String = "e_user"
+    Public Const E_DATE As String = "e_date"
+End Class
+
+
+' List of columns available in "inventory" table
+Public NotInheritable Class _INVENTORY
+    Public Const INVENTORY_ID As String = "inventory_id"
+    Public Const ITEM As String = "item"
+    Public Const QUANTITY As String = "quantity"
     Public Const C_USER As String = "c_user"
     Public Const C_DATE As String = "c_date"
     Public Const E_USER As String = "e_user"
