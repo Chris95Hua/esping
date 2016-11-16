@@ -88,3 +88,33 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vb
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.New_Inventory.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\espring\bin\Debug\espring.exe.config
+C:\Users\user\Desktop\espring\obj\Debug\espring.exe
+C:\Users\user\Desktop\espring\obj\Debug\espring.xml
+C:\Users\user\Desktop\espring\obj\Debug\espring.pdb
+C:\Users\user\Desktop\espring\bin\Debug\espring.exe
+C:\Users\user\Desktop\espring\bin\Debug\espring.pdb
+C:\Users\user\Desktop\espring\bin\Debug\espring.xml
+C:\Users\user\Desktop\espring\bin\Debug\MySql.Data.dll
+C:\Users\user\Desktop\espring\bin\Debug\MySql.Data.xml
+C:\Users\user\Desktop\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\espring\obj\Debug\espring.Approve_Order.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Delete_Item.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.New_Inventory.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Order_Details.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Cutting_Department.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Edit_Delivery_Date.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Embroidery_Department.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Generate_Barcode.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Inventory_Preparation.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Login.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Job_Log.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.View_image.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Resources.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.new_order.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Manage_Order.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Update_Password.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Printing_Department.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Register.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Sewing_Department.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.vbproj.GenerateResource.Cache

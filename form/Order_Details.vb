@@ -16,16 +16,27 @@
         MyBase.OnLoad(e)
 
         bgw_DetailsLoader.RunWorkerAsync(orderID)
+        Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
+        Dim barcode() As Integer = {_PROCESS.CUTTING, _PROCESS.SEWING}
 
-        If Session.department_id = _PROCESS.APPROVAL Then
+        ' approval
+        If Session.department_id = _PROCESS.APPROVAL And status = 0 Then
             btn_multi.Text = "Approve"
             btn_multi.Show()
-        ElseIf Session.department_id = _PROCESS.CUTTING Then
-            btn_multi.Text = "Generate Barcode"
+        End If
+
+        ' check in/out
+        If checkInOut.Contains(Session.department_id) And status = 0 Then
+            btn_multi.Text = "Check in"
             btn_multi.Show()
-        ElseIf Session.department_id = _PROCESS.SEWING Then
-            btn_multi.Text = "Generate Barcode"
+        ElseIf checkInOut.Contains(Session.department_id) And status = 1 Then
+            btn_multi.Text = "Check out"
             btn_multi.Show()
+        End If
+
+        ' barcode generation
+        If barcode.Contains(Session.department_id) Then
+            btn_barcode.Show()
         End If
     End Sub
 
@@ -165,7 +176,7 @@
             End If
 
             If paymentImg Is Nothing Then
-                lbl_docPath.Text = "No payment document available"
+                lbl_docPath.Text = "No document available"
                 lbl_docPath.Enabled = False
             End If
 
@@ -273,14 +284,28 @@
 
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
         Dim update As New Dictionary(Of String, Object)
+        Dim updatedStatus As Integer = -1
+
+        Select Case Me.status
+            Case 0
+                updatedStatus = 1
+            Case 1
+                updatedStatus = 2
+        End Select
 
         If Session.department_id = _PROCESS.APPROVAL Then
-
+            update.Add(_ORDER_CUSTOMER.APPROVAL, updatedStatus)
             'Approve function (Approve Order)
         ElseIf Session.department_id = _PROCESS.CUTTING Then
+            update.Add(_ORDER_CUSTOMER.CUTTING, updatedStatus)
             'Generate Barcode (Cutting Department)
         ElseIf Session.department_id = _PROCESS.SEWING Then
+            update.Add(_ORDER_CUSTOMER.SEWING, updatedStatus)
             'Generate Barcode (Sewing Department)
+        End If
+
+        If update.Count = 1 Then
+            Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", orderID}, update)
         End If
     End Sub
 
