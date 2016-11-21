@@ -2,6 +2,10 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        If Session.department_id = _PROCESS.ADMIN Then
+            Session.department_id = _PROCESS.ORDER
+        End If
+
         txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_OrderLoader.RunWorkerAsync()
     End Sub
@@ -14,7 +18,10 @@
 
     Private Sub btn_newOrder_Click(sender As Object, e As EventArgs) Handles btn_newOrder.Click
         Dim newOrderForm As New new_order
-        newOrderForm.Show()
+        newOrderForm.ShowDialog()
+
+        ' refresh
+        refreshDataGridView()
     End Sub
 
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
@@ -35,11 +42,13 @@
     End Sub
 
     Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
-        Dim editDeliveryForm As New Edit_Delivery_Date
+        Dim editDeliveryForm As New Edit_Delivery_Date(Date.ParseExact(dgv_details.SelectedCells.Item(4).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture))
+
+
         If editDeliveryForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
-            Dim update As New Dictionary(Of String, Object)
             Dim newDate As Date = editDeliveryForm.d_newDeliveryDate.Value
+            Dim update As New Dictionary(Of String, Object)
 
             update.Add(_ORDER_CUSTOMER.DELIVERY_DATE, newDate)
 
@@ -57,8 +66,8 @@
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
                                               " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                               " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
@@ -66,7 +75,7 @@
                                               " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                               " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
-                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC"
+                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " DESC"
                                         )
 
         e.Result = Database.GetDataTable(sqlStmt.ToString())
@@ -127,8 +136,11 @@
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
+        RefreshDataGridView()
+    End Sub
+
+    Private Sub RefreshDataGridView()
         dgv_details.Enabled = False
-        dgv_details.DataSource = Nothing
         bgw_OrderLoader.RunWorkerAsync()
     End Sub
 End Class

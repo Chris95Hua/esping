@@ -1,6 +1,9 @@
-﻿Public Class Order_Details
+﻿Imports System.Text
+
+Public Class Order_Details
     Private orderID As Integer
-    Private status As Integer
+    Public status As Integer
+    Public updateDateTime As DateTime
     Private artworkImg As String
     Private paymentImg As String
 
@@ -283,29 +286,99 @@
     End Sub
 
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
+        Dim updateQuery As New StringBuilder("BEGIN; UPDATE ")
+        Dim logValues As New StringBuilder()
         Dim update As New Dictionary(Of String, Object)
-        Dim updatedStatus As Integer = -1
+        Dim log As New Dictionary(Of String, Object)
 
         Select Case Me.status
             Case 0
-                updatedStatus = 1
+                status = 1
             Case 1
-                updatedStatus = 2
+                status = 2
         End Select
 
-        If Session.department_id = _PROCESS.APPROVAL Then
-            update.Add(_ORDER_CUSTOMER.APPROVAL, updatedStatus)
-            'Approve function (Approve Order)
-        ElseIf Session.department_id = _PROCESS.CUTTING Then
-            update.Add(_ORDER_CUSTOMER.CUTTING, updatedStatus)
-            'Generate Barcode (Cutting Department)
-        ElseIf Session.department_id = _PROCESS.SEWING Then
-            update.Add(_ORDER_CUSTOMER.SEWING, updatedStatus)
-            'Generate Barcode (Sewing Department)
-        End If
+        ' order update
+        updateDateTime = DateTime.Now()
+        updateQuery.Append(_TABLE.ORDER_CUSTOMER).AppendFormat(" SET {0} = @{0}, {1} = @{1}, ", _ORDER_CUSTOMER.E_USER, _ORDER_CUSTOMER.E_DATE)
+        update.Add(_ORDER_CUSTOMER.E_USER, Session.user_id)
+        update.Add(_ORDER_CUSTOMER.E_DATE, updateDateTime)
+        log.Add(_ORDER_CUSTOMER.ORDER_ID, orderID)
 
-        If update.Count = 1 Then
-            Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", orderID}, update)
+        ' log
+        log.Add(_ORDER_LOG.DEPARTMENT_ID, Session.department_id)
+        log.Add(_ORDER_LOG.DATETIME, updateDateTime)
+        log.Add(_ORDER_LOG.C_USER, Session.user_id)
+
+        ' insert the new status
+        Select Case Session.department_id
+            Case _PROCESS.APPROVAL
+                updateQuery.AppendFormat("{0} = @{0}", _ORDER_CUSTOMER.APPROVAL)
+                update.Add(_ORDER_CUSTOMER.APPROVAL, status)
+
+                log.Add(_ORDER_LOG.STATUS, _STATUS.APPROVAL_1)
+            Case _PROCESS.CUTTING
+                updateQuery.AppendFormat("{0} = @{0}", _ORDER_CUSTOMER.CUTTING)
+                update.Add(_ORDER_CUSTOMER.CUTTING, status)
+
+                If status = 1 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.CUTTING_1)
+                ElseIf status = 2 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.CUTTING_2)
+                End If
+            Case _PROCESS.PRINTING
+                updateQuery.AppendFormat("{0} = @{0}", _ORDER_CUSTOMER.PRINTING)
+                update.Add(_ORDER_CUSTOMER.PRINTING, status)
+
+                If status = 1 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.PRINTING_1)
+                ElseIf status = 2 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.PRINTING_2)
+                End If
+            Case _PROCESS.EMBROIDERY
+                updateQuery.AppendFormat("{0} = @{0}", _ORDER_CUSTOMER.EMBROIDERY)
+                update.Add(_ORDER_CUSTOMER.EMBROIDERY, status)
+
+                If status = 1 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.EMBROIDERY_1)
+                ElseIf status = 2 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.EMBROIDERY_2)
+                End If
+            Case _PROCESS.SEWING
+                updateQuery.AppendFormat("{0} = @{0}", _ORDER_CUSTOMER.SEWING)
+                update.Add(_ORDER_CUSTOMER.SEWING, status)
+
+                If status = 1 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.SEWING_1)
+                ElseIf status = 2 Then
+                    log.Add(_ORDER_LOG.STATUS, _STATUS.SEWING_2)
+                End If
+        End Select
+
+        ' construct query
+        updateQuery.AppendFormat(" WHERE {0} = @{0}; INSERT INTO ", _ORDER_CUSTOMER.ORDER_ID).Append(_TABLE.ORDER_LOG).Append(" (")
+
+        Dim addComma As Boolean = False
+        For Each pair In log
+            If addComma Then
+                updateQuery.Append(", ")
+                logValues.Append(", ")
+            End If
+
+            updateQuery.Append(pair.Key)
+            logValues.Append("@").Append(pair.Key)
+            update.Add(pair.Key, pair.Value)
+
+            addComma = True
+        Next
+
+        updateQuery.Append(") VALUES (").Append(logValues).Append("); COMMIT;")
+
+        ' result
+        If Database.ExecuteNonQuery(updateQuery.ToString(), update) <> -1 Then
+            btn_multi.Enabled = False
+            MessageBox.Show("Order status has been updated successfully", "Update Success")
+            DialogResult = DialogResult.OK
         End If
     End Sub
 
@@ -317,5 +390,11 @@
     Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
         Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
         showImg.ShowDialog()
+    End Sub
+
+    Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
+        Dim log As New Job_Log(orderID)
+
+        log.ShowDialog()
     End Sub
 End Class

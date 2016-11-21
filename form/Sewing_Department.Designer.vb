@@ -32,14 +32,14 @@ Partial Class Sewing_Department
         Me.txt_search = New System.Windows.Forms.TextBox()
         Me.btn_refresh = New System.Windows.Forms.Button()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
+        Me.bgw_SewingLoader = New System.ComponentModel.BackgroundWorker()
         Me.order_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.embroidery = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Printing = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.sewing_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.bgw_SewingLoader = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -118,7 +118,7 @@ Partial Class Sewing_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.embroidery, Me.Printing, Me.sewing_status})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.Column5, Me.Column6, Me.sewing_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -145,6 +145,9 @@ Partial Class Sewing_Department
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv_details.Size = New System.Drawing.Size(652, 391)
         Me.dgv_details.TabIndex = 12
+        '
+        'bgw_SewingLoader
+        '
         '
         'order_id
         '
@@ -174,19 +177,19 @@ Partial Class Sewing_Department
         Me.delivery_date.Name = "delivery_date"
         Me.delivery_date.ReadOnly = True
         '
-        'embroidery
+        'Column5
         '
-        Me.embroidery.DataPropertyName = "embroidery"
-        Me.embroidery.HeaderText = "Embroidery"
-        Me.embroidery.Name = "embroidery"
-        Me.embroidery.ReadOnly = True
+        Me.Column5.DataPropertyName = "status"
+        Me.Column5.HeaderText = "Status"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
         '
-        'Printing
+        'Column6
         '
-        Me.Printing.DataPropertyName = "Printing"
-        Me.Printing.HeaderText = "Printing"
-        Me.Printing.Name = "Printing"
-        Me.Printing.ReadOnly = True
+        Me.Column6.DataPropertyName = "datetime"
+        Me.Column6.HeaderText = "Respond Date"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
         '
         'sewing_status
         '
@@ -195,9 +198,6 @@ Partial Class Sewing_Department
         Me.sewing_status.Name = "sewing_status"
         Me.sewing_status.ReadOnly = True
         Me.sewing_status.Visible = False
-        '
-        'bgw_SewingLoader
-        '
         '
         'Sewing_Department
         '
@@ -232,7 +232,7 @@ Partial Class Sewing_Department
     Friend WithEvents customer As DataGridViewTextBoxColumn
     Friend WithEvents order_name As DataGridViewTextBoxColumn
     Friend WithEvents delivery_date As DataGridViewTextBoxColumn
-    Friend WithEvents embroidery As DataGridViewTextBoxColumn
-    Friend WithEvents Printing As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents sewing_status As DataGridViewTextBoxColumn
 End Class

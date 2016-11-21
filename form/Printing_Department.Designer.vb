@@ -37,7 +37,7 @@ Partial Class Printing_Department
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.delivery_date = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datetime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.printing_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
@@ -85,7 +85,7 @@ Partial Class Printing_Department
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.txt_search.Location = New System.Drawing.Point(8, 34)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_search.Name = "txt_search"
         Me.txt_search.Size = New System.Drawing.Size(137, 20)
         Me.txt_search.TabIndex = 6
@@ -111,7 +111,7 @@ Partial Class Printing_Department
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv_details.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv_details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.status, Me.datetime, Me.printing_status})
+        Me.dgv_details.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.order_id, Me.customer, Me.order_name, Me.delivery_date, Me.Column5, Me.datetime, Me.printing_status})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -122,7 +122,7 @@ Partial Class Printing_Department
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
         Me.dgv_details.Location = New System.Drawing.Point(8, 61)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -177,12 +177,12 @@ Partial Class Printing_Department
         Me.delivery_date.Name = "delivery_date"
         Me.delivery_date.ReadOnly = True
         '
-        'status
+        'Column5
         '
-        Me.status.DataPropertyName = "status"
-        Me.status.HeaderText = "Status"
-        Me.status.Name = "status"
-        Me.status.ReadOnly = True
+        Me.Column5.DataPropertyName = "status"
+        Me.Column5.HeaderText = "Status"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
         '
         'datetime
         '
@@ -208,7 +208,7 @@ Partial Class Printing_Department
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.txt_search)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(686, 507)
         Me.Name = "Printing_Department"
         Me.Text = "Printing Department"
@@ -232,7 +232,7 @@ Partial Class Printing_Department
     Friend WithEvents customer As DataGridViewTextBoxColumn
     Friend WithEvents order_name As DataGridViewTextBoxColumn
     Friend WithEvents delivery_date As DataGridViewTextBoxColumn
-    Friend WithEvents status As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents datetime As DataGridViewTextBoxColumn
     Friend WithEvents printing_status As DataGridViewTextBoxColumn
 End Class

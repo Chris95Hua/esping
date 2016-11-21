@@ -2,73 +2,13 @@
 Imports System.Net
 
 ''' <summary>
-''' Generic class for housing all the methods/models
+''' Generic class for housing all the reusable methods/models
 ''' </summary>
 Public NotInheritable Class Method
     Private Sub New()
         ' prevent instantialization from anywhere else
     End Sub
 
-    ''' <summary>
-    ''' Login using username and password
-    ''' </summary>
-    ''' <param name="username">Username string</param>
-    ''' <param name="password">Password string</param>
-    ''' <returns>True if success, else false</returns>
-    Public Shared Function Login(ByVal username As String, ByVal password As String) As Boolean
-        Dim users As List(Of Dictionary(Of String, Object))
-        users = Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", username})
-
-        If users IsNot Nothing Then
-            For Each user In users
-                Dim hashedPassword As String = Security.Hash(password, user.Item(_USER.SALT).ToString())
-
-                If hashedPassword.CompareTo(user.Item(_USER.PASSWORD).ToString()) = 0 Then
-                    Session.user_id = user.Item(_USER.USER_ID)
-                    Session.first_name = user.Item(_USER.FIRST_NAME)
-                    Session.last_name = user.Item(_USER.LAST_NAME)
-                    Session.username = user.Item(_USER.USERNAME)
-                    Session.password = user.Item(_USER.PASSWORD)
-                    Session.salt = user.Item(_USER.SALT)
-                    Session.role = user.Item(_USER.ROLE)
-                    Session.department_id = user.Item(_USER.DEPARTMENT_ID)
-                    Return True
-                End If
-            Next
-        End If
-
-        Return False
-    End Function
-
-    ''' <summary>
-    ''' Update user password
-    ''' </summary>
-    ''' <param name="oldPass">Old password</param>
-    ''' <param name="newPass">New password</param>
-    ''' <param name="retypePass">Retyped password</param>
-    ''' <returns>True if success, else false</returns>
-    Public Shared Function UpdatePassword(ByVal oldPass As String, ByVal newPass As String, ByVal retypePass As String) As Boolean
-        Dim hashedOldPass As String = Security.Hash(oldPass, Session.salt.ToString)
-
-        If hashedOldPass.CompareTo(Session.password) = 0 And newPass = retypePass Then
-            Dim newSalt As String = Security.GenerateSalt()
-            Dim hashedNewPass As String = Security.Hash(newPass, newSalt)
-            Dim update As New Dictionary(Of String, Object)
-
-            update.Add(_USER.PASSWORD, hashedNewPass)
-            update.Add(_USER.SALT, newSalt)
-            update.Add(_USER.E_USER, Session.user_id)
-            update.Add(_USER.E_DATE, DateTime.Now)
-            Session.salt = newSalt
-            Session.password = hashedNewPass
-
-            If Database.Update(_TABLE.USER, {_USER.USER_ID, "=", Session.user_id}, update) Then
-                Return True
-            End If
-        End If
-
-        Return False
-    End Function
 
     ''' <summary>
     ''' Get array of selected files
@@ -187,6 +127,175 @@ Public NotInheritable Class Method
         Return False
     End Function
 
+
+    Private Shared Function RoundedRectangle(ByVal rectangle As Rectangle, ByVal radius As Integer) As Drawing2D.GraphicsPath
+        Dim path As New Drawing2D.GraphicsPath()
+        Dim diameter As Integer = radius * 2
+
+        path.AddLine(rectangle.Left + diameter, rectangle.Top, rectangle.Right - diameter, rectangle.Top)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Right - diameter, rectangle.Top, rectangle.Right, rectangle.Top + diameter), -90, 90)
+
+        path.AddLine(rectangle.Right, rectangle.Top + diameter, rectangle.Right, rectangle.Bottom - diameter)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Right - diameter, rectangle.Bottom - diameter, rectangle.Right, rectangle.Bottom), 0, 90)
+
+        path.AddLine(rectangle.Right - diameter, rectangle.Bottom, rectangle.Left + diameter, rectangle.Bottom)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Left, rectangle.Bottom - diameter, rectangle.Left + diameter, rectangle.Bottom), 90, 90)
+
+        path.AddLine(rectangle.Left, rectangle.Bottom - diameter, rectangle.Left, rectangle.Top + diameter)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Left, rectangle.Top, rectangle.Left + diameter, rectangle.Top + diameter), 180, 90)
+
+        path.CloseFigure()
+
+        Return path
+    End Function
+
+    ' customer name, customer address (3 lines), order name, sizes, bags, barcode
+    Public Shared Function GenerateBarcodeLabel(ByVal orders As Dictionary(Of String, Object)) As Image
+        Dim mf As Imaging.Metafile
+
+        ' settings
+        Dim padding As Integer = 8
+        Dim width As Integer = 400
+        Dim height As Integer = 360
+        Dim fontSizeTitle As Integer = 17
+        Dim fontSizeNormal As Integer = 11
+        Dim fontSizeSmall As Integer = 10
+        Dim font As String = "arial"
+
+        ' check arguments passed
+        If orders.ContainsKey(_BADGE.ORDER) And
+           orders.ContainsKey(_BADGE.ORDER_NAME) And
+           orders.ContainsKey(_BADGE.CUSTOMER) And
+           orders.ContainsKey(_BADGE.BAG) Then
+
+            Dim bags As Integer = orders.Item(_BADGE.BAG)
+            orders.Remove(_BADGE.BAG)
+
+            ' construct rounded rectangle
+            Dim border As Rectangle = Rectangle.Round(New RectangleF(0, 0, width, height + fontSizeTitle + 4))
+
+            ' create metafile for drawing
+            Using stream As New IO.MemoryStream()
+                Using offScreenBufferGraphics As Graphics = Graphics.FromHwndInternal(IntPtr.Zero)
+                    Dim deviceContextHandle As IntPtr = offScreenBufferGraphics.GetHdc()
+
+                    mf = New Imaging.Metafile(
+                                stream,
+                                deviceContextHandle,
+                                border,
+                                Imaging.MetafileFrameUnit.Pixel,
+                                Imaging.EmfType.EmfPlusOnly)
+                    offScreenBufferGraphics.ReleaseHdc()
+                End Using
+            End Using
+
+
+            ' generate barcode and label
+            Dim barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
+            Dim barcode As Image = barcode128.Draw(orders.Item(_BADGE.ORDER), 60, 2)
+
+            ' center
+            Dim formatCenter As New StringFormat()
+            formatCenter.Alignment = StringAlignment.Center
+
+            Dim formatLeft As New StringFormat()
+            formatLeft.Alignment = StringAlignment.Near
+
+            ' pen for drawing lines and rounded rectangle
+            Dim linePen As New Pen(Color.Black, 2)
+
+            ' Y coordinates
+            Dim yMarginFromTop As Integer = padding
+            Dim yMarginFromBottom As Integer = height - fontSizeNormal - barcode.Height - (2 * padding)
+
+            ' start drawing
+            ' ========================================================================================
+            Using graphic As Graphics = Graphics.FromImage(mf)
+                ' graphic mode
+                graphic.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+                ' draw border
+                graphic.DrawPath(linePen, RoundedRectangle(border, 50))
+
+                ' customer name
+                graphic.DrawString(orders.Item(_BADGE.CUSTOMER), New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                orders.Remove(_BADGE.CUSTOMER)
+                yMarginFromTop += (1.5 * padding) + fontSizeTitle
+
+                If orders.ContainsKey(_BADGE.ADDRESS_1) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_1), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                    yMarginFromTop += padding + fontSizeNormal
+                End If
+
+                If orders.ContainsKey(_BADGE.ADDRESS_2) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_2), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                    yMarginFromTop += padding + fontSizeNormal
+                End If
+
+                If orders.ContainsKey(_BADGE.ADDRESS_3) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_3), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                End If
+
+                ' separator (customer - order name)
+                yMarginFromTop = (height / 4) + (2 * padding)
+                graphic.DrawLine(linePen, New Point(0, yMarginFromTop), New Point(width, yMarginFromTop))
+
+                ' order name
+                yMarginFromTop += padding
+                graphic.DrawString(orders.Item(_BADGE.ORDER_NAME), New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                orders.Remove(_BADGE.ORDER_NAME)
+
+                ' separator (order name - details)
+                yMarginFromTop += (2 * padding) + fontSizeTitle
+                graphic.DrawLine(linePen, New Point(0, yMarginFromTop), New Point(width, yMarginFromTop))
+
+                ' barcode
+                Dim barcodeX As Integer = (width - barcode.Width) / 2
+                Dim barcodeY As Integer = height - barcode.Height - padding - (padding / 2)
+
+                graphic.DrawImage(barcode, barcodeX, barcodeY)
+
+                ' barcode text
+                graphic.DrawString(orders.Item(_BADGE.ORDER), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, height - padding, formatCenter)
+                orders.Remove(_BADGE.ORDER)
+
+                ' details separator
+                graphic.DrawLine(linePen, New Point(width / 2, yMarginFromTop), New Point(width / 2, yMarginFromBottom))
+
+                ' right details (quantity)
+                graphic.DrawString("BAGS: " & bags & "/" & bags, New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 4 * 3, yMarginFromTop - fontSizeTitle + (Math.Abs(yMarginFromBottom - yMarginFromTop) / 2), formatCenter)
+
+                ' left details (sizes)
+                Dim sizeOffset As Integer = 0
+                Dim total As Integer
+                For Each pair In orders
+                    If sizeOffset > 6 Then
+                        graphic.DrawString(String.Format("{0,-3}", pair.Key) & " - " & pair.Value, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24 * 6, yMarginFromTop + padding + ((sizeOffset - 8) * fontSizeSmall), formatLeft)
+                    Else
+                        graphic.DrawString(String.Format("{0,-3}", pair.Key) & " - " & pair.Value, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24, yMarginFromTop + padding + (sizeOffset * fontSizeSmall), formatLeft)
+                    End If
+
+                    total += pair.Value
+                    sizeOffset += 2
+                Next
+
+                graphic.DrawString("TOTAL: " & total, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24, yMarginFromBottom - (3 * padding), formatLeft)
+
+                ' seperator (order detail - barcode)
+                graphic.DrawLine(linePen, New Point(0, yMarginFromBottom), New Point(width, yMarginFromBottom))
+            End Using
+            ' ========================================================================================
+
+            linePen.Dispose()
+
+            ' return image
+            Return mf
+        End If
+
+        Return Nothing
+    End Function
+
+
     Public Shared Function CreateOrder(ByVal order As Dictionary(Of String, Object)) As Boolean
         Dim sqlStmt As New StringBuilder()
         Dim orderValues As New StringBuilder()
@@ -217,8 +326,9 @@ Public NotInheritable Class Method
         Dim log As New Dictionary(Of String, Object)
 
         log.Add(_ORDER_LOG.DATETIME, DateTime.Now)
-        log.Add(_ORDER_LOG.STATUS, "Processing")
+        log.Add(_ORDER_LOG.STATUS, _STATUS.APPROVAL_0)
         log.Add(_ORDER_LOG.C_USER, Session.user_id)
+        log.Add(_ORDER_LOG.DEPARTMENT_ID, Session.department_id)
 
         For Each field In log
             sqlStmt.Append(", ")
@@ -234,72 +344,32 @@ Public NotInheritable Class Method
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
 
-    Public Shared Function Registration(ByVal firstName As String, ByVal lastName As String, ByVal department As Integer, ByVal role As Integer, ByVal username As String, ByVal password As String) As Boolean
-        Dim users As List(Of Dictionary(Of String, Object))
-        Dim dataIn As New Dictionary(Of String, Object)
-        Dim salt As String = Security.GenerateSalt()
-        dataIn.Add(_USER.FIRST_NAME, firstName)
-        dataIn.Add(_USER.LAST_NAME, lastName)
-        dataIn.Add(_USER.USERNAME, username)
-        dataIn.Add(_USER.SALT, salt)
-        dataIn.Add(_USER.PASSWORD, Security.Hash(password, salt))
-        dataIn.Add(_USER.DEPARTMENT_ID, department)
-        dataIn.Add(_USER.ROLE, role)
-        dataIn.Add(_USER.C_USER, Session.user_id)
-        dataIn.Add(_USER.C_DATE, DateTime.Now)
-
-        users = Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", username})
-        If users Is Nothing Then
-            If Database.Insert(_TABLE.USER, dataIn) Then
-                Return True
-            End If
-        End If
-        Return False
-    End Function
-
     Public Shared Sub OpenForm()
-        If Session.department_id = _PROCESS.APPROVAL Then
-            'Approve Order
-            Dim approve As New Approve_Order
-            approve.Show()
-        ElseIf Session.department_id = _PROCESS.CUTTING Then
-            'Cutting Department
-            Dim cutting As New Cutting_Department
-            cutting.Show()
-        ElseIf Session.department_id = _PROCESS.EMBROIDERY Then
-            'Embroidery Department
-            Dim embroidery As New Embroidery_Department
-            embroidery.Show()
-        ElseIf Session.department_id = _PROCESS.INVENTORY Then
-            'Inventory Preparation
-            Dim inventory As New Inventory_Preparation
-            inventory.Show()
-        ElseIf Session.department_id = _PROCESS.ORDER Then
-            'Manage Order 
-            Dim order As New Manage_Order
-            order.Show()
-        ElseIf Session.department_id = _PROCESS.PRINTING Then
-            'Printing Department
-            Dim printing As New Printing_Department
-            printing.Show()
-        ElseIf Session.department_id = _PROCESS.SEWING Then
-            'Sewing Department
-            Dim sewing As New Sewing_Department
-            sewing.Show()
-        End If
+        Select Case Session.department_id
+            Case _PROCESS.ADMIN
+                Dim admin As New Manage_Order
+                admin.Show()
+            Case _PROCESS.APPROVAL
+                Dim approve As New Approve_Order
+                approve.Show()
+            Case _PROCESS.CUTTING
+                Dim cutting As New Cutting_Department
+                cutting.Show()
+            Case _PROCESS.EMBROIDERY
+                Dim embroidery As New Embroidery_Department
+                embroidery.Show()
+            Case _PROCESS.INVENTORY
+                Dim inventory As New Inventory_Preparation
+                inventory.Show()
+            Case _PROCESS.ORDER
+                Dim order As New Manage_Order
+                order.Show()
+            Case _PROCESS.PRINTING
+                Dim printing As New Printing_Department
+                printing.Show()
+            Case _PROCESS.SEWING
+                Dim sewing As New Sewing_Department
+                sewing.Show()
+        End Select
     End Sub
-
-    Public Shared Function addInventory(ByVal inventory_name As String) As Boolean
-        Dim invList As List(Of Dictionary(Of String, Object))
-        Dim itemName As New Dictionary(Of String, Object)
-        itemName.Add(_INVENTORY.ITEM, inventory_name)
-
-        invList = Database.SelectRows(_TABLE.INVENTORY, {_INVENTORY.ITEM, "=", inventory_name})
-        If invList Is Nothing Then
-            If Database.Insert(_TABLE.INVENTORY, itemName) Then
-                Return True
-            End If
-        End If
-        Return False
-    End Function
 End Class

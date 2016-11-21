@@ -43,6 +43,14 @@ espring
  <param name="values">Conditions (optional)</param>
  <returns>List of dictionary which consists of column name and its data</returns>
 </member>
+<member name="M:espring.Database.GetDataTable(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+ <summary>
+ Get rows from database as DataTable
+ </summary>
+ <param name="sqlCommand">SQL statement</param>
+ <param name="values">Conditions (optional)</param>
+ <returns>DataTable which consists of column name and its data</returns>
+</member>
 <member name="M:espring.Database.IsConditionValid(System.Object[])">
  <summary>
  Check if condition is valid
@@ -109,25 +117,8 @@ espring
 </member>
 <member name="T:espring.Method">
  <summary>
- Generic class for housing all the methods/models
+ Generic class for housing all the reusable methods/models
  </summary>
-</member>
-<member name="M:espring.Method.Login(System.String,System.String)">
- <summary>
- Login using username and password
- </summary>
- <param name="username">Username string</param>
- <param name="password">Password string</param>
- <returns>True if success, else false</returns>
-</member>
-<member name="M:espring.Method.UpdatePassword(System.String,System.String,System.String)">
- <summary>
- Update user password
- </summary>
- <param name="oldPass">Old password</param>
- <param name="newPass">New password</param>
- <param name="retypePass">Retyped password</param>
- <returns>True if success, else false</returns>
 </member>
 <member name="M:espring.Method.DialogGetFile(System.Int32,System.Boolean)">
  <summary>

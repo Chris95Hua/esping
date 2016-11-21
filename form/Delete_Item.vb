@@ -5,13 +5,14 @@
     End Sub
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
-        Dim Box As MsgBoxResult = MsgBox("Are You Sure You Wish To Delete This?", MsgBoxStyle.YesNo)
+        Dim Box As MsgBoxResult = MsgBox("Delete the selected item?", "Confirm Deletion", MsgBoxStyle.YesNo)
+
         If Box = MsgBoxResult.Yes Then
             If Database.Delete(_TABLE.INVENTORY, {_INVENTORY.ITEM, "=", cb_itemName.SelectedItem}) Then
-                MessageBox.Show("Item deleted.")
+                MessageBox.Show("Item deleted", "Delete Success")
                 loadInventoryItem()
             Else
-                MessageBox.Show("Unable to delete item.")
+                MessageBox.Show("Unable to delete item", "Delete Failed")
             End If
         End If
     End Sub

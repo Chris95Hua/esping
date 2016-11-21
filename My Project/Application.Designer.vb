@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.espring.Inventory_Preparation
+            Me.MainForm = Global.espring.Login
         End Sub
     End Class
 End Namespace

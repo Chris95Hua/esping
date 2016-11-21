@@ -182,7 +182,7 @@ Partial Class Approve_Order
         '
         'e_date
         '
-        Me.e_date.DataPropertyName = "e_date"
+        Me.e_date.DataPropertyName = "datetime"
         Me.e_date.HeaderText = "Respond Date"
         Me.e_date.Name = "e_date"
         Me.e_date.ReadOnly = True

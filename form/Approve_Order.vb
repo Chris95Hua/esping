@@ -2,6 +2,10 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        If Session.department_id = _PROCESS.ADMIN Then
+            Session.department_id = _PROCESS.APPROVAL
+        End If
+
         txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_ApprovalLoader.RunWorkerAsync()
     End Sub
@@ -12,21 +16,29 @@
     End Sub
 
     Private Sub bgw_ApprovalLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_ApprovalLoader.DoWork
+        Dim approvalID As Integer = _PROCESS.APPROVAL
+        Dim orderID As Integer = _PROCESS.ORDER
+
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              _TABLE.STATUS, ".", _STATUS.STATUS, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.E_DATE, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              "CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL, " WHEN 0 THEN '", _STATUS.APPROVAL_0, "' ELSE '", _STATUS.APPROVAL_1, "' END AS ", _ORDER_LOG.STATUS, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ", '%d/%m/%Y %h:%i:%s %p') As ", _ORDER_LOG.DATETIME, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL,
-                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.STATUS,
-                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL,
-                                              " = ", _TABLE.STATUS, ".", _STATUS.STATUS_ID,
-                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL,
-                                              " ASC, ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.E_DATE, " DESC"
+                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
+                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
+                                              "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
+                                              " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                              " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
+                                              " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", approvalID, ",", orderID, ")",
+                                              " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL, " ASC, ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.E_DATE, " DESC"
                                         )
+
         e.Result = Database.GetDataTable(sqlStmt.ToString())
     End Sub
 
@@ -40,7 +52,13 @@
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
         Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(7).Value)
-        details.ShowDialog()
+
+        ' approved
+        If details.ShowDialog() = DialogResult.OK Then
+            dgv_details.SelectedCells(5).Value = _STATUS.APPROVAL_1
+            dgv_details.SelectedCells(6).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
+            dgv_details.SelectedCells(7).Value = details.status
+        End If
     End Sub
 
     Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
@@ -51,7 +69,6 @@
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
         dgv_details.Enabled = False
-        dgv_details.DataSource = Nothing
         bgw_ApprovalLoader.RunWorkerAsync()
     End Sub
 

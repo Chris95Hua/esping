@@ -8,7 +8,18 @@
     End Sub
 
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
-        bgw_createOrder.RunWorkerAsync()
+        If txt_cusName.Text Is String.Empty Or txt_orderName.Text Is String.Empty Or
+            (cb_fabricCL.Checked = False And cb_split.Checked = False) Or
+            (cb_fEmbroidery.Checked = False And cb_fHeatTransfer.Checked = False And cb_fPrinting.Checked = False And cb_fPlain.Checked = False) Or
+            (cb_bEmbroidery.Checked = False And cb_bHeatTransfer.Checked = False And cb_bPrinting.Checked = False And cb_bPlain.Checked = False) Or
+            txt_material.Text Is String.Empty Or txt_colour.Text Is String.Empty Or
+            (cb_no.Checked = False And cb_normal.Checked = False And cb_sugarBag.Checked = False And cb_follow.Checked = False) Or
+            (cb_cash.Checked = False And cb_cheque.Checked = False) Then
+            MessageBox.Show("Please select at least 1 item from each of the checkbox category and fill in all empty fields", "Order Creation Failed")
+        Else
+            bgw_createOrder.RunWorkerAsync()
+        End If
+
     End Sub
 
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_createOrder.DoWork
@@ -170,19 +181,18 @@
         order.Add(_ORDER_CUSTOMER.SALESPERSON_ID, Session.user_id)
         order.Add(_ORDER_CUSTOMER.ISSUE_DATE, DateTime.Now)
 
-
-        If Method.CreateOrder(order) Then
-            ' add back to datagridview
-            MessageBox.Show("Order has been created successfully")
-
-        Else
-            MessageBox.Show("Failed to create new order")
-        End If
+        e.Result = Method.CreateOrder(order)
     End Sub
 
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_createOrder.RunWorkerCompleted
         If (e.Error Is Nothing) Then
-            'Me.Close()
+            If e.Result Then
+                ' add back to datagridview
+                MessageBox.Show("Order has been created successfully", "Order Creation Success")
+                ClearForm()
+            Else
+                MessageBox.Show("Failed to create new order", "Order Creation Failed")
+            End If
         End If
     End Sub
 
@@ -192,5 +202,42 @@
 
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
         txt_docPath.Text = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+    End Sub
+
+    Private Sub ClearForm()
+        ' clear form
+        txt_cusName.Clear()
+        txt_orderName.Clear()
+        cb_fabricCL.Checked = False
+        cb_split.Checked = False
+        cb_fPrinting.Checked = False
+        cb_fHeatTransfer.Checked = False
+        cb_fEmbroidery.Checked = False
+        cb_fPlain.Checked = False
+        cb_bPrinting.Checked = False
+        cb_bHeatTransfer.Checked = False
+        cb_bEmbroidery.Checked = False
+        cb_bPlain.Checked = False
+        num_collar.ResetText()
+        num_cuff.ResetText()
+        num_XS.ResetText()
+        num_S.ResetText()
+        num_M.ResetText()
+        num_L.ResetText()
+        num_XL.ResetText()
+        num_2XL.ResetText()
+        num_3XL.ResetText()
+        txt_material.Clear()
+        txt_colour.Clear()
+        cb_no.Checked = False
+        cb_normal.Checked = False
+        cb_sugarBag.Checked = False
+        cb_follow.Checked = False
+        d_delivery.Value = Date.Now()
+        cb_cash.Checked = False
+        cb_cheque.Checked = False
+        num_amount.ResetText()
+        txt_artwork.ResetText()
+        txt_docPath.ResetText()
     End Sub
 End Class

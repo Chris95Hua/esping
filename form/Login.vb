@@ -7,20 +7,43 @@
         Session.Clear()
     End Sub
 
-    Private Sub txt_password_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_password.KeyDown
+    Private Sub txt_password_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_username.KeyDown, txt_password.KeyDown
         If e.KeyCode = Keys.Enter Then
             Me.LogInFunction()
         End If
     End Sub
 
     Private Sub LogInFunction()
-        If Method.Login(txt_username.Text, txt_password.Text) Then
-            ' open form
-            Method.OpenForm()
-            Me.Close()
+        Dim users As List(Of Dictionary(Of String, Object))
+        users = Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", txt_username.Text})
+
+        If users IsNot Nothing Then
+            For Each user In users
+                Dim hashedPassword As String = Security.Hash(txt_password.Text, user.Item(_USER.SALT).ToString())
+
+                If hashedPassword.CompareTo(user.Item(_USER.PASSWORD).ToString()) = 0 Then
+                    Session.user_id = user.Item(_USER.USER_ID)
+                    Session.first_name = user.Item(_USER.FIRST_NAME)
+                    Session.last_name = user.Item(_USER.LAST_NAME)
+                    Session.username = user.Item(_USER.USERNAME)
+                    Session.password = user.Item(_USER.PASSWORD)
+                    Session.salt = user.Item(_USER.SALT)
+                    Session.role = user.Item(_USER.ROLE)
+                    Session.department_id = user.Item(_USER.DEPARTMENT_ID)
+
+                    Method.OpenForm()
+                    Me.Close()
+                Else
+                    MessageBox.Show("Password does not match the username", "Login Failed")
+                    txt_password.Focus()
+                    txt_password.SelectAll()
+                End If
+            Next
         Else
-            ' error
-            MessageBox.Show("No such username available")
+            MessageBox.Show("Unable to find matching username and password", "Login Failed")
+            txt_password.Clear()
+            txt_username.Focus()
+            txt_username.SelectAll()
         End If
     End Sub
 End Class

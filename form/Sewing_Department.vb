@@ -2,6 +2,11 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        ' for admin
+        If Session.department_id = _PROCESS.ADMIN Then
+            Session.department_id = _PROCESS.SEWING
+        End If
+
         txt_welcome.Text = "Welcome: " + Session.first_name
         bgw_SewingLoader.RunWorkerAsync()
     End Sub
@@ -19,7 +24,6 @@
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
         dgv_details.Enabled = False
-        dgv_details = Nothing
         bgw_SewingLoader.RunWorkerAsync()
     End Sub
 
@@ -36,17 +40,35 @@
     End Sub
 
     Private Sub bgw_SewingLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_SewingLoader.DoWork
+        Dim cuttingID As Integer = _PROCESS.CUTTING
+        Dim embroideryID As Integer = _PROCESS.EMBROIDERY
+        Dim sewingID As Integer = _PROCESS.SEWING
+
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              " CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " WHEN 3 THEN 'CHECKED-IN' ELSE '-' END AS embroidery,",
-                                              " CASE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " WHEN 3 THEN 'CHECKED-IN' ELSE '-' END AS printing,",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING,
-                                              " FROM ", _TABLE.ORDER_CUSTOMER,
-                                              " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 1"
-                                        )
+                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              "CASE WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 THEN '", _STATUS.SEWING_01, "'",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " = 2 THEN '", _STATUS.SEWING_02, "'",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " = 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 THEN '", _STATUS.SEWING_03, "'",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 0 THEN '", _STATUS.SEWING_0, "'",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 1 THEN '", _STATUS.SEWING_1, "'",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 2 THEN '", _STATUS.SEWING_2, "'",
+                                              " END AS ", _ORDER_LOG.STATUS, ", ",
+                                              "DATE_FORMAT(", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ", '%d/%m/%Y %h:%i:%s %p') As ", _ORDER_LOG.DATETIME, ", ",
+                                              "CASE WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 THEN -1 ELSE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " END AS ", _ORDER_CUSTOMER.SEWING,
+                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
+                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
+                                              "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
+                                              " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                              " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
+                                              " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", embroideryID, ",", sewingID, ")",
+                                              " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, "=", 2,
+                                              " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC"
+                                              )
+
         e.Result = Database.GetDataTable(sqlStmt.ToString())
     End Sub
 
@@ -58,8 +80,20 @@
         dgv_details.Enabled = True
     End Sub
 
-    Private Sub dgv_details_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgv_details.CellContentClick
+    Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
         Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, dgv_details.SelectedCells(6).Value)
-        details.ShowDialog()
+
+        If details.ShowDialog() = DialogResult.OK Then
+            dgv_details.SelectedCells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
+            dgv_details.SelectedCells(6).Value = details.status
+            Select Case details.status
+                ' scanned in
+                Case 1
+                    dgv_details.SelectedCells(4).Value = _STATUS.SEWING_1
+                ' scanned out
+                Case 2
+                    dgv_details.SelectedCells(4).Value = _STATUS.SEWING_2
+            End Select
+        End If
     End Sub
 End Class

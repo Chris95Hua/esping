@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2016 at 04:23 AM
+-- Generation Time: Nov 21, 2016 at 05:29 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -40,11 +40,11 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`department_id`, `name`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(1, 'Approval Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(1, 'Approval', 1, '2016-11-09 00:00:00', NULL, NULL),
 (2, 'Cutting Department', 1, '2016-11-09 00:00:00', NULL, NULL),
 (3, 'Embroidery Department', 1, '2016-11-09 00:00:00', NULL, NULL),
 (4, 'Inventory Preparation', 1, '2016-11-09 00:00:00', NULL, NULL),
-(5, 'Order Department', 1, '2016-11-09 00:00:00', NULL, NULL),
+(5, 'Order Management', 1, '2016-11-09 00:00:00', NULL, NULL),
 (6, 'Printing Department', 1, '2016-11-09 00:00:00', NULL, NULL),
 (7, 'Sewing Department', 1, '2016-11-09 00:00:00', NULL, NULL);
 
@@ -107,7 +107,8 @@ CREATE TABLE `order_customer` (
 --
 
 INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `payment`, `payment_doc`, `amount`, `remarks`, `inventory_order`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
-(1, 'test', 1, 'Nelson', '{"fabric":1}', 3, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', NULL, '{"xs":3,"l":4,"xl":2,"3xl":4}', 'Cotton', 'Pink', '{"normal":1,"sugerbag":1}', '2016-11-08', '2016-12-14', '{"cash":1}', '', 120, NULL, NULL, 0, 0, 0, 0, 1, 0, NULL, '2016-11-09 00:00:00');
+(1, 'Test Order 01', 1, 'Nelson', '{"fabric":1}', 2, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', NULL, '{"xs":2,"s":2,"m":5,"l":2,"3xl":4}', 'Cotton', 'White', '{"normal":1,"sugerbag":1}', '2016-11-20', '2016-12-29', '{"cash":1}', NULL, 1200, NULL, '{"Cotton":"6","Cuff":"12"}', 0, 0, 0, 0, 0, 0, 1, '2016-11-21 10:42:19'),
+(2, 'Havent approve', 1, 'Edwin', '{"fabric":1}', 3, 4, '{"heat":1}', '{"heat":1}', NULL, '{"s":2,"l":2,"xl":2,"2xl":3}', 'Silk', 'Pink', '{"normal":1}', '2016-11-20', '2016-12-19', '{"cash":1}', NULL, 120, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -131,8 +132,8 @@ CREATE TABLE `order_log` (
 --
 
 INSERT INTO `order_log` (`log_id`, `order_id`, `department_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
-(1, 1, 0, '2016-11-08 12:08:00', 'Processing', 1, NULL, NULL),
-(2, 1, 0, '2016-11-11 15:54:44', 'Check out', 0, NULL, NULL);
+(1, 1, 5, '2016-11-20 21:54:08', 'Processing', 1, NULL, NULL),
+(2, 2, 5, '2016-11-20 22:02:15', 'Processing', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -144,29 +145,6 @@ CREATE TABLE `role` (
   `role_id` int(10) UNSIGNED NOT NULL,
   `title` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `status`
---
-
-CREATE TABLE `status` (
-  `check_id` int(11) NOT NULL,
-  `status_id` tinyint(1) NOT NULL,
-  `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `status`
---
-
-INSERT INTO `status` (`check_id`, `status_id`, `status`) VALUES
-(1, 1, 'Check-IN'),
-(2, 2, 'Check-OUT'),
-(3, 0, 'Processing'),
-(4, 3, 'Approved'),
-(5, 4, 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -194,7 +172,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `salt`, `role`, `department_id`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(1, 'Zero', 'Gravity', 'admin', '8TBLmgdzOtg4zrO6TfPXQ7r6NWm2cipZQQe1QeonvDQ=', 'cAMOVSXZ+ej7FJuuRt7xTRHLr3sU2x7ZUg7Gl4+34D7o', 0, 1, 0, '2016-11-07 00:00:00', 0, '0000-00-00 00:00:00');
+(1, 'Espring', 'Admin', 'admin', 'diTAY05RnRCSLw9oTagitfP156pMRth++VxSGwj1JsQ=', 'EWgTriOV3Pkbs5E9ncddHS6XPXj4NtKPXm9PcvyX+hiV', 0, 0, 0, '2016-11-07 00:00:00', 1, '2016-11-18 13:47:04');
 
 --
 -- Indexes for dumped tables
@@ -232,12 +210,6 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
 
 --
--- Indexes for table `status`
---
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`check_id`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -261,7 +233,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `order_customer`
 --
 ALTER TABLE `order_customer`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `order_log`
 --
@@ -272,11 +244,6 @@ ALTER TABLE `order_log`
 --
 ALTER TABLE `role`
   MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `status`
---
-ALTER TABLE `status`
-  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --

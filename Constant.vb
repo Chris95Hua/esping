@@ -25,7 +25,6 @@ Public NotInheritable Class _TABLE
     Public Const ORDER_LOG As String = "order_log"
     Public Const DEPARTMENT As String = "department"
     Public Const INVENTORY As String = "inventory"
-    Public Const STATUS As String = "status"
 End Class
 
 
@@ -129,9 +128,25 @@ End Class
 
 ' List of columns available in "status" table
 Public NotInheritable Class _STATUS
-    Public Const CHECK_ID As String = "check_id"
-    Public Const STATUS_ID As String = "status_id"
-    Public Const STATUS As String = "status"
+    Public Const APPROVAL_0 As String = "Processing"
+    Public Const APPROVAL_1 As String = "Approved"
+    Public Const INVENTORY_0 As String = "Pending inventory details"
+    Public Const INVENTORY_1 As String = "Collar and Cuff Department"
+    Public Const CUTTING_0 As String = "Pending for action in Cutting Department"
+    Public Const CUTTING_1 As String = "Cutting Department - Scan in"
+    Public Const CUTTING_2 As String = "Cutting Department - Scan out and transferred goods to Printing and Embroidery"
+    Public Const EMBROIDERY_0 As String = "Pending for action in Embroidery"
+    Public Const EMBROIDERY_1 As String = "Embroidery Department - Scanned in"
+    Public Const EMBROIDERY_2 As String = "Embroidery Department - Scanned out and transferred goods to Sewing"
+    Public Const PRINTING_0 As String = "Pending for action in Printing"
+    Public Const PRINTING_1 As String = "Printing Department - Scanned in"
+    Public Const PRINTING_2 As String = "Printing Department - Scanned out and transferred goods to Printing"
+    Public Const SEWING_01 As String = "Pending for action in Printing and Embroidery"
+    Public Const SEWING_02 As String = "Pending for action in Printing"
+    Public Const SEWING_03 As String = "Pending for action in Embroidery"
+    Public Const SEWING_0 As String = "Pending for action in Sewing Department"
+    Public Const SEWING_1 As String = "Sewing Department - Scanned in"
+    Public Const SEWING_2 As String = "Sewing Department - Scanned out and transferred goods to Logistic Department"
 End Class
 
 
@@ -163,8 +178,29 @@ Public NotInheritable Class _JSON_FIELD
 End Class
 
 
+' Bagdge Label
+Public NotInheritable Class _BADGE
+    Public Const CUSTOMER As String = "customer"
+    Public Const ADDRESS_1 As String = "add1"
+    Public Const ADDRESS_2 As String = "add2"
+    Public Const ADDRESS_3 As String = "add3"
+    Public Const ORDER_NAME As String = "name"
+    Public Const ORDER As String = "order"
+    Public Const BAG As String = "bag"
+
+    Public Const XS As String = "xs"
+    Public Const S As String = "s"
+    Public Const M As String = "m"
+    Public Const L As String = "l"
+    Public Const XL As String = "xl"
+    Public Const XXL As String = "2xl"
+    Public Const XXXL As String = "3xl"
+End Class
+
+
 ' Department/process
 Public Enum _PROCESS
+    ADMIN = 0
     APPROVAL = 1
     CUTTING = 2
     EMBROIDERY = 3
@@ -196,33 +232,18 @@ End Class
 
 
 '' BARCODE USAGE
-'Dim barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
-' return image file
-' text, height, scale
-'pic_barcode.Image = barcode128.Draw(txt_barcodeText.Text, 40, 2)
+'Dim orders As New Dictionary(Of String, Object)
+'orders.Add(_BADGE.ORDER, 39123439)
+'orders.Add(_BADGE.CUSTOMER, "ZERO GRAVITY")
+'orders.Add(_BADGE.ORDER_NAME, "APPLE")
+'orders.Add(_BADGE.BAG, 5)
+'orders.Add(_BADGE.XS, 10)
+'orders.Add(_BADGE.S, 10)
+'orders.Add(_BADGE.M, 10)
+'orders.Add(_BADGE.L, 10)
+'orders.Add(_BADGE.XL, 10)
+'orders.Add(_BADGE.XXL, 10)
+'orders.Add(_BADGE.XXXL, 10)
 
-
-'' DB USAGE
-' SELECT MULTIPLE
-'Dim dictionaries As New List(Of Dictionary(Of String, Object))
-'dictionaries = Database.SelectFromTable("user", "username")
-'dictionaries = Database.SelectRows("user", "username", "chye")
-
-' printing
-'For Each dictionary In dictionaries
-'For Each pair In dictionary
-'Console.WriteLine(pair.Key & ": " & pair.Value)
-'Next
-'Next
-
-
-' SELECT SINGLE
-'Dim dictionary As New Dictionary(Of String, Object)
-'Dictionary = Database.SelectRow("user", "username", "chyee")
-'If dictionary Is Nothing Then
-'Console.WriteLine("null")
-'Else
-'For Each pair In dictionary
-'Console.WriteLine(pair.Key & ": " & pair.Value)
-'Next
-'End If
+' max 26 barcode digit for default size
+'PictureBox1.Image = Method.GenerateBarcodeLabel(orders)

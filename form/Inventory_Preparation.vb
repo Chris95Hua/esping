@@ -29,6 +29,7 @@
 
         Dim itemlist As List(Of Dictionary(Of String, Object))
         itemlist = Database.SelectAllRows(_TABLE.INVENTORY, {"*"})
+
         If itemlist IsNot Nothing Then
             For Each itemName In itemlist
                 ListBox1.Items.Add(itemName.Item(_INVENTORY.ITEM))
@@ -39,12 +40,14 @@
 
     Private Sub btn_add_Click(sender As Object, e As EventArgs) Handles btn_add.Click
         Dim findText = ListView1.FindItemWithText(ListBox1.SelectedItem)
+        Dim tempListView As ListViewItem
+
         If findText Is Nothing Then
-            Dim tempListView As ListViewItem
             tempListView = ListView1.Items.Add(ListBox1.SelectedItem)
-            tempListView.SubItems.Add(nud_quantity.Value).ToString()
+            tempListView.SubItems.Add(nud_quantity.Value)
         Else
-            MessageBox.Show("Item already existed.")
+            Dim curCount As Integer = findText.SubItems(1).Text
+            findText.SubItems(1).Text = curCount + nud_quantity.Value
         End If
     End Sub
 
@@ -58,19 +61,28 @@
 
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         Dim inventoryList As New Dictionary(Of String, Object)
-        If ListView1.Items.Count > 0 Then
-            For index As Integer = 0 To ListView1.Items.Count - 1
-                inventoryList.Add(ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text)
-            Next
-            Dim invList As New Dictionary(Of String, Object)
-            invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
-            If Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", txt_barcode.Text}, invList) Then
-                MessageBox.Show("Items submitted.")
-                txt_barcode.Text = ""
-                ListView1.Items.Clear()
+        If txt_barcode.Text IsNot String.Empty Then
+            If ListView1.Items.Count > 0 Then
+                For index As Integer = 0 To ListView1.Items.Count - 1
+                    inventoryList.Add(ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text)
+                Next
+
+                Dim invList As New Dictionary(Of String, Object)
+                invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
+
+                If Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", txt_barcode.Text}, invList) Then
+                    MessageBox.Show("Items submitted", "Operation Success")
+                    txt_barcode.Clear()
+                    ListView1.Items.Clear()
+                Else
+                    MessageBox.Show("Unable to submit the items", "Operation Failed")
+                End If
             Else
-                MessageBox.Show("Unable to submit the items.")
+                MessageBox.Show("Please add at least 1 item", "Operation Failed")
             End If
+        Else
+            MessageBox.Show("Please enter job sheet number", "Operation Failed")
         End If
+
     End Sub
 End Class
