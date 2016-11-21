@@ -347,7 +347,7 @@ Public NotInheritable Class Method
     Public Shared Sub OpenForm()
         Select Case Session.department_id
             Case _PROCESS.ADMIN
-                Dim admin As New Embroidery_Department
+                Dim admin As New Admin_Form
                 admin.Show()
             Case _PROCESS.APPROVAL
                 Dim approve As New Approve_Order

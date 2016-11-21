@@ -79,6 +79,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="form\Admin_Form.Designer.vb">
+      <DependentUpon>Admin_Form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Admin_Form.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\Approve_Order.Designer.vb">
       <DependentUpon>Approve_Order.vb</DependentUpon>
     </Compile>
@@ -210,6 +216,9 @@
     <Compile Include="Session.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="form\Admin_Form.resx">
+      <DependentUpon>Admin_Form.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\Approve_Order.resx">
       <DependentUpon>Approve_Order.vb</DependentUpon>
     </EmbeddedResource>
