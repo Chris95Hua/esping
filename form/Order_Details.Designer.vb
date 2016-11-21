@@ -395,7 +395,7 @@ Partial Class Order_Details
         '
         Me.Label27.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(20, 33)
+        Me.Label27.Location = New System.Drawing.Point(21, 33)
         Me.Label27.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(74, 13)
@@ -479,7 +479,7 @@ Partial Class Order_Details
         Me.cb_bHeatTransfer.AutoCheck = False
         Me.cb_bHeatTransfer.AutoSize = True
         Me.cb_bHeatTransfer.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_bHeatTransfer.Location = New System.Drawing.Point(91, 23)
+        Me.cb_bHeatTransfer.Location = New System.Drawing.Point(90, 23)
         Me.cb_bHeatTransfer.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_bHeatTransfer.Name = "cb_bHeatTransfer"
         Me.cb_bHeatTransfer.Size = New System.Drawing.Size(85, 17)
@@ -506,7 +506,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(178, 61)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(177, 61)
         Me.TableLayoutPanel5.TabIndex = 1
         '
         'cb_bPlain
@@ -514,7 +514,7 @@ Partial Class Order_Details
         Me.cb_bPlain.AutoCheck = False
         Me.cb_bPlain.AutoSize = True
         Me.cb_bPlain.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_bPlain.Location = New System.Drawing.Point(91, 44)
+        Me.cb_bPlain.Location = New System.Drawing.Point(90, 44)
         Me.cb_bPlain.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_bPlain.Name = "cb_bPlain"
         Me.cb_bPlain.Size = New System.Drawing.Size(49, 15)
@@ -574,7 +574,7 @@ Partial Class Order_Details
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(186, 235)
+        Me.GroupBox1.Size = New System.Drawing.Size(185, 235)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Clothes"
@@ -598,7 +598,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(178, 61)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(177, 61)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'cb_fHeatTransfer
@@ -606,7 +606,7 @@ Partial Class Order_Details
         Me.cb_fHeatTransfer.AutoCheck = False
         Me.cb_fHeatTransfer.AutoSize = True
         Me.cb_fHeatTransfer.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_fHeatTransfer.Location = New System.Drawing.Point(91, 23)
+        Me.cb_fHeatTransfer.Location = New System.Drawing.Point(90, 23)
         Me.cb_fHeatTransfer.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_fHeatTransfer.Name = "cb_fHeatTransfer"
         Me.cb_fHeatTransfer.Size = New System.Drawing.Size(85, 17)
@@ -619,7 +619,7 @@ Partial Class Order_Details
         Me.cb_fPlain.AutoCheck = False
         Me.cb_fPlain.AutoSize = True
         Me.cb_fPlain.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_fPlain.Location = New System.Drawing.Point(91, 44)
+        Me.cb_fPlain.Location = New System.Drawing.Point(90, 44)
         Me.cb_fPlain.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_fPlain.Name = "cb_fPlain"
         Me.cb_fPlain.Size = New System.Drawing.Size(49, 15)
@@ -652,7 +652,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 1
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(176, 20)
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(175, 20)
         Me.TableLayoutPanel7.TabIndex = 1
         '
         'Label8
@@ -685,7 +685,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(178, 22)
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(177, 22)
         Me.TableLayoutPanel6.TabIndex = 1
         '
         'txt_collar
@@ -716,7 +716,7 @@ Partial Class Order_Details
         Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.Label7.Location = New System.Drawing.Point(101, 4)
+        Me.Label7.Location = New System.Drawing.Point(100, 4)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(29, 13)
@@ -727,7 +727,7 @@ Partial Class Order_Details
         '
         Me.txt_cuff.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txt_cuff.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_cuff.Location = New System.Drawing.Point(134, 2)
+        Me.txt_cuff.Location = New System.Drawing.Point(133, 2)
         Me.txt_cuff.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_cuff.Name = "txt_cuff"
         Me.txt_cuff.ReadOnly = True
@@ -750,7 +750,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(178, 21)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(177, 21)
         Me.TableLayoutPanel3.TabIndex = 1
         '
         'cb_split
@@ -758,7 +758,7 @@ Partial Class Order_Details
         Me.cb_split.AutoCheck = False
         Me.cb_split.AutoSize = True
         Me.cb_split.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_split.Location = New System.Drawing.Point(108, 2)
+        Me.cb_split.Location = New System.Drawing.Point(107, 2)
         Me.cb_split.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_split.Name = "cb_split"
         Me.cb_split.Size = New System.Drawing.Size(46, 17)
@@ -774,7 +774,7 @@ Partial Class Order_Details
         Me.cb_fabricCL.Location = New System.Drawing.Point(37, 2)
         Me.cb_fabricCL.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_fabricCL.Name = "cb_fabricCL"
-        Me.cb_fabricCL.Size = New System.Drawing.Size(67, 17)
+        Me.cb_fabricCL.Size = New System.Drawing.Size(66, 17)
         Me.cb_fabricCL.TabIndex = 3
         Me.cb_fabricCL.Text = "Fabric CL"
         Me.cb_fabricCL.UseVisualStyleBackColor = True
@@ -796,7 +796,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.51724!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.48276!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 275.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 276.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel11, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox1, 0, 0)
@@ -815,7 +815,7 @@ Partial Class Order_Details
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.TableLayoutPanel8)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(192, 2)
+        Me.GroupBox2.Location = New System.Drawing.Point(191, 2)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
@@ -928,14 +928,14 @@ Partial Class Order_Details
         Me.TableLayoutPanel11.Controls.Add(Me.TableLayoutPanel13, 0, 2)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox3, 0, 0)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox4, 0, 1)
-        Me.TableLayoutPanel11.Location = New System.Drawing.Point(378, 2)
+        Me.TableLayoutPanel11.Location = New System.Drawing.Point(377, 2)
         Me.TableLayoutPanel11.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel11.Name = "TableLayoutPanel11"
         Me.TableLayoutPanel11.RowCount = 3
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.82716!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.01657!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.28177!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(272, 235)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(273, 235)
         Me.TableLayoutPanel11.TabIndex = 3
         '
         'TableLayoutPanel13
@@ -954,7 +954,7 @@ Partial Class Order_Details
         Me.TableLayoutPanel13.RowCount = 2
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel13.Size = New System.Drawing.Size(268, 53)
+        Me.TableLayoutPanel13.Size = New System.Drawing.Size(269, 53)
         Me.TableLayoutPanel13.TabIndex = 7
         '
         'Label21
@@ -972,7 +972,7 @@ Partial Class Order_Details
         '
         Me.d_issued.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.d_issued.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.d_issued.Location = New System.Drawing.Point(117, 3)
+        Me.d_issued.Location = New System.Drawing.Point(118, 3)
         Me.d_issued.Margin = New System.Windows.Forms.Padding(2)
         Me.d_issued.Name = "d_issued"
         Me.d_issued.ReadOnly = True
@@ -983,7 +983,7 @@ Partial Class Order_Details
         '
         Me.d_delivery.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.d_delivery.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.d_delivery.Location = New System.Drawing.Point(117, 29)
+        Me.d_delivery.Location = New System.Drawing.Point(118, 29)
         Me.d_delivery.Margin = New System.Windows.Forms.Padding(2)
         Me.d_delivery.Name = "d_delivery"
         Me.d_delivery.ReadOnly = True

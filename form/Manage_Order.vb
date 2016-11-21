@@ -7,7 +7,7 @@
         End If
 
         txt_welcome.Text = "Welcome: " + Session.first_name
-        bgw_OrderLoader.RunWorkerAsync()
+        LoadDataGridData()
     End Sub
 
     Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
@@ -20,8 +20,7 @@
         Dim newOrderForm As New new_order
         newOrderForm.ShowDialog()
 
-        ' refresh
-        refreshDataGridView()
+        LoadDataGridData()
     End Sub
 
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
@@ -31,7 +30,7 @@
 
     Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
-            txt_search.Text = "Search"
+            txt_search.Text = "Search Order"
             txt_search.ForeColor = Color.Gray
         End If
     End Sub
@@ -61,7 +60,23 @@
         End If
     End Sub
 
+    Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If IsNumeric(txt_search.Text) Then
+                LoadDataGridData(txt_search.Text)
+            Else
+                MessageBox.Show("Invalid order number", "Error")
+            End If
+        End If
+    End Sub
+
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
+        Dim searchQuery As String = String.Empty
+
+        If e.Argument > 0 Then
+            searchQuery = String.Concat(" AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument)
+        End If
+
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
@@ -75,6 +90,7 @@
                                               " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                               " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                              searchQuery,
                                               " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " DESC"
                                         )
 
@@ -92,7 +108,9 @@
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
         Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
+
         If result = DialogResult.Yes Then
+            dgv_details.Enabled = False
             bgw_OrderDelete.RunWorkerAsync(dgv_details.SelectedCells.Item(0).Value)
         End If
     End Sub
@@ -128,6 +146,8 @@
         Else
             MessageBox.Show("Failed to remove order", "Error")
         End If
+
+        dgv_details.Enabled = True
     End Sub
 
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
@@ -136,11 +156,11 @@
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
-        RefreshDataGridView()
+        LoadDataGridData()
     End Sub
 
-    Private Sub RefreshDataGridView()
+    Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
         dgv_details.Enabled = False
-        bgw_OrderLoader.RunWorkerAsync()
+        bgw_OrderLoader.RunWorkerAsync(orderID)
     End Sub
 End Class

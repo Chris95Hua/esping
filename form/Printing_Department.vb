@@ -8,7 +8,7 @@
         End If
 
         txt_welcome.Text = "Welcome: " + Session.first_name
-        bgw_PrintLoader.RunWorkerAsync()
+        LoadDataGridData()
     End Sub
 
     Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
@@ -16,9 +16,25 @@
         passUpdateForm.Show()
     End Sub
 
+    Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If IsNumeric(txt_search.Text) Then
+                LoadDataGridData(txt_search.Text)
+            Else
+                MessageBox.Show("Invalid order number", "Error")
+            End If
+        End If
+    End Sub
+
     Private Sub bgw_PrintLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_PrintLoader.DoWork
         Dim cuttingID As Integer = _PROCESS.CUTTING
         Dim printingID As Integer = _PROCESS.PRINTING
+
+        Dim searchQuery As String = String.Empty
+
+        If e.Argument > 0 Then
+            searchQuery = String.Concat(" AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument)
+        End If
 
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
@@ -35,6 +51,7 @@
                                               " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                               " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                               " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", printingID, ")",
+                                              searchQuery,
                                               " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
                                               " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC"
                                         )
@@ -74,8 +91,7 @@
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
-        dgv_details.Enabled = False
-        bgw_PrintLoader.RunWorkerAsync()
+        LoadDataGridData()
     End Sub
 
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
@@ -85,8 +101,13 @@
 
     Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
-            txt_search.Text = "Search"
+            txt_search.Text = "Search Order"
             txt_search.ForeColor = Color.Gray
         End If
+    End Sub
+
+    Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
+        dgv_details.Enabled = False
+        bgw_PrintLoader.RunWorkerAsync(orderID)
     End Sub
 End Class

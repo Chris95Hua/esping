@@ -397,4 +397,8 @@ Public Class Order_Details
 
         log.ShowDialog()
     End Sub
+
+    Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
+
+    End Sub
 End Class
