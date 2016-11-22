@@ -1,7 +1,10 @@
 ﻿Public Class Manage_Order
+    Private searchMode As Boolean = False
+
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        ' for admin
         If Session.department_id = _PROCESS.ADMIN Then
             Session.department_id = _PROCESS.ORDER
         End If
@@ -10,24 +13,26 @@
         LoadDataGridData()
     End Sub
 
+    ' Logout
     Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
         Dim login As New Login
         login.Show()
         Me.Close()
     End Sub
 
-    Private Sub btn_newOrder_Click(sender As Object, e As EventArgs) Handles btn_newOrder.Click
-        Dim newOrderForm As New new_order
-        newOrderForm.ShowDialog()
-
-        LoadDataGridData()
+    ' Update password
+    Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
+        Dim passUpdateForm As New Update_Password
+        passUpdateForm.ShowDialog()
     End Sub
 
+    ' Clear search field
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
         txt_search.Text = ""
         txt_search.ForeColor = Color.Black
     End Sub
 
+    ' Put place holder text in search field
     Private Sub btn_search_LostFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.LostFocus
         If txt_search.Text = "" Then
             txt_search.Text = "Search Order"
@@ -35,11 +40,27 @@
         End If
     End Sub
 
-    Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
-        Dim passUpdateForm As New Update_Password
-        passUpdateForm.ShowDialog()
+    ' Search event
+    Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If IsNumeric(txt_search.Text) Then
+                searchMode = True
+                LoadDataGridData(txt_search.Text)
+            Else
+                MessageBox.Show("Invalid order number", "Error")
+            End If
+        End If
     End Sub
 
+    ' New order
+    Private Sub btn_newOrder_Click(sender As Object, e As EventArgs) Handles btn_newOrder.Click
+        Dim newOrderForm As New new_order
+        newOrderForm.ShowDialog()
+
+        LoadDataGridData()
+    End Sub
+
+    ' Update delivery date
     Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
         Dim editDeliveryForm As New Edit_Delivery_Date(Date.ParseExact(dgv_details.SelectedCells.Item(4).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture))
 
@@ -60,52 +81,7 @@
         End If
     End Sub
 
-    Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            If IsNumeric(txt_search.Text) Then
-                LoadDataGridData(txt_search.Text)
-            Else
-                MessageBox.Show("Invalid order number", "Error")
-            End If
-        End If
-    End Sub
-
-    Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
-        Dim searchQuery As String = String.Empty
-
-        If e.Argument > 0 Then
-            searchQuery = String.Concat(" AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument)
-        End If
-
-        Dim sqlStmt As String = String.Concat("SELECT ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
-                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
-                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
-                                              "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
-                                              " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
-                                              " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
-                                              " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
-                                              searchQuery,
-                                              " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " DESC"
-                                        )
-
-        e.Result = Database.GetDataTable(sqlStmt.ToString())
-
-    End Sub
-
-    Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderLoader.RunWorkerCompleted
-        If (e.Error Is Nothing) Then
-            dgv_details.DataSource = e.Result
-        End If
-
-        dgv_details.Enabled = True
-    End Sub
-
+    ' Delete order
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
         Dim result As Integer = MessageBox.Show("Confirm deletion?", "Delete Order", MessageBoxButtons.YesNo)
 
@@ -115,7 +91,81 @@
         End If
     End Sub
 
+    ' Get data for datagridview
+    Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
+        If e.Argument <> -1 Then
+            ' search
+            Dim search As String = String.Concat("SELECT ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FABRIC, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLLAR, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUFF, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ARTWORK, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SIZE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.MATERIAL, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLOUR, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PACKAGING, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT,
+                                              " FROM ", _TABLE.ORDER_CUSTOMER,
+                                              " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument
+                                        )
 
+            e.Result = Database.ExecuteReader(search)
+        Else
+            ' get datagrid data
+            Dim sqlStmt As String = String.Concat("SELECT ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                                  _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
+                                                  " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
+                                                  " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
+                                                  "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
+                                                  " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                                  " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
+                                                  " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                                  " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " DESC"
+                                            )
+
+            e.Result = Database.GetDataTable(sqlStmt)
+        End If
+    End Sub
+
+    ' Result
+    Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderLoader.RunWorkerCompleted
+        If (e.Error Is Nothing) Then
+            If searchMode Then
+                ' result from search, open details form
+                Dim orderDetails As New List(Of Dictionary(Of String, Object))
+                orderDetails = e.Result
+
+                If orderDetails IsNot Nothing Then
+                    Dim details As New Order_Details(txt_search.Text, orderDetails.First, -1)
+                    details.ShowDialog()
+                Else
+                    MessageBox.Show("Could not find matching order", "Error")
+                End If
+
+                searchMode = False
+            Else
+                ' populate datagridview
+                dgv_details.DataSource = e.Result
+            End If
+        End If
+
+        dgv_details.Enabled = True
+    End Sub
+
+    ' Delete Async Work
     Private Sub bgw_OrderDelete_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderDelete.DoWork
         Dim result As Boolean = False
         Dim id As Integer = e.Argument
@@ -139,6 +189,7 @@
         e.Result = result
     End Sub
 
+    ' Delete Async work
     Private Sub bgw_OrderDelete_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderDelete.RunWorkerCompleted
         If e.Result Then
             dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
@@ -150,15 +201,19 @@
         dgv_details.Enabled = True
     End Sub
 
+    ' View order detail
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim details As New Order_Details(dgv_details.SelectedCells(0).Value, -1)
+        Dim orderID As Integer = dgv_details.SelectedCells(0).Value
+        Dim details As New Order_Details(orderID, -1)
         details.ShowDialog()
     End Sub
 
+    ' Reload datagridview data
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
         LoadDataGridData()
     End Sub
 
+    ' Start worker async
     Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
         dgv_details.Enabled = False
         bgw_OrderLoader.RunWorkerAsync(orderID)

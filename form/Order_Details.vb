@@ -6,7 +6,9 @@ Public Class Order_Details
     Public updateDateTime As DateTime
     Private artworkImg As String
     Private paymentImg As String
+    Private fromSearch As Boolean = False
 
+    ' Order ID and status
     Sub New(ByVal orderID As Integer, ByVal status As Integer)
         ' This call is required by the designer.
         InitializeComponent()
@@ -15,10 +17,27 @@ Public Class Order_Details
         Me.status = status
     End Sub
 
+    ' Full order detail
+    Sub New(ByVal orderID As Integer, ByVal orderDetail As Dictionary(Of String, Object), ByVal status As Integer)
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' TODO: know which process its from
+        Me.orderID = orderID
+        Me.status = status
+        fromSearch = True
+
+        PopulateDetails(orderDetail)
+    End Sub
+
+    ' Setup form
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
-        bgw_DetailsLoader.RunWorkerAsync(orderID)
+        If Not fromSearch Then
+            bgw_DetailsLoader.RunWorkerAsync(orderID)
+        End If
+
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
         Dim barcode() As Integer = {_PROCESS.CUTTING, _PROCESS.SEWING}
 
@@ -43,6 +62,7 @@ Public Class Order_Details
         End If
     End Sub
 
+    ' Load order detail
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_DetailsLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
@@ -61,223 +81,217 @@ Public Class Order_Details
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT, ", ",
-                                              _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
-                                              " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
-                                              " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
-                                              "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
-                                              " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
-                                              " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
-                                              " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
-                                              " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", "@", _ORDER_CUSTOMER.ORDER_ID
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT,
+                                              " FROM ", _TABLE.ORDER_CUSTOMER,
+                                              " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", "@", _ORDER_CUSTOMER.ORDER_ID
                                         )
 
         Dim orderID As New Dictionary(Of String, Object)
         orderID.Add(_ORDER_CUSTOMER.ORDER_ID, e.Argument)
 
-        Dim results As New Dictionary(Of String, Object)
-        results = Database.ExecuteReader(sqlStmt.ToString(), orderID).First
-
-        If Not IsDBNull(results.Item(_ORDER_CUSTOMER.ARTWORK)) Then
-            artworkImg = results.Item(_ORDER_CUSTOMER.ARTWORK)
-        End If
-
-        If Not IsDBNull(results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
-            paymentImg = results.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
-        End If
-
-        e.Result = results
+        e.Result = Database.ExecuteReader(sqlStmt, orderID).First
     End Sub
 
+    ' Return result
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_DetailsLoader.RunWorkerCompleted
         If (e.Error Is Nothing) Then
-            Dim results As New Dictionary(Of String, Object)
-            results = e.Result
+            PopulateDetails(e.Result)
+        End If
+    End Sub
 
-            ' order name
-            If results.ContainsKey(_ORDER_CUSTOMER.ORDER_NAME) Then
-                txt_orderName.Text = results.Item(_ORDER_CUSTOMER.ORDER_NAME)
+    ' Populate detail
+    Private Sub PopulateDetails(ByVal details As Dictionary(Of String, Object))
+        ' order name
+        If details.ContainsKey(_ORDER_CUSTOMER.ORDER_NAME) Then
+            txt_orderName.Text = details.Item(_ORDER_CUSTOMER.ORDER_NAME)
+        End If
+
+        ' customer
+        If details.ContainsKey(_ORDER_CUSTOMER.CUSTOMER) Then
+            txt_cusName.Text = details.Item(_ORDER_CUSTOMER.CUSTOMER)
+        End If
+
+        ' fabric
+        If details.ContainsKey(_ORDER_CUSTOMER.FABRIC) Then
+            Dim type As New Dictionary(Of String, Integer)
+            type = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.FABRIC))
+
+            If type.ContainsKey(_JSON_FIELD.FABRIC) Then
+                cb_fabricCL.CheckState = CheckState.Checked
             End If
 
-            ' customer
-            If results.ContainsKey(_ORDER_CUSTOMER.CUSTOMER) Then
-                txt_cusName.Text = results.Item(_ORDER_CUSTOMER.CUSTOMER)
+            If type.ContainsKey(_JSON_FIELD.SPLIT) Then
+                cb_split.CheckState = CheckState.Checked
+            End If
+        End If
+
+        ' collar
+        If details.ContainsKey(_ORDER_CUSTOMER.COLLAR) Then
+            txt_collar.Text = details.Item(_ORDER_CUSTOMER.COLLAR)
+        End If
+
+        ' cuff
+        If details.ContainsKey(_ORDER_CUSTOMER.CUFF) Then
+            txt_cuff.Text = details.Item(_ORDER_CUSTOMER.CUFF)
+        End If
+
+        ' front
+        If details.ContainsKey(_ORDER_CUSTOMER.FRONT) Then
+            Dim front As New Dictionary(Of String, Integer)
+            front = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.FRONT))
+
+            If front.ContainsKey(_JSON_FIELD.PRINTING) Then
+                cb_fPrinting.CheckState = CheckState.Checked
             End If
 
-            ' fabric
-            If results.ContainsKey(_ORDER_CUSTOMER.FABRIC) Then
-                Dim type As New Dictionary(Of String, Integer)
-                type = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.FABRIC))
-
-                If type.ContainsKey(_JSON_FIELD.FABRIC) Then
-                    cb_fabricCL.CheckState = CheckState.Checked
-                End If
-
-                If type.ContainsKey(_JSON_FIELD.SPLIT) Then
-                    cb_split.CheckState = CheckState.Checked
-                End If
+            If front.ContainsKey(_JSON_FIELD.HEAT) Then
+                cb_fHeatTransfer.CheckState = CheckState.Checked
             End If
 
-            ' collar
-            If results.ContainsKey(_ORDER_CUSTOMER.COLLAR) Then
-                txt_collar.Text = results.Item(_ORDER_CUSTOMER.COLLAR)
+            If front.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
+                cb_fEmbroidery.CheckState = CheckState.Checked
             End If
 
-            ' cuff
-            If results.ContainsKey(_ORDER_CUSTOMER.CUFF) Then
-                txt_cuff.Text = results.Item(_ORDER_CUSTOMER.CUFF)
+            If front.ContainsKey(_JSON_FIELD.PLAIN) Then
+                cb_fPlain.CheckState = CheckState.Checked
+            End If
+        End If
+
+        ' back
+        If details.ContainsKey(_ORDER_CUSTOMER.BACK) Then
+            Dim back As New Dictionary(Of String, Integer)
+            back = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.BACK))
+
+            If back.ContainsKey(_JSON_FIELD.PRINTING) Then
+                cb_bPrinting.CheckState = CheckState.Checked
             End If
 
-            ' front
-            If results.ContainsKey(_ORDER_CUSTOMER.FRONT) Then
-                Dim front As New Dictionary(Of String, Integer)
-                front = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.FRONT))
-
-                If front.ContainsKey(_JSON_FIELD.PRINTING) Then
-                    cb_fPrinting.CheckState = CheckState.Checked
-                End If
-
-                If front.ContainsKey(_JSON_FIELD.HEAT) Then
-                    cb_fHeatTransfer.CheckState = CheckState.Checked
-                End If
-
-                If front.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
-                    cb_fEmbroidery.CheckState = CheckState.Checked
-                End If
-
-                If front.ContainsKey(_JSON_FIELD.PLAIN) Then
-                    cb_fPlain.CheckState = CheckState.Checked
-                End If
+            If back.ContainsKey(_JSON_FIELD.HEAT) Then
+                cb_bHeatTransfer.CheckState = CheckState.Checked
             End If
 
-            ' back
-            If results.ContainsKey(_ORDER_CUSTOMER.BACK) Then
-                Dim back As New Dictionary(Of String, Integer)
-                back = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.BACK))
-
-                If back.ContainsKey(_JSON_FIELD.PRINTING) Then
-                    cb_bPrinting.CheckState = CheckState.Checked
-                End If
-
-                If back.ContainsKey(_JSON_FIELD.HEAT) Then
-                    cb_bHeatTransfer.CheckState = CheckState.Checked
-                End If
-
-                If back.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
-                    cb_bEmbroidery.CheckState = CheckState.Checked
-                End If
-
-                If back.ContainsKey(_JSON_FIELD.PLAIN) Then
-                    cb_bPlain.CheckState = CheckState.Checked
-                End If
+            If back.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
+                cb_bEmbroidery.CheckState = CheckState.Checked
             End If
 
-            ' artwork
-            If artworkImg Is Nothing Then
-                lbl_artwork.Text = "No artwork available"
-                pic_artwork.Enabled = False
+            If back.ContainsKey(_JSON_FIELD.PLAIN) Then
+                cb_bPlain.CheckState = CheckState.Checked
+            End If
+        End If
+
+        ' artwork
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.ARTWORK)) Then
+            artworkImg = details.Item(_ORDER_CUSTOMER.ARTWORK)
+        End If
+
+        If artworkImg Is Nothing Then
+            lbl_artwork.Text = "No artwork available"
+            pic_artwork.Enabled = False
+        End If
+
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
+            paymentImg = details.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
+        End If
+
+        If paymentImg Is Nothing Then
+            lbl_docPath.Text = "No document available"
+            lbl_docPath.Enabled = False
+        End If
+
+        ' size
+        If details.ContainsKey(_ORDER_CUSTOMER.SIZE) Then
+            Dim size As New Dictionary(Of String, Integer)
+            size = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.SIZE))
+
+            If size.ContainsKey(_JSON_FIELD.XS) Then
+                txt_XS.Text = size.Item(_JSON_FIELD.XS)
             End If
 
-            If paymentImg Is Nothing Then
-                lbl_docPath.Text = "No document available"
-                lbl_docPath.Enabled = False
+            If size.ContainsKey(_JSON_FIELD.S) Then
+                txt_S.Text = size.Item(_JSON_FIELD.S)
             End If
 
-            ' size
-            If results.ContainsKey(_ORDER_CUSTOMER.SIZE) Then
-                Dim size As New Dictionary(Of String, Integer)
-                size = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.SIZE))
-
-                If size.ContainsKey(_JSON_FIELD.XS) Then
-                    txt_XS.Text = size.Item(_JSON_FIELD.XS)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.S) Then
-                    txt_S.Text = size.Item(_JSON_FIELD.S)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.M) Then
-                    txt_M.Text = size.Item(_JSON_FIELD.M)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.L) Then
-                    txt_L.Text = size.Item(_JSON_FIELD.L)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.XL) Then
-                    txt_XL.Text = size.Item(_JSON_FIELD.XL)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.XXL) Then
-                    txt_2XL.Text = size.Item(_JSON_FIELD.XXL)
-                End If
-
-                If size.ContainsKey(_JSON_FIELD.XXXL) Then
-                    txt_3XL.Text = size.Item(_JSON_FIELD.XXXL)
-                End If
+            If size.ContainsKey(_JSON_FIELD.M) Then
+                txt_M.Text = size.Item(_JSON_FIELD.M)
             End If
 
-            ' material
-            If results.ContainsKey(_ORDER_CUSTOMER.MATERIAL) Then
-                txt_material.Text = results.Item(_ORDER_CUSTOMER.MATERIAL)
+            If size.ContainsKey(_JSON_FIELD.L) Then
+                txt_L.Text = size.Item(_JSON_FIELD.L)
             End If
 
-            ' colour
-            If results.ContainsKey(_ORDER_CUSTOMER.COLOUR) Then
-                txt_colour.Text = results.Item(_ORDER_CUSTOMER.COLOUR)
+            If size.ContainsKey(_JSON_FIELD.XL) Then
+                txt_XL.Text = size.Item(_JSON_FIELD.XL)
             End If
 
-            ' packaging
-            If results.ContainsKey(_ORDER_CUSTOMER.PACKAGING) Then
-                Dim packaging As New Dictionary(Of String, Integer)
-                packaging = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.PACKAGING))
-
-                If packaging.ContainsKey(_JSON_FIELD.NO_PACKAGE) Then
-                    cb_no.CheckState = CheckState.Checked
-                End If
-
-                If packaging.ContainsKey(_JSON_FIELD.NORMAL_PACKAGE) Then
-                    cb_normal.CheckState = CheckState.Checked
-                End If
-
-                If packaging.ContainsKey(_JSON_FIELD.SUGARBAG_PACKAGE) Then
-                    cb_sugarBag.CheckState = CheckState.Checked
-                End If
-
-                If packaging.ContainsKey(_JSON_FIELD.FOLLOW_PACKAGE) Then
-                    cb_follow.CheckState = CheckState.Checked
-                End If
+            If size.ContainsKey(_JSON_FIELD.XXL) Then
+                txt_2XL.Text = size.Item(_JSON_FIELD.XXL)
             End If
 
-            ' issue date
-            If results.ContainsKey(_ORDER_CUSTOMER.ISSUE_DATE) Then
-                d_issued.Text = Format(results.Item(_ORDER_CUSTOMER.ISSUE_DATE), "dd/MM/yyyy")
+            If size.ContainsKey(_JSON_FIELD.XXXL) Then
+                txt_3XL.Text = size.Item(_JSON_FIELD.XXXL)
+            End If
+        End If
 
+        ' material
+        If details.ContainsKey(_ORDER_CUSTOMER.MATERIAL) Then
+            txt_material.Text = details.Item(_ORDER_CUSTOMER.MATERIAL)
+        End If
+
+        ' colour
+        If details.ContainsKey(_ORDER_CUSTOMER.COLOUR) Then
+            txt_colour.Text = details.Item(_ORDER_CUSTOMER.COLOUR)
+        End If
+
+        ' packaging
+        If details.ContainsKey(_ORDER_CUSTOMER.PACKAGING) Then
+            Dim packaging As New Dictionary(Of String, Integer)
+            packaging = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.PACKAGING))
+
+            If packaging.ContainsKey(_JSON_FIELD.NO_PACKAGE) Then
+                cb_no.CheckState = CheckState.Checked
             End If
 
-            ' delivery date
-            If results.ContainsKey(_ORDER_CUSTOMER.DELIVERY_DATE) Then
-                d_delivery.Text = Format(results.Item(_ORDER_CUSTOMER.DELIVERY_DATE), "dd/MM/yyyy")
+            If packaging.ContainsKey(_JSON_FIELD.NORMAL_PACKAGE) Then
+                cb_normal.CheckState = CheckState.Checked
             End If
 
-            ' payment
-            If results.ContainsKey(_ORDER_CUSTOMER.PAYMENT) Then
-                Dim payment As New Dictionary(Of String, Integer)
-                payment = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(results.Item(_ORDER_CUSTOMER.PAYMENT))
-
-                If payment.ContainsKey(_JSON_FIELD.CASH) Then
-                    cb_cash.CheckState = CheckState.Checked
-                End If
-
-                If payment.ContainsKey(_JSON_FIELD.CHEQUE) Then
-                    cb_cheque.CheckState = CheckState.Checked
-                End If
+            If packaging.ContainsKey(_JSON_FIELD.SUGARBAG_PACKAGE) Then
+                cb_sugarBag.CheckState = CheckState.Checked
             End If
 
-            ' amount
-            If results.ContainsKey(_ORDER_CUSTOMER.AMOUNT) Then
-                txt_amount.Text = results.Item(_ORDER_CUSTOMER.AMOUNT)
+            If packaging.ContainsKey(_JSON_FIELD.FOLLOW_PACKAGE) Then
+                cb_follow.CheckState = CheckState.Checked
             End If
+        End If
+
+        ' issue date
+        If details.ContainsKey(_ORDER_CUSTOMER.ISSUE_DATE) Then
+            d_issued.Text = Format(details.Item(_ORDER_CUSTOMER.ISSUE_DATE), "dd/MM/yyyy")
+
+        End If
+
+        ' delivery date
+        If details.ContainsKey(_ORDER_CUSTOMER.DELIVERY_DATE) Then
+            d_delivery.Text = Format(details.Item(_ORDER_CUSTOMER.DELIVERY_DATE), "dd/MM/yyyy")
+        End If
+
+        ' payment
+        If details.ContainsKey(_ORDER_CUSTOMER.PAYMENT) Then
+            Dim payment As New Dictionary(Of String, Integer)
+            payment = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.PAYMENT))
+
+            If payment.ContainsKey(_JSON_FIELD.CASH) Then
+                cb_cash.CheckState = CheckState.Checked
+            End If
+
+            If payment.ContainsKey(_JSON_FIELD.CHEQUE) Then
+                cb_cheque.CheckState = CheckState.Checked
+            End If
+        End If
+
+        ' amount
+        If details.ContainsKey(_ORDER_CUSTOMER.AMOUNT) Then
+            txt_amount.Text = details.Item(_ORDER_CUSTOMER.AMOUNT)
         End If
     End Sub
 
@@ -285,6 +299,7 @@ Public Class Order_Details
         Me.Close()
     End Sub
 
+    ' Operation
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
         Dim updateQuery As New StringBuilder("BEGIN; UPDATE ")
         Dim logValues As New StringBuilder()

@@ -118,3 +118,4 @@ C:\Users\user\Desktop\espring\obj\Debug\espring.Register.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.Sewing_Department.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Admin_Form.resources
