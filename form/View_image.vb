@@ -12,12 +12,11 @@
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
-
         bgw_ImgLoader.RunWorkerAsync()
     End Sub
 
     Private Sub bgw_ImgLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_ImgLoader.DoWork
-        e.Result = Method.FtpDownload(Dir, imgFilePath)
+        e.Result = Method.FtpDownload(imgDir, imgFilePath)
     End Sub
 
     Private Sub bgw_ImgLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_ImgLoader.RunWorkerCompleted

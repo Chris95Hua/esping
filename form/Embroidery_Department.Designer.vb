@@ -30,9 +30,6 @@ Partial Class Embroidery_Department
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.txt_welcome = New System.Windows.Forms.ToolStripMenuItem()
         Me.dgv_details = New System.Windows.Forms.DataGridView()
-        Me.txt_search = New System.Windows.Forms.TextBox()
-        Me.bgw_EmbroideryLoader = New System.ComponentModel.BackgroundWorker()
-        Me.btn_refresh = New System.Windows.Forms.Button()
         Me.order_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.order_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -40,6 +37,12 @@ Partial Class Embroidery_Department
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datetime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.embroidery_status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txt_search = New System.Windows.Forms.TextBox()
+        Me.bgw_EmbroideryLoader = New System.ComponentModel.BackgroundWorker()
+        Me.btn_refresh = New System.Windows.Forms.Button()
+        Me.lbl_page = New System.Windows.Forms.Label()
+        Me.btn_next = New System.Windows.Forms.Button()
+        Me.btn_previous = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgv_details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -50,8 +53,7 @@ Partial Class Embroidery_Department
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 33)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -63,14 +65,14 @@ Partial Class Embroidery_Department
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(58, 22)
+        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 22)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'txt_welcome
@@ -78,7 +80,7 @@ Partial Class Embroidery_Department
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(112, 22)
+        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'dgv_details
@@ -108,8 +110,7 @@ Partial Class Embroidery_Department
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
-        Me.dgv_details.Location = New System.Drawing.Point(8, 60)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
+        Me.dgv_details.Location = New System.Drawing.Point(12, 81)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -123,31 +124,8 @@ Partial Class Embroidery_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(652, 399)
-        Me.dgv_details.TabIndex = 5
-        '
-        'txt_search
-        '
-        Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(8, 34)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
-        Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(137, 20)
-        Me.txt_search.TabIndex = 6
-        Me.txt_search.Text = "Search"
-        '
-        'bgw_EmbroideryLoader
-        '
-        '
-        'btn_refresh
-        '
-        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(585, 32)
-        Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
-        Me.btn_refresh.TabIndex = 7
-        Me.btn_refresh.Text = "Refresh"
-        Me.btn_refresh.UseVisualStyleBackColor = True
+        Me.dgv_details.Size = New System.Drawing.Size(984, 599)
+        Me.dgv_details.TabIndex = 3
         '
         'order_id
         '
@@ -199,17 +177,78 @@ Partial Class Embroidery_Department
         Me.embroidery_status.ReadOnly = True
         Me.embroidery_status.Visible = False
         '
+        'txt_search
+        '
+        Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
+        Me.txt_search.Location = New System.Drawing.Point(12, 42)
+        Me.txt_search.MaxLength = 1
+        Me.txt_search.Name = "txt_search"
+        Me.txt_search.Size = New System.Drawing.Size(302, 26)
+        Me.txt_search.TabIndex = 6
+        Me.txt_search.Text = "Search"
+        '
+        'bgw_EmbroideryLoader
+        '
+        '
+        'btn_refresh
+        '
+        Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_refresh.Location = New System.Drawing.Point(883, 38)
+        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_refresh.Name = "btn_refresh"
+        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
+        Me.btn_refresh.TabIndex = 2
+        Me.btn_refresh.Text = "Refresh"
+        Me.btn_refresh.UseVisualStyleBackColor = True
+        '
+        'lbl_page
+        '
+        Me.lbl_page.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl_page.AutoSize = True
+        Me.lbl_page.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_page.Location = New System.Drawing.Point(174, 692)
+        Me.lbl_page.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.lbl_page.Name = "lbl_page"
+        Me.lbl_page.Size = New System.Drawing.Size(100, 25)
+        Me.lbl_page.TabIndex = 15
+        Me.lbl_page.Text = "Label1"
+        Me.lbl_page.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'btn_next
+        '
+        Me.btn_next.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn_next.Enabled = False
+        Me.btn_next.Location = New System.Drawing.Point(293, 686)
+        Me.btn_next.Name = "btn_next"
+        Me.btn_next.Size = New System.Drawing.Size(136, 31)
+        Me.btn_next.TabIndex = 5
+        Me.btn_next.Text = "Next"
+        Me.btn_next.UseVisualStyleBackColor = True
+        '
+        'btn_previous
+        '
+        Me.btn_previous.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn_previous.Enabled = False
+        Me.btn_previous.Location = New System.Drawing.Point(12, 686)
+        Me.btn_previous.Name = "btn_previous"
+        Me.btn_previous.Size = New System.Drawing.Size(136, 31)
+        Me.btn_previous.TabIndex = 4
+        Me.btn_previous.Text = "Previous"
+        Me.btn_previous.UseVisualStyleBackColor = True
+        '
         'Embroidery_Department
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(672, 474)
+        Me.ClientSize = New System.Drawing.Size(1008, 729)
+        Me.Controls.Add(Me.lbl_page)
+        Me.Controls.Add(Me.btn_next)
+        Me.Controls.Add(Me.btn_previous)
         Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.txt_search)
-        Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.MinimumSize = New System.Drawing.Size(686, 507)
+        Me.MinimumSize = New System.Drawing.Size(1018, 750)
         Me.Name = "Embroidery_Department"
         Me.Text = "Embroidery Department"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -235,4 +274,7 @@ Partial Class Embroidery_Department
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents datetime As DataGridViewTextBoxColumn
     Friend WithEvents embroidery_status As DataGridViewTextBoxColumn
+    Friend WithEvents lbl_page As System.Windows.Forms.Label
+    Friend WithEvents btn_next As System.Windows.Forms.Button
+    Friend WithEvents btn_previous As System.Windows.Forms.Button
 End Class

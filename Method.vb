@@ -118,6 +118,8 @@ Public NotInheritable Class Method
         Try
             Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(ftpUri.ToString()), FtpWebRequest)
             ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile
+            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+            ftpRequest.GetResponse()
 
             Return True
         Catch ex As WebException

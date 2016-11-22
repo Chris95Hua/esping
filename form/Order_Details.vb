@@ -81,7 +81,9 @@ Public Class Order_Details
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT,
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.REMARKS, ", ",
+                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.INVENTORY_ORDER,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", "@", _ORDER_CUSTOMER.ORDER_ID
                                         )
@@ -185,7 +187,7 @@ Public Class Order_Details
         End If
 
         If artworkImg Is Nothing Then
-            lbl_artwork.Text = "No artwork available"
+            pic_artwork.Text = "No artwork available"
             pic_artwork.Enabled = False
         End If
 
@@ -293,6 +295,24 @@ Public Class Order_Details
         If details.ContainsKey(_ORDER_CUSTOMER.AMOUNT) Then
             txt_amount.Text = details.Item(_ORDER_CUSTOMER.AMOUNT)
         End If
+
+        ' Rich Text box
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.REMARKS)) Then
+            rtb_remarks.Text = details.Item(_ORDER_CUSTOMER.REMARKS)
+        End If
+
+        ' Inventory
+        If details.ContainsKey(_ORDER_CUSTOMER.INVENTORY_ORDER) Then
+            Dim inventoryItem As New Dictionary(Of String, Integer)
+            Dim pair As KeyValuePair(Of String, Integer)
+            Dim tempListView As ListViewItem
+
+            inventoryItem = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.INVENTORY_ORDER))
+            For Each pair In inventoryItem
+                tempListView = ListView1.Items.Add(pair.Key)
+                tempListView.SubItems.Add(pair.Value)
+            Next
+        End If
     End Sub
 
     Private Sub btn_close_Click(sender As Object, e As EventArgs) Handles btn_close.Click
@@ -397,23 +417,18 @@ Public Class Order_Details
         End If
     End Sub
 
-    Private Sub pic_artwork_Click(sender As Object, e As EventArgs) Handles pic_artwork.Click
+    Private Sub pic_artwork_Click(sender As Object, e As EventArgs)
         Dim showImg As New View_image(_FTP_DIRECTORY.ARTWORK, artworkImg)
         showImg.ShowDialog()
     End Sub
 
-    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
+    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs)
         Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
         showImg.ShowDialog()
     End Sub
 
     Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
         Dim log As New Job_Log(orderID)
-
         log.ShowDialog()
-    End Sub
-
-    Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
-
     End Sub
 End Class

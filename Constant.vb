@@ -25,6 +25,7 @@ Public NotInheritable Class _TABLE
     Public Const ORDER_LOG As String = "order_log"
     Public Const DEPARTMENT As String = "department"
     Public Const INVENTORY As String = "inventory"
+    Public Const PAGINATION_LIMIT As Integer = 1000
 End Class
 
 

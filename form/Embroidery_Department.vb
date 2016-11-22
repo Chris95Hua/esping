@@ -1,5 +1,8 @@
 ﻿Public Class Embroidery_Department
     Private searchMode As Boolean = False
+    Private pageNumber As Integer = 1
+    Private currentPageNumber As Integer = 1
+    Private loadRowsFrom As Integer = 0
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
@@ -102,7 +105,8 @@
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                                   " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", embroideryID, ")",
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
-                                                  " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC"
+                                                  " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
+                                                  " LIMIT ", loadRowsFrom, ",", _TABLE.PAGINATION_LIMIT
                                             )
 
             e.Result = Database.GetDataTable(sqlStmt)
@@ -149,6 +153,18 @@
             End If
         End If
 
+        If currentPageNumber = pageNumber Then
+            btn_next.Enabled = False
+        Else
+            btn_next.Enabled = True
+        End If
+        If currentPageNumber <= 1 Then
+            btn_previous.Enabled = False
+        Else
+            btn_previous.Enabled = True
+        End If
+        lbl_page.Text = currentPageNumber.ToString + " / " + pageNumber.ToString
+
         dgv_details.Enabled = True
     End Sub
 
@@ -182,5 +198,33 @@
     Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
         dgv_details.Enabled = False
         bgw_EmbroideryLoader.RunWorkerAsync(orderID)
+    End Sub
+
+    Private Sub btn_previous_Click(sender As Object, e As EventArgs) Handles btn_previous.Click
+        currentPageNumber -= 1
+        LoadDataGridData()
+    End Sub
+
+    Private Sub btn_next_Click(sender As Object, e As EventArgs) Handles btn_next.Click
+        currentPageNumber += 1
+        LoadDataGridData()
+    End Sub
+
+    Private Sub calculatePageNumber()
+        Dim cuttingID As Integer = _PROCESS.CUTTING
+        Dim embroideryID As Integer = _PROCESS.EMBROIDERY
+
+        Dim sqlStmt As String = String.Concat("SELECT COUNT(",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")",
+                                                  " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
+                                                  " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
+                                                  "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
+                                                  " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
+                                                  " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                                  " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
+                                                  " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", embroideryID, ")",
+                                                  " GROUP BY ", _ORDER_LOG.ORDER_ID, ")"
+                                )
+        pageNumber = Math.Ceiling(Database.countRows(sqlStmt) / _TABLE.PAGINATION_LIMIT)
     End Sub
 End Class

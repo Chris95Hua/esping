@@ -37,7 +37,6 @@ C:\Users\Nelson\Desktop\espring\bin\Debug\espring.exe.config
 C:\Users\Nelson\Desktop\espring\obj\Debug\espring.exe
 C:\Users\Nelson\Desktop\espring\obj\Debug\espring.xml
 C:\Users\Nelson\Desktop\espring\obj\Debug\espring.pdb
-C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\bin\Debug\MySql.Data.xml
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Embroidery_Department.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Generate_Barcode.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Printing_Department.resources
@@ -86,7 +85,6 @@ C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.New_Inventory.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.New_Inventory.resources
-C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\espring\bin\Debug\espring.exe.config
 C:\Users\user\Desktop\espring\obj\Debug\espring.exe
 C:\Users\user\Desktop\espring\obj\Debug\espring.xml
@@ -119,3 +117,4 @@ C:\Users\user\Desktop\espring\obj\Debug\espring.Sewing_Department.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Admin_Form.resources
+C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Admin_Form.resources

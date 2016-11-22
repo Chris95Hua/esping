@@ -331,4 +331,19 @@ Public NotInheritable Class Database
         Return Nothing
     End Function
 
+    Public Shared Function countRows(ByVal sqlStmt As String) As Integer
+        Dim conn As New MySqlConnection(connectionString)
+        Dim cmd As New MySqlCommand(sqlStmt, conn)
+
+        Try
+            conn.Open()
+            Return cmd.ExecuteScalar()
+        Catch ex As MySqlException
+            MessageBox.Show("An error has occurred while getting data from database", "Database Error")
+        Finally
+            conn.Close()
+        End Try
+
+        Return cmd.ExecuteScalar()
+    End Function
 End Class

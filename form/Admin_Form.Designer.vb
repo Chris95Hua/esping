@@ -30,7 +30,6 @@ Partial Class Admin_Form
         Me.btn_ManageOrder = New System.Windows.Forms.Button()
         Me.btn_TrackOrder = New System.Windows.Forms.Button()
         Me.btn_ApproveOrder = New System.Windows.Forms.Button()
-        Me.btn_JobLog = New System.Windows.Forms.Button()
         Me.btn_InventoryPreparation = New System.Windows.Forms.Button()
         Me.btn_SewingDepartment = New System.Windows.Forms.Button()
         Me.btn_CuttingDepartment = New System.Windows.Forms.Button()
@@ -94,7 +93,7 @@ Partial Class Admin_Form
         Me.btn_ManageOrder.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_ManageOrder.Name = "btn_ManageOrder"
         Me.btn_ManageOrder.Size = New System.Drawing.Size(265, 155)
-        Me.btn_ManageOrder.TabIndex = 3
+        Me.btn_ManageOrder.TabIndex = 1
         Me.btn_ManageOrder.Text = "Manage Order"
         Me.btn_ManageOrder.UseVisualStyleBackColor = True
         '
@@ -104,11 +103,11 @@ Partial Class Admin_Form
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_TrackOrder.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_TrackOrder.Location = New System.Drawing.Point(681, 460)
+        Me.btn_TrackOrder.Location = New System.Drawing.Point(355, 460)
         Me.btn_TrackOrder.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_TrackOrder.Name = "btn_TrackOrder"
-        Me.btn_TrackOrder.Size = New System.Drawing.Size(267, 157)
-        Me.btn_TrackOrder.TabIndex = 4
+        Me.btn_TrackOrder.Size = New System.Drawing.Size(266, 157)
+        Me.btn_TrackOrder.TabIndex = 8
         Me.btn_TrackOrder.Text = "Track Order"
         Me.btn_TrackOrder.UseVisualStyleBackColor = True
         '
@@ -122,23 +121,9 @@ Partial Class Admin_Form
         Me.btn_ApproveOrder.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_ApproveOrder.Name = "btn_ApproveOrder"
         Me.btn_ApproveOrder.Size = New System.Drawing.Size(266, 155)
-        Me.btn_ApproveOrder.TabIndex = 3
+        Me.btn_ApproveOrder.TabIndex = 2
         Me.btn_ApproveOrder.Text = "Approve Order"
         Me.btn_ApproveOrder.UseVisualStyleBackColor = True
-        '
-        'btn_JobLog
-        '
-        Me.btn_JobLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_JobLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_JobLog.Location = New System.Drawing.Point(355, 460)
-        Me.btn_JobLog.Margin = New System.Windows.Forms.Padding(30)
-        Me.btn_JobLog.Name = "btn_JobLog"
-        Me.btn_JobLog.Size = New System.Drawing.Size(266, 157)
-        Me.btn_JobLog.TabIndex = 4
-        Me.btn_JobLog.Text = "Job Log"
-        Me.btn_JobLog.UseVisualStyleBackColor = True
         '
         'btn_InventoryPreparation
         '
@@ -164,7 +149,7 @@ Partial Class Admin_Form
         Me.btn_SewingDepartment.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_SewingDepartment.Name = "btn_SewingDepartment"
         Me.btn_SewingDepartment.Size = New System.Drawing.Size(265, 157)
-        Me.btn_SewingDepartment.TabIndex = 3
+        Me.btn_SewingDepartment.TabIndex = 7
         Me.btn_SewingDepartment.Text = "Sewing Department"
         Me.btn_SewingDepartment.UseVisualStyleBackColor = True
         '
@@ -178,7 +163,7 @@ Partial Class Admin_Form
         Me.btn_CuttingDepartment.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_CuttingDepartment.Name = "btn_CuttingDepartment"
         Me.btn_CuttingDepartment.Size = New System.Drawing.Size(265, 155)
-        Me.btn_CuttingDepartment.TabIndex = 3
+        Me.btn_CuttingDepartment.TabIndex = 4
         Me.btn_CuttingDepartment.Text = "Cutting Department"
         Me.btn_CuttingDepartment.UseVisualStyleBackColor = True
         '
@@ -192,7 +177,7 @@ Partial Class Admin_Form
         Me.btn_printingDepartment.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_printingDepartment.Name = "btn_printingDepartment"
         Me.btn_printingDepartment.Size = New System.Drawing.Size(267, 155)
-        Me.btn_printingDepartment.TabIndex = 3
+        Me.btn_printingDepartment.TabIndex = 6
         Me.btn_printingDepartment.Text = "Printing Department"
         Me.btn_printingDepartment.UseVisualStyleBackColor = True
         '
@@ -206,7 +191,7 @@ Partial Class Admin_Form
         Me.btn_EmbroideryDepartment.Margin = New System.Windows.Forms.Padding(30)
         Me.btn_EmbroideryDepartment.Name = "btn_EmbroideryDepartment"
         Me.btn_EmbroideryDepartment.Size = New System.Drawing.Size(266, 155)
-        Me.btn_EmbroideryDepartment.TabIndex = 3
+        Me.btn_EmbroideryDepartment.TabIndex = 5
         Me.btn_EmbroideryDepartment.Text = "Embroidery Department"
         Me.btn_EmbroideryDepartment.UseVisualStyleBackColor = True
         '
@@ -220,14 +205,13 @@ Partial Class Admin_Form
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334!))
         Me.TableLayoutPanel1.Controls.Add(Me.btn_ManageOrder, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.btn_TrackOrder, 2, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_ApproveOrder, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.btn_JobLog, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_InventoryPreparation, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_SewingDepartment, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_CuttingDepartment, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_printingDepartment, 2, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_EmbroideryDepartment, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.btn_TrackOrder, 1, 2)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 59)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
@@ -264,7 +248,6 @@ Partial Class Admin_Form
     Friend WithEvents btn_ManageOrder As System.Windows.Forms.Button
     Friend WithEvents btn_TrackOrder As System.Windows.Forms.Button
     Friend WithEvents btn_ApproveOrder As System.Windows.Forms.Button
-    Friend WithEvents btn_JobLog As System.Windows.Forms.Button
     Friend WithEvents btn_InventoryPreparation As System.Windows.Forms.Button
     Friend WithEvents btn_SewingDepartment As System.Windows.Forms.Button
     Friend WithEvents btn_CuttingDepartment As System.Windows.Forms.Button

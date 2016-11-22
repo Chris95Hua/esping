@@ -69,11 +69,15 @@
 
                 Dim invList As New Dictionary(Of String, Object)
                 invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
+                If rtb_remarks.Text IsNot String.Empty Then
+                    invList.Add(_ORDER_CUSTOMER.REMARKS, rtb_remarks.Text)
+                End If
 
                 If Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", txt_barcode.Text}, invList) Then
                     MessageBox.Show("Items submitted", "Operation Success")
                     txt_barcode.Clear()
                     ListView1.Items.Clear()
+                    rtb_remarks.Clear()
                 Else
                     MessageBox.Show("Unable to submit the items", "Operation Failed")
                 End If
