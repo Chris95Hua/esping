@@ -59,6 +59,7 @@ Partial Class Inventory_Preparation
         'txt_barcode
         '
         Me.txt_barcode.Location = New System.Drawing.Point(128, 55)
+        Me.txt_barcode.MaxLength = 10
         Me.txt_barcode.Name = "txt_barcode"
         Me.txt_barcode.Size = New System.Drawing.Size(337, 26)
         Me.txt_barcode.TabIndex = 1

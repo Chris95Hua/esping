@@ -4,6 +4,11 @@
 
         txt_welcome.Text = "Welcome: " + Session.first_name
         loadInventoryList()
+        With ListView1
+            .Columns(0).Width = CInt(.Width * 0.7) 'set column width to be 20% of controls width
+            .Columns(1).Width = CInt(.Width * 0.3) 'set column width to be 50% of controls width
+        End With
+
     End Sub
 
     Private Sub btn_logout_Click(sender As Object, e As EventArgs) Handles btn_logout.Click
@@ -53,7 +58,9 @@
     End Sub
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
-        ListView1.Items.RemoveAt(ListView1.SelectedIndices(0))
+        If ListView1.SelectedItems.Count > 0 Then
+            ListView1.Items.RemoveAt(ListView1.SelectedIndices(0))
+        End If
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged

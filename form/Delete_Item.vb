@@ -5,7 +5,7 @@
     End Sub
 
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
-        Dim Box As MsgBoxResult = MsgBox("Delete the selected item?", "Confirm Deletion", MsgBoxStyle.YesNo)
+        Dim Box As MsgBoxResult = MsgBox("Delete the selected item?", MsgBoxStyle.YesNo, "Confirm Deletion")
 
         ' TODO: use async task
         If Box = MsgBoxResult.Yes Then

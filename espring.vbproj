@@ -97,6 +97,12 @@
     <Compile Include="form\Delete_Item.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\Generate_Barcode_Sticker.Designer.vb">
+      <DependentUpon>Generate_Barcode_Sticker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Generate_Barcode_Sticker.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\Loading_Overlay.Designer.vb">
       <DependentUpon>Loading_Overlay.vb</DependentUpon>
     </Compile>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\Delete_Item.resx">
       <DependentUpon>Delete_Item.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\Generate_Barcode_Sticker.resx">
+      <DependentUpon>Generate_Barcode_Sticker.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Loading_Overlay.resx">
       <DependentUpon>Loading_Overlay.vb</DependentUpon>

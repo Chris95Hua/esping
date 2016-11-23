@@ -16,6 +16,11 @@ Public Class Order_Details
 
         Me.orderID = orderID
         Me.status = status
+
+        With ListView1
+            .Columns(0).Width = CInt(.Width * 0.7) 'set column width to be 20% of controls width
+            .Columns(1).Width = CInt(.Width * 0.3) 'set column width to be 50% of controls width
+        End With
     End Sub
 
     ' Full order detail

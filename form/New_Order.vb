@@ -255,4 +255,12 @@
         txt_artwork.ResetText()
         txt_docPath.ResetText()
     End Sub
+
+    Private Sub rb_pickedUp_Click(sender As Object, e As EventArgs) Handles rb_pickedUp.Click
+        rb_delivery.Checked = False
+    End Sub
+
+    Private Sub rb_delivery_Click(sender As Object, e As EventArgs) Handles rb_delivery.Click
+        rb_pickedUp.Checked = False
+    End Sub
 End Class

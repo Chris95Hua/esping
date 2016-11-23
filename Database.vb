@@ -190,7 +190,7 @@ Public NotInheritable Class Database
         ' append all strings
         sqlStmt.Append(") VALUES (").Append(values).Append(")")
 
-        If ExecuteNonQuery(sqlStmt.ToString(), data) <> -1 Then
+        If ExecuteNonQuery(sqlStmt.ToString(), data) > 0 Then
             Return True
         End If
 
@@ -232,7 +232,7 @@ Public NotInheritable Class Database
             data.Add(condition(0), condition(2))
 
             ' update record
-            If ExecuteNonQuery(sqlStmt.ToString(), data) <> -1 Then
+            If ExecuteNonQuery(sqlStmt.ToString(), data) > 0 Then
                 Return True
             End If
         End If
@@ -254,7 +254,7 @@ Public NotInheritable Class Database
 
             pair.Add(condition(0), condition(2))
 
-            If ExecuteNonQuery(sqlStmt, pair) <> -1 Then
+            If ExecuteNonQuery(sqlStmt, pair) > 0 Then
                 Return True
             End If
         End If
