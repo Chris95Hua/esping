@@ -1,5 +1,6 @@
 ﻿Public Class Approve_Order
-    Private searchMode As Boolean = False
+    Private loadingOverlay As Loading_Overlay
+    Private searchID As Integer = -1
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -47,7 +48,7 @@
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             If IsNumeric(txt_search.Text) Then
-                searchMode = True
+                searchID = txt_search.Text
                 LoadDataGridData(txt_search.Text)
             Else
                 MessageBox.Show("Invalid order number", "Error")
@@ -57,7 +58,6 @@
 
     ' Get data for datagridview
     Private Sub bgw_ApprovalLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_ApprovalLoader.DoWork
-        loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
         If e.Argument <> -1 Then
             ' search
             Dim search As String = String.Concat("SELECT ",
@@ -78,6 +78,8 @@
                                               _ORDER_CUSTOMER.PAYMENT, ", ",
                                               _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
                                               _ORDER_CUSTOMER.AMOUNT, ", ",
+                                              _ORDER_CUSTOMER.REMARKS, ", ",
+                                              _ORDER_CUSTOMER.INVENTORY_ORDER, ", ",
                                               _ORDER_CUSTOMER.APPROVAL,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument
@@ -85,6 +87,9 @@
 
             e.Result = Database.ExecuteReader(search)
         Else
+            CalculatePageNumber()
+            loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
+
             ' get datagrid data
             Dim approvalID As Integer = _PROCESS.APPROVAL
             Dim orderID As Integer = _PROCESS.ORDER
@@ -116,20 +121,21 @@
 
     ' Result
     Private Sub bgw_ApprovalLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_ApprovalLoader.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
-            If searchMode Then
+            If searchID <> -1 Then
                 ' result from search, open details form
                 Dim orderDetails As New List(Of Dictionary(Of String, Object))
                 orderDetails = e.Result
 
                 If orderDetails IsNot Nothing Then
-                    Dim orderID As Integer = txt_search.Text
-                    Dim details As New Order_Details(orderID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.APPROVAL))
+                    Dim details As New Order_Details(searchID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.APPROVAL))
 
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = orderID Then
+                            If row.Cells(0).Value = searchID Then
                                 row.Cells(5).Value = _STATUS.APPROVAL_1
                                 row.Cells(6).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(7).Value = details.status
@@ -140,7 +146,7 @@
                     MessageBox.Show("Could not find matching order", "Error")
                 End If
 
-                searchMode = False
+                searchID = -1
             Else
                 ' populate datagridview
                 dgv_details.DataSource = e.Result
@@ -186,6 +192,17 @@
     Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
         dgv_details.Enabled = False
         bgw_ApprovalLoader.RunWorkerAsync(orderID)
+        ShowLoadingOverlay(True)
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
+        End If
     End Sub
 
     Private Sub btn_previous_Click(sender As Object, e As EventArgs) Handles btn_previous.Click
@@ -198,7 +215,7 @@
         LoadDataGridData()
     End Sub
 
-    Private Sub calculatePageNumber()
+    Private Sub CalculatePageNumber()
         Dim approvalID As Integer = _PROCESS.APPROVAL
         Dim orderID As Integer = _PROCESS.ORDER
 

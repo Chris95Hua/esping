@@ -27,6 +27,7 @@
     Private Sub loadInventoryList()
         ListBox1.Items.Clear()
 
+        ' TODO: use async task
         Dim itemlist As List(Of Dictionary(Of String, Object))
         itemlist = Database.SelectAllRows(_TABLE.INVENTORY, {"*"})
 
@@ -59,6 +60,7 @@
         nud_quantity.Value = 1
     End Sub
 
+    ' TODO: use async task
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         Dim inventoryList As New Dictionary(Of String, Object)
         If txt_barcode.Text IsNot String.Empty Then

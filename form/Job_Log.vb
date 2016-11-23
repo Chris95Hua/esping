@@ -1,4 +1,5 @@
 ﻿Public Class Job_Log
+    Private loadingOverlay As Loading_Overlay
     Private orderID As Integer
 
     Sub New(ByVal orderID As Integer)
@@ -10,13 +11,14 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        ' TODO: use async task
         Dim orderDetails As Dictionary(Of String, Object)
         orderDetails = Database.SelectRows(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", Me.orderID}).First
 
         If orderDetails IsNot Nothing Then
             lbl_customer.Text = orderDetails.Item(_ORDER_CUSTOMER.CUSTOMER).ToString()
             lbl_orderName.Text = orderDetails.Item(_ORDER_CUSTOMER.ORDER_NAME).ToString()
-            bgw_JobLogLoader.RunWorkerAsync()
+            LoadDataGridData()
         End If
 
     End Sub
@@ -35,6 +37,8 @@
     End Sub
 
     Private Sub bgw_JobLogLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_JobLogLoader.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
             dgv_job_log.DataSource = e.Result
         End If
@@ -43,7 +47,22 @@
     End Sub
 
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
+        LoadDataGridData()
+    End Sub
+
+    Private Sub LoadDataGridData()
         dgv_job_log.Enabled = False
         bgw_JobLogLoader.RunWorkerAsync()
+        ShowLoadingOverlay(True)
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
+        End If
     End Sub
 End Class

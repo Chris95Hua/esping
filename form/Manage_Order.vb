@@ -1,5 +1,6 @@
 ﻿Public Class Manage_Order
-    Private searchMode As Boolean = False
+    Private loadingOverlay As Loading_Overlay
+    Private searchID As Integer = -1
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -47,7 +48,7 @@
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             If IsNumeric(txt_search.Text) Then
-                searchMode = True
+                searchID = txt_search.Text
                 LoadDataGridData(txt_search.Text)
             Else
                 MessageBox.Show("Invalid order number", "Error")
@@ -75,6 +76,7 @@
 
             update.Add(_ORDER_CUSTOMER.DELIVERY_DATE, newDate)
 
+            ' TODO: use async task
             If Database.Update(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}, update) Then
                 dgv_details.SelectedCells.Item(4).Value = newDate.ToString("dd/MM/yyyy")
                 MessageBox.Show("Delivery date updated successfully")
@@ -91,38 +93,43 @@
         If result = DialogResult.Yes Then
             dgv_details.Enabled = False
             bgw_OrderDelete.RunWorkerAsync(dgv_details.SelectedCells.Item(0).Value)
+            ShowLoadingOverlay(True)
         End If
     End Sub
 
     ' Get data for datagridview
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
-        loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
         If e.Argument <> -1 Then
             ' search
             Dim search As String = String.Concat("SELECT ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FABRIC, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLLAR, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUFF, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ARTWORK, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SIZE, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.MATERIAL, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLOUR, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PACKAGING, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT,
+                                              _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                              _ORDER_CUSTOMER.CUSTOMER, ", ",
+                                              _ORDER_CUSTOMER.FABRIC, ", ",
+                                              _ORDER_CUSTOMER.COLLAR, ", ",
+                                              _ORDER_CUSTOMER.CUFF, ", ",
+                                              _ORDER_CUSTOMER.FRONT, ", ",
+                                              _ORDER_CUSTOMER.BACK, ", ",
+                                              _ORDER_CUSTOMER.ARTWORK, ", ",
+                                              _ORDER_CUSTOMER.SIZE, ", ",
+                                              _ORDER_CUSTOMER.MATERIAL, ", ",
+                                              _ORDER_CUSTOMER.COLOUR, ", ",
+                                              _ORDER_CUSTOMER.PACKAGING, ", ",
+                                              _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                              _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _ORDER_CUSTOMER.PAYMENT, ", ",
+                                              _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
+                                              _ORDER_CUSTOMER.REMARKS, ", ",
+                                              _ORDER_CUSTOMER.INVENTORY_ORDER, ", ",
+                                              _ORDER_CUSTOMER.AMOUNT,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
-                                              " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument
+                                              " WHERE ", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument
                                         )
 
             e.Result = Database.ExecuteReader(search)
         Else
+            CalculatePageNumber()
+            loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
+
             ' get datagrid data
             Dim sqlStmt As String = String.Concat("SELECT ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
@@ -147,20 +154,22 @@
 
     ' Result
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderLoader.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
-            If searchMode Then
+            If searchID <> -1 Then
                 ' result from search, open details form
                 Dim orderDetails As New List(Of Dictionary(Of String, Object))
                 orderDetails = e.Result
 
                 If orderDetails IsNot Nothing Then
-                    Dim details As New Order_Details(txt_search.Text, orderDetails.First, -1)
+                    Dim details As New Order_Details(searchID, orderDetails.First, -1)
                     details.ShowDialog()
                 Else
                     MessageBox.Show("Could not find matching order", "Error")
                 End If
 
-                searchMode = False
+                searchID = -1
             Else
                 ' populate datagridview
                 dgv_details.DataSource = e.Result
@@ -193,7 +202,6 @@
         If ftpFiles IsNot Nothing And Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK)) Then
                 Method.FtpDelete(_FTP_DIRECTORY.ARTWORK, ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK))
-
             End If
 
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
@@ -208,6 +216,8 @@
 
     ' Delete Async work
     Private Sub bgw_OrderDelete_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_OrderDelete.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If e.Result Then
             dgv_details.Rows.RemoveAt(dgv_details.SelectedRows(0).Index)
             MessageBox.Show("Order has been removed successfully", "Task Completed")
@@ -234,6 +244,17 @@
     Private Sub LoadDataGridData(Optional ByVal orderID As Integer = -1)
         dgv_details.Enabled = False
         bgw_OrderLoader.RunWorkerAsync(orderID)
+        ShowLoadingOverlay(True)
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
+        End If
     End Sub
 
     Private Sub btn_previous_Click(sender As Object, e As EventArgs) Handles btn_previous.Click
@@ -246,7 +267,7 @@
         LoadDataGridData()
     End Sub
 
-    Private Sub calculatePageNumber()
+    Private Sub CalculatePageNumber()
         Dim sqlStmt As String = String.Concat("SELECT COUNT(",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")",
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,

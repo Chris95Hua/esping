@@ -97,6 +97,12 @@
     <Compile Include="form\Delete_Item.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\Loading_Overlay.Designer.vb">
+      <DependentUpon>Loading_Overlay.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Loading_Overlay.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\New_Inventory.Designer.vb">
       <DependentUpon>New_Inventory.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
     <EmbeddedResource Include="form\Delete_Item.resx">
       <DependentUpon>Delete_Item.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\Loading_Overlay.resx">
+      <DependentUpon>Loading_Overlay.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\New_Inventory.resx">
       <DependentUpon>New_Inventory.vb</DependentUpon>
     </EmbeddedResource>
@@ -293,7 +302,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\loading.gif" />
     <Content Include="images\logo.png" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\loading.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

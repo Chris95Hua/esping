@@ -7,6 +7,7 @@
     Private Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
         Dim Box As MsgBoxResult = MsgBox("Delete the selected item?", "Confirm Deletion", MsgBoxStyle.YesNo)
 
+        ' TODO: use async task
         If Box = MsgBoxResult.Yes Then
             If Database.Delete(_TABLE.INVENTORY, {_INVENTORY.ITEM, "=", cb_itemName.SelectedItem}) Then
                 MessageBox.Show("Item deleted", "Delete Success")
@@ -20,6 +21,7 @@
     Private Sub loadInventoryItem()
         cb_itemName.Items.Clear()
 
+        ' TODO: use async task
         Dim itemlist As List(Of Dictionary(Of String, Object))
         itemlist = Database.SelectAllRows(_TABLE.INVENTORY, {"*"})
         If itemlist IsNot Nothing Then

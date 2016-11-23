@@ -1,6 +1,7 @@
 ﻿Imports System.Text
 
 Public Class Order_Details
+    Private loadingOverlay As Loading_Overlay
     Private orderID As Integer
     Public status As Integer
     Public updateDateTime As DateTime
@@ -36,6 +37,7 @@ Public Class Order_Details
 
         If Not fromSearch Then
             bgw_DetailsLoader.RunWorkerAsync(orderID)
+            ShowLoadingOverlay(True)
         End If
 
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
@@ -96,8 +98,20 @@ Public Class Order_Details
 
     ' Return result
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_DetailsLoader.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
             PopulateDetails(e.Result)
+        End If
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
         End If
     End Sub
 
@@ -302,7 +316,7 @@ Public Class Order_Details
         End If
 
         ' Inventory
-        If details.ContainsKey(_ORDER_CUSTOMER.INVENTORY_ORDER) Then
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.INVENTORY_ORDER)) Then
             Dim inventoryItem As New Dictionary(Of String, Integer)
             Dim pair As KeyValuePair(Of String, Integer)
             Dim tempListView As ListViewItem
@@ -321,6 +335,31 @@ Public Class Order_Details
 
     ' Operation
     Private Sub btn_multi_Click(sender As Object, e As EventArgs) Handles btn_multi.Click
+        bgw_multifunctional.RunWorkerAsync()
+        ShowLoadingOverlay(True)
+    End Sub
+
+    Private Sub pic_artwork_Click(sender As Object, e As EventArgs)
+        Dim showImg As New View_image(_FTP_DIRECTORY.ARTWORK, artworkImg)
+        showImg.ShowDialog()
+    End Sub
+
+    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs)
+        Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
+        showImg.ShowDialog()
+    End Sub
+
+    Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
+        Dim log As New Job_Log(orderID)
+        log.ShowDialog()
+    End Sub
+
+    Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
+
+    End Sub
+
+    ' Update Async
+    Private Sub bgw_multifunctional_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_multifunctional.DoWork
         Dim updateQuery As New StringBuilder("BEGIN; UPDATE ")
         Dim logValues As New StringBuilder()
         Dim update As New Dictionary(Of String, Object)
@@ -409,26 +448,18 @@ Public Class Order_Details
 
         updateQuery.Append(") VALUES (").Append(logValues).Append("); COMMIT;")
 
-        ' result
-        If Database.ExecuteNonQuery(updateQuery.ToString(), update) <> -1 Then
+
+        e.Result = Database.ExecuteNonQuery(updateQuery.ToString(), update)
+    End Sub
+
+    ' Update result
+    Private Sub gw_multifunctional_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_multifunctional.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
+        If e.Result <> -1 Then
             btn_multi.Enabled = False
             MessageBox.Show("Order status has been updated successfully", "Update Success")
             DialogResult = DialogResult.OK
         End If
-    End Sub
-
-    Private Sub pic_artwork_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(_FTP_DIRECTORY.ARTWORK, artworkImg)
-        showImg.ShowDialog()
-    End Sub
-
-    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
-        showImg.ShowDialog()
-    End Sub
-
-    Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
-        Dim log As New Job_Log(orderID)
-        log.ShowDialog()
     End Sub
 End Class

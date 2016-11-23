@@ -1,4 +1,6 @@
 ﻿Public Class new_order
+    Private loadingOverlay As Loading_Overlay
+
     Private Sub form_load(sender As Object, e As System.EventArgs) Handles Me.Load
         d_delivery.Value = DateTime.Now
     End Sub
@@ -18,6 +20,7 @@
             MessageBox.Show("Please select at least 1 item from each of the checkbox category and fill in all empty fields", "Order Creation Failed")
         Else
             bgw_createOrder.RunWorkerAsync()
+            ShowLoadingOverlay(True)
         End If
 
     End Sub
@@ -185,6 +188,8 @@
     End Sub
 
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_createOrder.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
             If e.Result Then
                 ' add back to datagridview
@@ -193,6 +198,16 @@
             Else
                 MessageBox.Show("Failed to create new order", "Order Creation Failed")
             End If
+        End If
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
         End If
     End Sub
 

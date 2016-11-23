@@ -6,6 +6,7 @@
             Dim itemName As New Dictionary(Of String, Object)
             itemName.Add(_INVENTORY.ITEM, txt_inventory.Text)
 
+            ' TODO: use async task
             invList = Database.SelectRows(_TABLE.INVENTORY, {_INVENTORY.ITEM, "=", txt_inventory.Text})
 
             If invList Is Nothing Then
