@@ -26,97 +26,109 @@ Partial Class Generate_Barcode
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txt_front = New System.Windows.Forms.TextBox()
-        Me.txt_back = New System.Windows.Forms.TextBox()
-        Me.txt_sleeve = New System.Windows.Forms.TextBox()
         Me.btn_print = New System.Windows.Forms.Button()
+        Me.num_Front = New System.Windows.Forms.NumericUpDown()
+        Me.num_Back = New System.Windows.Forms.NumericUpDown()
+        Me.num_Sleeve = New System.Windows.Forms.NumericUpDown()
+        CType(Me.num_Front, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.num_Back, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.num_Sleeve, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!)
-        Me.Label1.Location = New System.Drawing.Point(61, 27)
+        Me.Label1.Location = New System.Drawing.Point(41, 18)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(218, 32)
+        Me.Label1.Size = New System.Drawing.Size(146, 24)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Number of Bags"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(62, 100)
+        Me.Label2.Location = New System.Drawing.Point(41, 65)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(55, 20)
+        Me.Label2.Size = New System.Drawing.Size(37, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Front: "
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(62, 142)
+        Me.Label3.Location = New System.Drawing.Point(41, 92)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(53, 20)
+        Me.Label3.Size = New System.Drawing.Size(38, 13)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "Back: "
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(62, 183)
+        Me.Label4.Location = New System.Drawing.Point(41, 119)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(65, 20)
+        Me.Label4.Size = New System.Drawing.Size(46, 13)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "Sleeve: "
-        '
-        'txt_front
-        '
-        Me.txt_front.Location = New System.Drawing.Point(133, 97)
-        Me.txt_front.Name = "txt_front"
-        Me.txt_front.Size = New System.Drawing.Size(140, 26)
-        Me.txt_front.TabIndex = 2
-        '
-        'txt_back
-        '
-        Me.txt_back.Location = New System.Drawing.Point(133, 139)
-        Me.txt_back.Name = "txt_back"
-        Me.txt_back.Size = New System.Drawing.Size(140, 26)
-        Me.txt_back.TabIndex = 2
-        '
-        'txt_sleeve
-        '
-        Me.txt_sleeve.Location = New System.Drawing.Point(133, 180)
-        Me.txt_sleeve.Name = "txt_sleeve"
-        Me.txt_sleeve.Size = New System.Drawing.Size(140, 26)
-        Me.txt_sleeve.TabIndex = 2
         '
         'btn_print
         '
         Me.btn_print.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.btn_print.Location = New System.Drawing.Point(107, 250)
+        Me.btn_print.Location = New System.Drawing.Point(71, 162)
+        Me.btn_print.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_print.Name = "btn_print"
-        Me.btn_print.Size = New System.Drawing.Size(138, 55)
+        Me.btn_print.Size = New System.Drawing.Size(92, 36)
         Me.btn_print.TabIndex = 17
         Me.btn_print.Text = "PRINT"
         Me.btn_print.UseVisualStyleBackColor = True
         '
+        'num_Front
+        '
+        Me.num_Front.Location = New System.Drawing.Point(83, 63)
+        Me.num_Front.Name = "num_Front"
+        Me.num_Front.Size = New System.Drawing.Size(104, 20)
+        Me.num_Front.TabIndex = 18
+        '
+        'num_Back
+        '
+        Me.num_Back.Location = New System.Drawing.Point(83, 90)
+        Me.num_Back.Name = "num_Back"
+        Me.num_Back.Size = New System.Drawing.Size(104, 20)
+        Me.num_Back.TabIndex = 18
+        '
+        'num_Sleeve
+        '
+        Me.num_Sleeve.Location = New System.Drawing.Point(83, 117)
+        Me.num_Sleeve.Name = "num_Sleeve"
+        Me.num_Sleeve.Size = New System.Drawing.Size(104, 20)
+        Me.num_Sleeve.TabIndex = 18
+        '
         'Generate_Barcode
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(353, 337)
+        Me.ClientSize = New System.Drawing.Size(235, 219)
+        Me.Controls.Add(Me.num_Sleeve)
+        Me.Controls.Add(Me.num_Back)
+        Me.Controls.Add(Me.num_Front)
         Me.Controls.Add(Me.btn_print)
-        Me.Controls.Add(Me.txt_sleeve)
-        Me.Controls.Add(Me.txt_back)
-        Me.Controls.Add(Me.txt_front)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Generate_Barcode"
         Me.Text = "Generate Barcode"
+        CType(Me.num_Front, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.num_Back, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.num_Sleeve, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -125,8 +137,8 @@ Partial Class Generate_Barcode
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txt_front As System.Windows.Forms.TextBox
-    Friend WithEvents txt_back As System.Windows.Forms.TextBox
-    Friend WithEvents txt_sleeve As System.Windows.Forms.TextBox
     Friend WithEvents btn_print As System.Windows.Forms.Button
+    Friend WithEvents num_Front As NumericUpDown
+    Friend WithEvents num_Back As NumericUpDown
+    Friend WithEvents num_Sleeve As NumericUpDown
 End Class

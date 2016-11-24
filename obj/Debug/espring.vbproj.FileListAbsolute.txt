@@ -122,3 +122,4 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vb
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\bin\Debug\MySql.Data.xml
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Loading_Overlay.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Generate_Barcode_Sticker.resources

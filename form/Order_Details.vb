@@ -46,7 +46,7 @@ Public Class Order_Details
         End If
 
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
-        Dim barcode() As Integer = {_PROCESS.CUTTING, _PROCESS.SEWING}
+        Dim barcode() As Integer = {_PROCESS.INVENTORY, _PROCESS.CUTTING, _PROCESS.SEWING}
 
         ' approval
         If Session.department_id = _PROCESS.APPROVAL And status = 0 Then
@@ -86,10 +86,12 @@ Public Class Order_Details
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PACKAGING, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_TYPE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.REMARKS, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRODUCTION_PARTS, ", ",
                                                _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.INVENTORY_ORDER,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", "@", _ORDER_CUSTOMER.ORDER_ID
@@ -296,6 +298,16 @@ Public Class Order_Details
             d_delivery.Text = Format(details.Item(_ORDER_CUSTOMER.DELIVERY_DATE), "dd/MM/yyyy")
         End If
 
+        ' delivery type
+        If details.ContainsKey(_ORDER_CUSTOMER.DELIVERY_TYPE) Then
+            Select Case details.Item(_ORDER_CUSTOMER.DELIVERY_TYPE)
+                Case _DELIVERY_TYPE.DELIVER
+                    lbl_deliveryType.Text = "To be delivered"
+                Case _DELIVERY_TYPE.PICKUP
+                    lbl_deliveryType.Text = "To be picked up"
+            End Select
+        End If
+
         ' payment
         If details.ContainsKey(_ORDER_CUSTOMER.PAYMENT) Then
             Dim payment As New Dictionary(Of String, Integer)
@@ -315,9 +327,27 @@ Public Class Order_Details
             txt_amount.Text = details.Item(_ORDER_CUSTOMER.AMOUNT)
         End If
 
-        ' Rich Text box
+        ' remarks
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.REMARKS)) Then
             rtb_remarks.Text = details.Item(_ORDER_CUSTOMER.REMARKS)
+        End If
+
+        ' production parts
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS)) Then
+            Dim parts As New Dictionary(Of String, Integer)
+            parts = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS))
+
+            If parts.ContainsKey(_JSON_FIELD.FRONT) Then
+                txt_front.Text = parts.Item(_JSON_FIELD.FRONT)
+            End If
+
+            If parts.ContainsKey(_JSON_FIELD.BACK) Then
+                txt_back.Text = parts.Item(_JSON_FIELD.BACK)
+            End If
+
+            If parts.ContainsKey(_JSON_FIELD.SLEEVE) Then
+                txt_sleeve.Text = parts.Item(_JSON_FIELD.SLEEVE)
+            End If
         End If
 
         ' Inventory
@@ -359,8 +389,52 @@ Public Class Order_Details
         log.ShowDialog()
     End Sub
 
+    ' Generate barcode
     Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
+        Select Case Session.department_id
+            Case _PROCESS.ORDER
 
+            Case _PROCESS.CUTTING
+                Dim barcodeForm As New Generate_Barcode(orderID)
+                barcodeForm.ShowDialog()
+            Case _PROCESS.SEWING
+                Dim orderDetails As New Dictionary(Of String, Object)
+
+                orderDetails.Add(_BADGE.ORDER, orderID)
+                orderDetails.Add(_BADGE.CUSTOMER, txt_cusName.Text)
+                orderDetails.Add(_BADGE.ORDER_NAME, txt_orderName.Text)
+
+                If Not txt_XS.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.XS, txt_XS.Text)
+                End If
+
+                If Not txt_S.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.S, txt_S.Text)
+                End If
+
+                If Not txt_M.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.M, txt_M.Text)
+                End If
+
+                If Not txt_L.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.L, txt_L.Text)
+                End If
+
+                If Not txt_XL.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.XL, txt_XL.Text)
+                End If
+
+                If Not txt_2XL.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.XXL, txt_2XL.Text)
+                End If
+
+                If Not txt_3XL.Text.Equals(0) Then
+                    orderDetails.Add(_BADGE.XXXL, txt_3XL.Text)
+                End If
+
+                Dim barcodeSticker As New Generate_Barcode_Sticker(orderDetails)
+                barcodeSticker.ShowDialog()
+        End Select
     End Sub
 
     ' Update Async

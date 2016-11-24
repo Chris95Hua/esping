@@ -116,10 +116,12 @@
                                               _ORDER_CUSTOMER.PACKAGING, ", ",
                                               _ORDER_CUSTOMER.ISSUE_DATE, ", ",
                                               _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                              _ORDER_CUSTOMER.DELIVERY_TYPE, ", ",
                                               _ORDER_CUSTOMER.PAYMENT, ", ",
                                               _ORDER_CUSTOMER.PAYMENT_DOC, ", ",
                                               _ORDER_CUSTOMER.REMARKS, ", ",
                                               _ORDER_CUSTOMER.INVENTORY_ORDER, ", ",
+                                              _ORDER_CUSTOMER.PRODUCTION_PARTS, ", ",
                                               _ORDER_CUSTOMER.AMOUNT,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument

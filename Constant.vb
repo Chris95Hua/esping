@@ -75,11 +75,13 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const PACKAGING As String = "packaging"
     Public Const ISSUE_DATE As String = "issue_date"
     Public Const DELIVERY_DATE As String = "delivery_date"
+    Public Const DELIVERY_TYPE As String = "delivery_type"
     Public Const PAYMENT As String = "payment"
     Public Const PAYMENT_DOC As String = "payment_doc"
     Public Const AMOUNT As String = "amount"
     Public Const REMARKS As String = "remarks"
     Public Const INVENTORY_ORDER As String = "inventory_order"
+    Public Const PRODUCTION_PARTS As String = "production_parts"
     Public Const APPROVAL As String = "approval"
     Public Const INVENTORY As String = "inventory"
     Public Const CUTTING As String = "cutting"
@@ -151,6 +153,13 @@ Public NotInheritable Class _STATUS
 End Class
 
 
+' Delivery type
+Public Enum _DELIVERY_TYPE
+    PICKUP = 0
+    DELIVER = 1
+End Enum
+
+
 ' Json fields
 Public NotInheritable Class _JSON_FIELD
     Public Const FABRIC As String = "fabric"
@@ -176,6 +185,10 @@ Public NotInheritable Class _JSON_FIELD
 
     Public Const CASH As String = "cash"
     Public Const CHEQUE As String = "cheque"
+
+    Public Const FRONT As String = "front"
+    Public Const BACK As String = "back"
+    Public Const SLEEVE As String = "sleeve"
 End Class
 
 
@@ -229,22 +242,3 @@ Public NotInheritable Class _FILE
         Const DOCUMENT As String = "All Files|*.*|Word Document (*.docx))|*.docx|Word 97-2004 Document (*.doc)|*.doc|Excel 97-2003 Worksheet (*.xls)|*.xls|Excel workbook (*.xlsx)|*.xlsx|PDF (*.pdf)|*.pdf"
     End Structure
 End Class
-
-
-
-'' BARCODE USAGE
-'Dim orders As New Dictionary(Of String, Object)
-'orders.Add(_BADGE.ORDER, 39123439)
-'orders.Add(_BADGE.CUSTOMER, "ZERO GRAVITY")
-'orders.Add(_BADGE.ORDER_NAME, "APPLE")
-'orders.Add(_BADGE.BAG, 5)
-'orders.Add(_BADGE.XS, 10)
-'orders.Add(_BADGE.S, 10)
-'orders.Add(_BADGE.M, 10)
-'orders.Add(_BADGE.L, 10)
-'orders.Add(_BADGE.XL, 10)
-'orders.Add(_BADGE.XXL, 10)
-'orders.Add(_BADGE.XXXL, 10)
-
-' max 26 barcode digit for default size
-'PictureBox1.Image = Method.GenerateBarcodeLabel(orders)

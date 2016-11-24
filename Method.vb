@@ -151,7 +151,7 @@ Public NotInheritable Class Method
         Return path
     End Function
 
-    ' customer name, customer address (3 lines), order name, sizes, bags, barcode
+    ' TODO: Generate multiple stickers
     Public Shared Function GenerateBarcodeLabel(ByVal orders As Dictionary(Of String, Object)) As Image
         Dim mf As Imaging.Metafile
 

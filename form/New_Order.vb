@@ -152,6 +152,14 @@
         order.Add(_ORDER_CUSTOMER.DELIVERY_DATE, d_delivery.Value)
 
 
+        ' delivery type
+        If rb_delivery.Checked Then
+            order.Add(_ORDER_CUSTOMER.DELIVERY_TYPE, _DELIVERY_TYPE.DELIVER)
+        Else
+            order.Add(_ORDER_CUSTOMER.DELIVERY_TYPE, _DELIVERY_TYPE.PICKUP)
+        End If
+
+
         ' artwork and payment doc
         If txt_artwork.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork.Text)
