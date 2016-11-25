@@ -28,7 +28,6 @@ Public Class Order_Details
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' TODO: know which process its from
         Me.orderID = orderID
         Me.status = status
         fromSearch = True
@@ -527,7 +526,6 @@ Public Class Order_Details
 
         updateQuery.Append(") VALUES (").Append(logValues).Append("); COMMIT;")
 
-
         e.Result = Database.ExecuteNonQuery(updateQuery.ToString(), update)
     End Sub
 
@@ -535,7 +533,7 @@ Public Class Order_Details
     Private Sub gw_multifunctional_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_multifunctional.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
-        If e.Result <> -1 Then
+        If e.Result > 0 Then
             btn_multi.Enabled = False
             MessageBox.Show("Order status has been updated successfully", "Update Success")
             DialogResult = DialogResult.OK

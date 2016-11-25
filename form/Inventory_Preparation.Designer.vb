@@ -46,6 +46,7 @@ Partial Class Inventory_Preparation
         Me.rtb_remarks = New System.Windows.Forms.RichTextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.bgw_LoadSubmit = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.nud_quantity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -58,18 +59,20 @@ Partial Class Inventory_Preparation
         '
         'txt_barcode
         '
-        Me.txt_barcode.Location = New System.Drawing.Point(128, 55)
+        Me.txt_barcode.Location = New System.Drawing.Point(85, 36)
+        Me.txt_barcode.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_barcode.MaxLength = 10
         Me.txt_barcode.Name = "txt_barcode"
-        Me.txt_barcode.Size = New System.Drawing.Size(337, 26)
+        Me.txt_barcode.Size = New System.Drawing.Size(226, 20)
         Me.txt_barcode.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 58)
+        Me.Label1.Location = New System.Drawing.Point(8, 38)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(110, 20)
+        Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Job Sheet No:"
         '
@@ -80,18 +83,20 @@ Partial Class Inventory_Preparation
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 25
-        Me.ListBox1.Location = New System.Drawing.Point(3, 3)
+        Me.ListBox1.ItemHeight = 16
+        Me.ListBox1.Location = New System.Drawing.Point(2, 2)
+        Me.ListBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(316, 354)
+        Me.ListBox1.Size = New System.Drawing.Size(211, 228)
         Me.ListBox1.TabIndex = 2
         '
         'btn_add
         '
         Me.btn_add.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.btn_add.Location = New System.Drawing.Point(81, 61)
+        Me.btn_add.Location = New System.Drawing.Point(54, 39)
+        Me.btn_add.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_add.Name = "btn_add"
-        Me.btn_add.Size = New System.Drawing.Size(147, 47)
+        Me.btn_add.Size = New System.Drawing.Size(98, 31)
         Me.btn_add.TabIndex = 5
         Me.btn_add.Text = "Add >>"
         Me.btn_add.UseVisualStyleBackColor = True
@@ -99,9 +104,10 @@ Partial Class Inventory_Preparation
         'btn_submit
         '
         Me.btn_submit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_submit.Location = New System.Drawing.Point(843, 653)
+        Me.btn_submit.Location = New System.Drawing.Point(562, 424)
+        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_submit.Name = "btn_submit"
-        Me.btn_submit.Size = New System.Drawing.Size(147, 47)
+        Me.btn_submit.Size = New System.Drawing.Size(98, 31)
         Me.btn_submit.TabIndex = 8
         Me.btn_submit.Text = "SUBMIT"
         Me.btn_submit.UseVisualStyleBackColor = True
@@ -109,9 +115,10 @@ Partial Class Inventory_Preparation
         'btn_delete
         '
         Me.btn_delete.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.btn_delete.Location = New System.Drawing.Point(81, 3)
+        Me.btn_delete.Location = New System.Drawing.Point(54, 2)
+        Me.btn_delete.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_delete.Name = "btn_delete"
-        Me.btn_delete.Size = New System.Drawing.Size(147, 47)
+        Me.btn_delete.Size = New System.Drawing.Size(98, 31)
         Me.btn_delete.TabIndex = 4
         Me.btn_delete.Text = "<< Delete"
         Me.btn_delete.UseVisualStyleBackColor = True
@@ -122,7 +129,8 @@ Partial Class Inventory_Preparation
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.txt_welcome, Me.btn_newInventorty, Me.btn_deleteItem, Me.btn_passUpdate})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 8
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -134,7 +142,7 @@ Partial Class Inventory_Preparation
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 22)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
@@ -143,36 +151,37 @@ Partial Class Inventory_Preparation
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 22)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'btn_newInventorty
         '
         Me.btn_newInventorty.Name = "btn_newInventorty"
-        Me.btn_newInventorty.Size = New System.Drawing.Size(139, 29)
+        Me.btn_newInventorty.Size = New System.Drawing.Size(96, 22)
         Me.btn_newInventorty.Text = "New Inventory"
         '
         'btn_deleteItem
         '
         Me.btn_deleteItem.Name = "btn_deleteItem"
-        Me.btn_deleteItem.Size = New System.Drawing.Size(154, 29)
+        Me.btn_deleteItem.Size = New System.Drawing.Size(105, 22)
         Me.btn_deleteItem.Text = "Delete Inventory"
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 22)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'nud_quantity
         '
         Me.nud_quantity.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.nud_quantity.Location = New System.Drawing.Point(81, 61)
+        Me.nud_quantity.Location = New System.Drawing.Point(54, 39)
+        Me.nud_quantity.Margin = New System.Windows.Forms.Padding(2)
         Me.nud_quantity.Maximum = New Decimal(New Integer() {99999999, 0, 0, 0})
         Me.nud_quantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nud_quantity.Name = "nud_quantity"
         Me.nud_quantity.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.nud_quantity.Size = New System.Drawing.Size(147, 26)
+        Me.nud_quantity.Size = New System.Drawing.Size(98, 20)
         Me.nud_quantity.TabIndex = 3
         Me.nud_quantity.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
@@ -181,10 +190,11 @@ Partial Class Inventory_Preparation
         Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Label2.AutoSize = True
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label2.Location = New System.Drawing.Point(81, 38)
-        Me.Label2.MinimumSize = New System.Drawing.Size(147, 0)
+        Me.Label2.Location = New System.Drawing.Point(54, 24)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label2.MinimumSize = New System.Drawing.Size(98, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(147, 20)
+        Me.Label2.Size = New System.Drawing.Size(98, 13)
         Me.Label2.TabIndex = 11
         Me.Label2.Text = "Quantity"
         '
@@ -196,10 +206,11 @@ Partial Class Inventory_Preparation
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.item, Me.quantity})
         Me.ListView1.FullRowSelect = True
-        Me.ListView1.Location = New System.Drawing.Point(647, 3)
+        Me.ListView1.Location = New System.Drawing.Point(432, 2)
+        Me.ListView1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(318, 367)
+        Me.ListView1.Size = New System.Drawing.Size(211, 238)
         Me.ListView1.TabIndex = 6
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -225,11 +236,12 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel1.Controls.Add(Me.ListBox1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.ListView1, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(968, 373)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(645, 242)
         Me.TableLayoutPanel1.TabIndex = 17
         '
         'TableLayoutPanel2
@@ -241,13 +253,14 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel3, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel4, 0, 1)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(325, 3)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(217, 2)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(316, 367)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(211, 238)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'TableLayoutPanel3
@@ -259,12 +272,13 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.nud_quantity, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.Label2, 0, 0)
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(2, 2)
+        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(310, 116)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(207, 75)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'TableLayoutPanel4
@@ -276,12 +290,13 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.Controls.Add(Me.btn_delete, 0, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.btn_add, 0, 1)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 125)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(2, 81)
+        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 2
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(310, 116)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(207, 75)
         Me.TableLayoutPanel4.TabIndex = 6
         '
         'rtb_remarks
@@ -290,9 +305,10 @@ Partial Class Inventory_Preparation
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rtb_remarks.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rtb_remarks.Location = New System.Drawing.Point(6, 29)
+        Me.rtb_remarks.Location = New System.Drawing.Point(4, 19)
+        Me.rtb_remarks.Margin = New System.Windows.Forms.Padding(2)
         Me.rtb_remarks.Name = "rtb_remarks"
-        Me.rtb_remarks.Size = New System.Drawing.Size(956, 122)
+        Me.rtb_remarks.Size = New System.Drawing.Size(639, 81)
         Me.rtb_remarks.TabIndex = 7
         Me.rtb_remarks.Text = ""
         '
@@ -303,9 +319,11 @@ Partial Class Inventory_Preparation
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.rtb_remarks)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 382)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 248)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(968, 157)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox1.Size = New System.Drawing.Size(645, 102)
         Me.GroupBox1.TabIndex = 18
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Remarks"
@@ -319,25 +337,30 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel5.Controls.Add(Me.TableLayoutPanel1, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.GroupBox1, 0, 1)
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(16, 101)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(11, 66)
+        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(974, 542)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(649, 352)
         Me.TableLayoutPanel5.TabIndex = 19
+        '
+        'bgw_LoadSubmit
+        '
         '
         'Inventory_Preparation
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.TableLayoutPanel5)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.btn_submit)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt_barcode)
-        Me.MinimumSize = New System.Drawing.Size(1024, 768)
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Inventory_Preparation"
         Me.Text = "Inventory Preparation"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -379,4 +402,5 @@ Partial Class Inventory_Preparation
     Friend WithEvents rtb_remarks As System.Windows.Forms.RichTextBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents bgw_LoadSubmit As System.ComponentModel.BackgroundWorker
 End Class
