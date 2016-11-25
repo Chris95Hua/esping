@@ -91,7 +91,7 @@
             e.Result = Database.ExecuteReader(search)
         Else
             CalculatePageNumber()
-            loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
+            loadRowsFrom = (currentPageNumber - 1) * My.Settings.PAGINATION_LIMIT
 
             ' get datagrid data
             Dim cuttingID As Integer = _PROCESS.CUTTING
@@ -121,7 +121,7 @@
                                                   " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, "=", 2,
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
-                                                  " LIMIT ", loadRowsFrom, ",", _TABLE.PAGINATION_LIMIT
+                                                  " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                                   )
 
             e.Result = Database.GetDataTable(sqlStmt)
@@ -254,6 +254,6 @@
                                               " GROUP BY ", _ORDER_LOG.ORDER_ID, ")"
                                               )
 
-        pageNumber = Math.Ceiling(Database.countRows(sqlStmt) / _TABLE.PAGINATION_LIMIT)
+        pageNumber = Math.Ceiling(Database.countRows(sqlStmt) / My.Settings.PAGINATION_LIMIT)
     End Sub
 End Class

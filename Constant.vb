@@ -1,23 +1,4 @@
-﻿' Database settings
-Public NotInheritable Class _CONNECTION
-    Public Const DB_HOST As String = "127.0.0.1"
-    Public Const DB_USER As String = "root"
-    Public Const DB_PASSWORD As String = ""
-    Public Const DB_NAME As String = "espring"
-
-    Public Const FTP_URL As String = "ftp://192.168.1.23/espring"
-    Public Const FTP_USER As String = "espring"
-    Public Const FTP_PASSWORD As String = "1234"
-End Class
-
-
-Public NotInheritable Class _FTP_DIRECTORY
-    Public Const PAYMENT As String = "payment"
-    Public Const ARTWORK As String = "artwork"
-End Class
-
-
-' List of table available in the database
+﻿' List of table available in the database
 Public NotInheritable Class _TABLE
     Public Const USER As String = "user"
     Public Const ROLE As String = "role"
@@ -25,9 +6,8 @@ Public NotInheritable Class _TABLE
     Public Const ORDER_LOG As String = "order_log"
     Public Const DEPARTMENT As String = "department"
     Public Const INVENTORY As String = "inventory"
-    Public Const PAGINATION_LIMIT As Integer = 1000
 End Class
-
+'SELECT CONCAT_WS("-", order_customer.salesperson_id, LPAD(order_customer.order_id, 13, '0')) As "job" FROM order_customer
 
 ' List of columns available in "user" table
 Public NotInheritable Class _USER
@@ -238,7 +218,7 @@ Public NotInheritable Class _FILE
 
     ' File filter (for OpenFileDialog)
     Public Structure FILTER
-        Const IMAGE As String = "All Files|*.*|Bitmap (*.bmp;*.dip)|*.bmp;*.dip|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|GIF (*.gif)|*.gif|TIFF (*.tif;*.tiff)|*.tif;*.tiff"
+        Const IMAGE As String = "All Supported Format|*.bmp;*.dip;*.png;*.jpg;*.jpeg;*.jpe;*.jfif;*.gif;*.tif;*.tiff|Bitmap (*.bmp;*.dip)|*.bmp;*.dip|PNG (*.png)|*.png|JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|GIF (*.gif)|*.gif|TIFF (*.tif;*.tiff)|*.tif;*.tiff"
         Const DOCUMENT As String = "All Files|*.*|Word Document (*.docx))|*.docx|Word 97-2004 Document (*.doc)|*.doc|Excel 97-2003 Worksheet (*.xls)|*.xls|Excel workbook (*.xlsx)|*.xlsx|PDF (*.pdf)|*.pdf"
     End Structure
 End Class

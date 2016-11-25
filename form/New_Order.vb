@@ -164,13 +164,13 @@
         If txt_artwork.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork.Text)
             order.Add(_ORDER_CUSTOMER.ARTWORK, imgStore)
-            Method.FtpUpload(txt_artwork.Text, _FTP_DIRECTORY.ARTWORK, imgStore)
+            Method.FtpUpload(txt_artwork.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
 
         If txt_docPath.Text.Length() > 0 Then
             Dim docStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_docPath.Text)
             order.Add(_ORDER_CUSTOMER.PAYMENT_DOC, docStore)
-            Method.FtpUpload(txt_docPath.Text, _FTP_DIRECTORY.PAYMENT, docStore)
+            Method.FtpUpload(txt_docPath.Text, My.Settings.PAYMENT_DIR, docStore)
         End If
 
 
@@ -220,11 +220,28 @@
     End Sub
 
     Private Sub btn_artwork_Click(sender As Object, e As EventArgs) Handles btn_artwork.Click
-        txt_artwork.Text = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+        Dim artwork As String = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+
+        If artwork IsNot Nothing Then
+            If My.Computer.FileSystem.GetFileInfo(artwork).Length() > My.Settings.MAX_UPLOAD_MB * 1048576 Then
+                MessageBox.Show("Image size exceeded " & My.Settings.MAX_UPLOAD_MB & "MB, please select another file or compress the image", "Error")
+            Else
+                txt_artwork.Text = artwork
+            End If
+        End If
     End Sub
 
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
-        txt_docPath.Text = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+        Dim document As String = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+
+        If document IsNot Nothing Then
+            If My.Computer.FileSystem.GetFileInfo(document).Length() > My.Settings.MAX_UPLOAD_MB * 1048576 Then
+                MessageBox.Show("Image size exceeded " & My.Settings.MAX_UPLOAD_MB & "MB, please select another file or compress the image", "Error")
+                btn_doc_Click(sender, e)
+            Else
+                txt_docPath.Text = document
+            End If
+        End If
     End Sub
 
     Private Sub ClearForm()

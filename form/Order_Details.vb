@@ -374,12 +374,12 @@ Public Class Order_Details
     End Sub
 
     Private Sub pic_artwork_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(_FTP_DIRECTORY.ARTWORK, artworkImg)
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg)
         showImg.ShowDialog()
     End Sub
 
     Private Sub lbl_docPath_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(_FTP_DIRECTORY.PAYMENT, paymentImg)
+        Dim showImg As New View_image(My.Settings.PAYMENT_DIR, paymentImg)
         showImg.ShowDialog()
     End Sub
 

@@ -1,4 +1,5 @@
 ﻿Imports System.Text
+Imports System.Text.RegularExpressions
 Imports System.Net
 
 ''' <summary>
@@ -56,7 +57,7 @@ Public NotInheritable Class Method
 
 
     Public Shared Function FtpUpload(ByVal file As String, ByVal ParamArray saveDirectory() As String) As Boolean
-        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+        Dim ftpUri As New StringBuilder(My.Settings.FTP_URL)
 
         For Each directory In saveDirectory
             ftpUri.Append("/").Append(directory)
@@ -68,7 +69,7 @@ Public NotInheritable Class Method
             Dim bytes() As Byte = IO.File.ReadAllBytes(file)
 
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile
-            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+            ftpRequest.Credentials = New NetworkCredential(My.Settings.FTP_USER, My.Settings.FTP_PASSWORD)
             ftpRequest.UseBinary = True
             ftpRequest.ContentLength = bytes.Length()
 
@@ -87,7 +88,7 @@ Public NotInheritable Class Method
 
 
     Public Shared Function FtpDownload(ByVal ParamArray filepath() As String) As IO.Stream
-        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+        Dim ftpUri As New StringBuilder(My.Settings.FTP_URL)
 
         For Each directory In filepath
             ftpUri.Append("/").Append(directory)
@@ -97,7 +98,7 @@ Public NotInheritable Class Method
 
         Try
             ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile
-            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+            ftpRequest.Credentials = New NetworkCredential(My.Settings.FTP_USER, My.Settings.FTP_PASSWORD)
 
             Return ftpRequest.GetResponse.GetResponseStream()
         Catch ex As WebException
@@ -109,7 +110,7 @@ Public NotInheritable Class Method
 
 
     Public Shared Function FtpDelete(ByVal ParamArray filepath() As String) As Boolean
-        Dim ftpUri As New StringBuilder(_CONNECTION.FTP_URL)
+        Dim ftpUri As New StringBuilder(My.Settings.FTP_URL)
 
         For Each directory In filepath
             ftpUri.Append("/").Append(directory)
@@ -118,7 +119,7 @@ Public NotInheritable Class Method
         Try
             Dim ftpRequest As FtpWebRequest = CType(WebRequest.Create(ftpUri.ToString()), FtpWebRequest)
             ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile
-            ftpRequest.Credentials = New NetworkCredential(_CONNECTION.FTP_USER, _CONNECTION.FTP_PASSWORD)
+            ftpRequest.Credentials = New NetworkCredential(My.Settings.FTP_USER, My.Settings.FTP_PASSWORD)
             ftpRequest.GetResponse()
 
             Return True
@@ -346,32 +347,27 @@ Public NotInheritable Class Method
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
 
-    Public Shared Sub OpenForm()
-        Select Case Session.department_id
-            Case _PROCESS.ADMIN
-                Dim admin As New Admin_Form
-                admin.Show()
-            Case _PROCESS.APPROVAL
-                Dim approve As New Approve_Order
-                approve.Show()
-            Case _PROCESS.CUTTING
-                Dim cutting As New Cutting_Department
-                cutting.Show()
-            Case _PROCESS.EMBROIDERY
-                Dim embroidery As New Embroidery_Department
-                embroidery.Show()
-            Case _PROCESS.INVENTORY
-                Dim inventory As New Inventory_Preparation
-                inventory.Show()
-            Case _PROCESS.ORDER
-                Dim order As New Manage_Order
-                order.Show()
-            Case _PROCESS.PRINTING
-                Dim printing As New Printing_Department
-                printing.Show()
-            Case _PROCESS.SEWING
-                Dim sewing As New Sewing_Department
-                sewing.Show()
-        End Select
-    End Sub
+    ' Regex for password
+    ' numerical characters, letters, limited special characters only
+    Public Shared Function IsPassword(ByVal password As String) As Boolean
+        Return Regex.Match(password, "^([a-zA-Z0-9@*#$%^&]{6,12})$").Success
+    End Function
+
+    ' Regex for name
+    ' no special character apart from hyphen (-), single quote (') and letters only (no numerical character), space
+    Public Shared Function IsName(ByVal name As String) As Boolean
+        Return Regex.Match(name, "^([a-zA-Z0-9@*#$%^&]+)$").Success
+    End Function
+
+    ' Regex for username
+    ' alphanumeric, hyphen and underscore only
+    Public Shared Function IsUsername(ByVal username As String) As Boolean
+        Return Regex.Match(username, "^([a-zA-Z0-9_-]+)$").Success
+    End Function
+
+    ' Regex for inventory item
+    ' numerical characters and letters only, brackets () and space
+    Public Shared Function IsItemName(ByVal item As String) As Boolean
+        Return Regex.Match(item, "^([a-zA-Z0-9_-()'&]+)$").Success
+    End Function
 End Class

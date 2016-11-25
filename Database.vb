@@ -5,10 +5,10 @@ Imports System.Text
 ''' Database operations
 ''' </summary>
 Public NotInheritable Class Database
-    Private Shared ReadOnly connectionString As String = String.Concat("host=", _CONNECTION.DB_HOST,
-                                                                       "; user=", _CONNECTION.DB_USER,
-                                                                       "; password=", _CONNECTION.DB_PASSWORD,
-                                                                       "; database=", _CONNECTION.DB_NAME,
+    Private Shared ReadOnly connectionString As String = String.Concat("host=", My.Settings.DB_HOST,
+                                                                       "; user=", My.Settings.DB_USER,
+                                                                       "; password=", My.Settings.DB_PASSWORD,
+                                                                       "; database=", My.Settings.DB_NAME,
                                                                        "; convert zero datetime=True")
 
 

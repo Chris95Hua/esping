@@ -313,7 +313,7 @@ Partial Class new_order
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(175, 219)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(174, 219)
         Me.TableLayoutPanel8.TabIndex = 5
         '
         'Label9
@@ -355,7 +355,7 @@ Partial Class new_order
         'num_XS
         '
         Me.num_XS.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_XS.Location = New System.Drawing.Point(73, 3)
+        Me.num_XS.Location = New System.Drawing.Point(72, 3)
         Me.num_XS.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_XS.Name = "num_XS"
         Me.num_XS.Size = New System.Drawing.Size(99, 20)
@@ -412,7 +412,7 @@ Partial Class new_order
         'num_S
         '
         Me.num_S.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_S.Location = New System.Drawing.Point(73, 34)
+        Me.num_S.Location = New System.Drawing.Point(72, 34)
         Me.num_S.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_S.Name = "num_S"
         Me.num_S.Size = New System.Drawing.Size(99, 20)
@@ -421,7 +421,7 @@ Partial Class new_order
         'num_M
         '
         Me.num_M.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_M.Location = New System.Drawing.Point(73, 65)
+        Me.num_M.Location = New System.Drawing.Point(72, 65)
         Me.num_M.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_M.Name = "num_M"
         Me.num_M.Size = New System.Drawing.Size(99, 20)
@@ -430,7 +430,7 @@ Partial Class new_order
         'num_L
         '
         Me.num_L.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_L.Location = New System.Drawing.Point(73, 96)
+        Me.num_L.Location = New System.Drawing.Point(72, 96)
         Me.num_L.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_L.Name = "num_L"
         Me.num_L.Size = New System.Drawing.Size(99, 20)
@@ -439,7 +439,7 @@ Partial Class new_order
         'num_XL
         '
         Me.num_XL.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_XL.Location = New System.Drawing.Point(73, 127)
+        Me.num_XL.Location = New System.Drawing.Point(72, 127)
         Me.num_XL.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_XL.Name = "num_XL"
         Me.num_XL.Size = New System.Drawing.Size(99, 20)
@@ -448,7 +448,7 @@ Partial Class new_order
         'num_2XL
         '
         Me.num_2XL.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_2XL.Location = New System.Drawing.Point(73, 158)
+        Me.num_2XL.Location = New System.Drawing.Point(72, 158)
         Me.num_2XL.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_2XL.Name = "num_2XL"
         Me.num_2XL.Size = New System.Drawing.Size(99, 20)
@@ -457,7 +457,7 @@ Partial Class new_order
         'num_3XL
         '
         Me.num_3XL.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_3XL.Location = New System.Drawing.Point(73, 189)
+        Me.num_3XL.Location = New System.Drawing.Point(72, 189)
         Me.num_3XL.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.num_3XL.Name = "num_3XL"
         Me.num_3XL.Size = New System.Drawing.Size(99, 20)
@@ -473,7 +473,7 @@ Partial Class new_order
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(183, 235)
+        Me.GroupBox2.Size = New System.Drawing.Size(182, 235)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Sizes"
@@ -485,7 +485,7 @@ Partial Class new_order
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.51724!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.48276!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 270.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 271.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel11, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox1, 0, 0)
@@ -507,14 +507,14 @@ Partial Class new_order
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox3, 0, 0)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox4, 0, 1)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox5, 0, 2)
-        Me.TableLayoutPanel11.Location = New System.Drawing.Point(379, 2)
+        Me.TableLayoutPanel11.Location = New System.Drawing.Point(378, 2)
         Me.TableLayoutPanel11.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel11.Name = "TableLayoutPanel11"
         Me.TableLayoutPanel11.RowCount = 3
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(267, 235)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(268, 235)
         Me.TableLayoutPanel11.TabIndex = 3
         '
         'GroupBox3
@@ -522,7 +522,7 @@ Partial Class new_order
         Me.GroupBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox3.Controls.Add(Me.TableLayoutPanel9)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(13, 2)
+        Me.GroupBox3.Location = New System.Drawing.Point(14, 2)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
@@ -600,7 +600,7 @@ Partial Class new_order
         Me.GroupBox4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox4.Controls.Add(Me.TableLayoutPanel10)
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(15, 81)
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 81)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(2)

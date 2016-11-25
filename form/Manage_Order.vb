@@ -130,7 +130,7 @@
             e.Result = Database.ExecuteReader(search)
         Else
             CalculatePageNumber()
-            loadRowsFrom = (currentPageNumber - 1) * _TABLE.PAGINATION_LIMIT
+            loadRowsFrom = (currentPageNumber - 1) * My.Settings.PAGINATION_LIMIT
 
             ' get datagrid data
             Dim sqlStmt As String = String.Concat("SELECT ",
@@ -147,7 +147,7 @@
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " DESC",
-                                                  " LIMIT ", loadRowsFrom, ",", _TABLE.PAGINATION_LIMIT
+                                                  " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                             )
 
             e.Result = Database.GetDataTable(sqlStmt)
@@ -203,11 +203,11 @@
 
         If ftpFiles IsNot Nothing And Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK)) Then
-                Method.FtpDelete(_FTP_DIRECTORY.ARTWORK, ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK))
+                Method.FtpDelete(My.Settings.ARTWORK_DIR, ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK))
             End If
 
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
-                Method.FtpDelete(_FTP_DIRECTORY.PAYMENT, ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC))
+                Method.FtpDelete(My.Settings.PAYMENT_DIR, ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC))
             End If
 
             result = True
@@ -279,6 +279,6 @@
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")"
                                 )
-        pageNumber = Math.Ceiling(Database.countRows(sqlStmt) / _TABLE.PAGINATION_LIMIT)
+        pageNumber = Math.Ceiling(Database.countRows(sqlStmt) / My.Settings.PAGINATION_LIMIT)
     End Sub
 End Class
