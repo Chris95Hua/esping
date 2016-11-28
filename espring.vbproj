@@ -103,6 +103,12 @@
     <Compile Include="form\Generate_Barcode_Sticker.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="form\Live_Update.Designer.vb">
+      <DependentUpon>Live_Update.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\Live_Update.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\Loading_Overlay.Designer.vb">
       <DependentUpon>Loading_Overlay.vb</DependentUpon>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\Generate_Barcode_Sticker.resx">
       <DependentUpon>Generate_Barcode_Sticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\Live_Update.resx">
+      <DependentUpon>Live_Update.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Loading_Overlay.resx">
       <DependentUpon>Loading_Overlay.vb</DependentUpon>
