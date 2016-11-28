@@ -347,6 +347,18 @@ Public NotInheritable Class Method
         Return Database.ExecuteNonQuery(sqlStmt.ToString(), order) <> -1
     End Function
 
+    Public Shared Function GetOrderID(ByVal jobString As String) As Integer
+        Dim delimiter As Char = _FORMAT.ORDER_DELIMITER
+        Dim parts As String() = jobString.Split(New Char() {delimiter})
+        Dim orderID As Integer = parts(1)
+        Return orderID
+    End Function
+
+    Public Shared Function IsOrderFormat(ByVal jobString As String) As Boolean
+        Dim regexFormat As String = String.Concat("^([0-9]*", _FORMAT.ORDER_DELIMITER, "[0-9]*){1}$")
+        Return Regex.Match(jobString, regexFormat).Success
+    End Function
+
     ' Regex for password
     ' numerical characters, letters, limited special characters only
     Public Shared Function IsPassword(ByVal password As String) As Boolean

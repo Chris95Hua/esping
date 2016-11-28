@@ -11,8 +11,8 @@
                                                       "CONCAT(", _TABLE.USER, ".", _USER.USER_ID, ",'-',", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ") AS job_sheet_no", ", ",
                                                       _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                                       _TABLE.USER, ".", _USER.FIRST_NAME, ", ",
-                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') AS ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') AS ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '", _FORMAT.DATE_FORMAT, "') AS ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '", _FORMAT.DATE_FORMAT, "') AS ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                                       _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS, ", ",
                                                       "CONCAT(DATEDIFF(MAX(DATE_FORMAT(", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ",'%Y/%m/%d')), DATE_FORMAT(NOW(), '%Y/%m/%d')), ' DAYS') AS duration, ",
                                                       _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.REMARKS,
@@ -32,8 +32,8 @@
                                                       "CONCAT(", _TABLE.USER, ".", _USER.USER_ID, ",'-',", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ") AS job_sheet_no", ", ",
                                                       _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                                       _TABLE.USER, ".", _USER.FIRST_NAME, ", ",
-                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') AS ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') AS ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '", _FORMAT.DATE_FORMAT, "') AS ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                                      "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '", _FORMAT.DATE_FORMAT, "') AS ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                                       _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS, ", ",
                                                       "CONCAT(DATEDIFF(DATE_FORMAT(NOW(), '%Y/%m/%d'),", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, "), ' DAYS') AS duration, ",
                                                       _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.REMARKS,
@@ -59,7 +59,4 @@
         dgv_liveInfo.Enabled = True
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        bgw_liveUpdate.RunWorkerAsync()
-    End Sub
 End Class

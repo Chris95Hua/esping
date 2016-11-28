@@ -1,4 +1,5 @@
 ﻿Public Class Register
+    Private loadingOverlay As Loading_Overlay
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         For Each dpmt In Database.SelectAllRows(_TABLE.DEPARTMENT, {"*"})
@@ -12,6 +13,7 @@
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         If txt_firstName.Text = "" Or txt_lastName.Text = "" Then
             MessageBox.Show("Please fill in all the information", "Account Registration Failed")
+            ' TODO: perform regex validation
         ElseIf txt_password.TextLength < 4 Or txt_userName.TextLength < 4 Then
             MessageBox.Show("Password and username must contain at least 4 characters", "Account Registration Failed")
         Else
@@ -27,12 +29,50 @@
             dataIn.Add(_USER.C_USER, Session.user_id)
             dataIn.Add(_USER.C_DATE, DateTime.Now)
 
-            If Database.Insert(_TABLE.USER, dataIn) Then
+            bgw_register.RunWorkerAsync(dataIn)
+            ShowLoadingOverlay(True)
+        End If
+    End Sub
+
+    ' Register async work
+    Private Sub bgw_register_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_register.DoWork
+        Dim newUser As New Dictionary(Of String, Object)
+        newUser = e.Argument
+
+        If Database.SelectRows(_TABLE.USER, {_USER.USERNAME, "=", newUser.Item(_USER.USERNAME)}, _USER.USER_ID) Is Nothing Then
+            If Database.Insert(_TABLE.USER, newUser) Then
+                e.Result = 1
+            Else
+                e.Result = 0
+            End If
+        Else
+            e.Result = -1
+        End If
+
+    End Sub
+
+    ' Register complete
+    Private Sub bgw_register_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_register.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
+        Select Case e.Result
+            Case 1
                 MessageBox.Show("Account has been registered successfully", "Account Registration Success")
                 Me.Close()
-            Else
+            Case 0
                 MessageBox.Show("Unable to register user account", "Account Registration Failed")
-            End If
+            Case -1
+                MessageBox.Show("Username already exist, please use a new name", "Account Registration Failed")
+        End Select
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
         End If
     End Sub
 End Class

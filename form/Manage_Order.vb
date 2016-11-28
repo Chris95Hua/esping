@@ -47,9 +47,9 @@
     ' Search event
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
-            If IsNumeric(txt_search.Text) Then
-                searchID = txt_search.Text
-                LoadDataGridData(txt_search.Text)
+            If Method.IsOrderFormat(txt_search.Text) Then
+                searchID = Method.GetOrderID(txt_search.Text)
+                LoadDataGridData(searchID)
             Else
                 MessageBox.Show("Invalid order number", "Error")
             End If
@@ -67,7 +67,6 @@
     ' Update delivery date
     Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
         Dim editDeliveryForm As New Edit_Delivery_Date(Date.ParseExact(dgv_details.SelectedCells.Item(4).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture))
-
 
         If editDeliveryForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Dim id As Integer = dgv_details.SelectedCells.Item(0).Value
@@ -133,12 +132,13 @@
             loadRowsFrom = (currentPageNumber - 1) * My.Settings.PAGINATION_LIMIT
 
             ' get datagrid data
-            Dim sqlStmt As String = String.Concat("SELECT ",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ", ",
+            Dim sqlStmt As String = String.Concat("SELECT CONCAT_WS('-', ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")As '", _ORDER_CUSTOMER.ORDER_ID, "', ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
-                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '%d/%m/%Y') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
+                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, ", '", _FORMAT.DATE_FORMAT, "') As ", _ORDER_CUSTOMER.ISSUE_DATE, ", ",
+                                                  "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '", _FORMAT.DATE_FORMAT, "') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",
                                                   _TABLE.ORDER_LOG, ".", _ORDER_LOG.STATUS,
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                                   " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
@@ -232,7 +232,7 @@
 
     ' View order detail
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
-        Dim orderID As Integer = dgv_details.SelectedCells(0).Value
+        Dim orderID As Integer = Method.GetOrderID(dgv_details.SelectedCells(0).Value.ToString())
         Dim details As New Order_Details(orderID, -1)
         details.ShowDialog()
     End Sub

@@ -29,6 +29,7 @@ Partial Class Update_Password
         Me.txt_newPass = New System.Windows.Forms.TextBox()
         Me.txt_oldPass = New System.Windows.Forms.TextBox()
         Me.btn_update = New System.Windows.Forms.Button()
+        Me.bgw_update = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'Label1
@@ -127,4 +128,5 @@ Partial Class Update_Password
     Friend WithEvents txt_newPass As System.Windows.Forms.TextBox
     Friend WithEvents txt_oldPass As System.Windows.Forms.TextBox
     Friend WithEvents btn_update As System.Windows.Forms.Button
+    Friend WithEvents bgw_update As System.ComponentModel.BackgroundWorker
 End Class

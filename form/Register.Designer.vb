@@ -36,6 +36,7 @@ Partial Class Register
         Me.cb_role = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btn_submit = New System.Windows.Forms.Button()
+        Me.bgw_register = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'Label1
@@ -91,7 +92,7 @@ Partial Class Register
         'txt_firstName
         '
         Me.txt_firstName.Location = New System.Drawing.Point(120, 92)
-        Me.txt_firstName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_firstName.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_firstName.Name = "txt_firstName"
         Me.txt_firstName.Size = New System.Drawing.Size(126, 20)
         Me.txt_firstName.TabIndex = 1
@@ -109,7 +110,7 @@ Partial Class Register
         'txt_lastName
         '
         Me.txt_lastName.Location = New System.Drawing.Point(120, 132)
-        Me.txt_lastName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_lastName.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_lastName.Name = "txt_lastName"
         Me.txt_lastName.Size = New System.Drawing.Size(126, 20)
         Me.txt_lastName.TabIndex = 2
@@ -117,7 +118,7 @@ Partial Class Register
         'txt_userName
         '
         Me.txt_userName.Location = New System.Drawing.Point(120, 253)
-        Me.txt_userName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_userName.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_userName.Name = "txt_userName"
         Me.txt_userName.Size = New System.Drawing.Size(126, 20)
         Me.txt_userName.TabIndex = 5
@@ -125,7 +126,7 @@ Partial Class Register
         'txt_password
         '
         Me.txt_password.Location = New System.Drawing.Point(120, 293)
-        Me.txt_password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_password.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_password.Name = "txt_password"
         Me.txt_password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txt_password.Size = New System.Drawing.Size(126, 20)
@@ -138,7 +139,7 @@ Partial Class Register
         Me.cb_department.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.cb_department.FormattingEnabled = True
         Me.cb_department.Location = New System.Drawing.Point(120, 172)
-        Me.cb_department.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cb_department.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_department.MinimumSize = New System.Drawing.Size(126, 0)
         Me.cb_department.Name = "cb_department"
         Me.cb_department.Size = New System.Drawing.Size(126, 21)
@@ -151,7 +152,7 @@ Partial Class Register
         Me.cb_role.FormattingEnabled = True
         Me.cb_role.Items.AddRange(New Object() {"Admin", "Staff"})
         Me.cb_role.Location = New System.Drawing.Point(120, 213)
-        Me.cb_role.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cb_role.Margin = New System.Windows.Forms.Padding(2)
         Me.cb_role.Name = "cb_role"
         Me.cb_role.Size = New System.Drawing.Size(126, 21)
         Me.cb_role.TabIndex = 4
@@ -170,7 +171,7 @@ Partial Class Register
         'btn_submit
         '
         Me.btn_submit.Location = New System.Drawing.Point(110, 359)
-        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_submit.Name = "btn_submit"
         Me.btn_submit.Size = New System.Drawing.Size(79, 31)
         Me.btn_submit.TabIndex = 7
@@ -196,7 +197,7 @@ Partial Class Register
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Register"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Register"
@@ -218,4 +219,5 @@ Partial Class Register
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents btn_submit As System.Windows.Forms.Button
     Friend WithEvents cb_department As System.Windows.Forms.ComboBox
+    Friend WithEvents bgw_register As System.ComponentModel.BackgroundWorker
 End Class

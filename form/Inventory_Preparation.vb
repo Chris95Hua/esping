@@ -70,31 +70,30 @@
         nud_quantity.Value = 1
     End Sub
 
-    ' TODO: use async task
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
-        If txt_barcode.Text IsNot String.Empty Then
-            If ListView1.Items.Count > 0 Then
-                Dim inventoryList As New Dictionary(Of String, Object)
-                Dim invList As New Dictionary(Of String, Object)
-
-                For index As Integer = 0 To ListView1.Items.Count - 1
-                    inventoryList.Add(ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text)
-                Next
-
-                invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
-                If rtb_remarks.Text IsNot String.Empty Then
-                    invList.Add(_ORDER_CUSTOMER.REMARKS, rtb_remarks.Text)
-                End If
-
-                invList.Add(_ORDER_CUSTOMER.ORDER_ID, txt_barcode.Text)
-
-                bgw_LoadSubmit.RunWorkerAsync(invList)
-                ShowLoadingOverlay(True)
-            Else
-                MessageBox.Show("Please add at least 1 item", "Operation Failed")
-            End If
-        Else
+        If txt_barcode.Text Is String.Empty Then
             MessageBox.Show("Please enter job sheet number", "Operation Failed")
+        ElseIf Not Method.IsOrderFormat(txt_barcode.Text) Then
+            MessageBox.Show("Invalid order number", "Operation Failed")
+        ElseIf ListView1.Items.Count = 0 Then
+            MessageBox.Show("Please add at least 1 item", "Operation Failed")
+        Else
+            Dim inventoryList As New Dictionary(Of String, Object)
+            Dim invList As New Dictionary(Of String, Object)
+
+            For index As Integer = 0 To ListView1.Items.Count - 1
+                inventoryList.Add(ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text)
+            Next
+
+            invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
+            If rtb_remarks.Text IsNot String.Empty Then
+                invList.Add(_ORDER_CUSTOMER.REMARKS, rtb_remarks.Text)
+            End If
+
+            invList.Add(_ORDER_CUSTOMER.ORDER_ID, Method.GetOrderID(txt_barcode.Text))
+
+            bgw_LoadSubmit.RunWorkerAsync(invList)
+            ShowLoadingOverlay(True)
         End If
 
     End Sub
@@ -139,7 +138,7 @@
                     ListView1.Items.Clear()
                     rtb_remarks.Clear()
                 Else
-                    MessageBox.Show("Unable to submit the items", "Operation Failed")
+                    MessageBox.Show("An error has occurred while adding the items", "Operation Failed")
                 End If
             End If
         End If

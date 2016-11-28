@@ -48,43 +48,14 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espri
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Approval_Department.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Registration.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring-2012\obj\Debug\espring.Order_Details.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.exe.config
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.exe
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.pdb
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.exe
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.pdb
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\MySql.Data.dll
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\MySql.Data.xml
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Order_Details.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Cutting_Department.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Edit_Delivery_Date.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Embroidery_Department.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Generate_Barcode.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Inventory_Preparation.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Job_Log.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Login.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Resources.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.new_order.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Printing_Department.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Sewing_Department.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Approve_Order.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Manage_Order.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Register.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Update_Password.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Approve_Order.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Order_Details.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Manage_Order.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Update_Password.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Register.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.View_image.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.View_image.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.New_Inventory.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Delete_Item.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.New_Inventory.resources
 C:\Users\user\Desktop\espring\bin\Debug\espring.exe.config
 C:\Users\user\Desktop\espring\obj\Debug\espring.exe
 C:\Users\user\Desktop\espring\obj\Debug\espring.xml
@@ -115,11 +86,40 @@ C:\Users\user\Desktop\espring\obj\Debug\espring.Printing_Department.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.Register.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.Sewing_Department.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Admin_Form.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Admin_Form.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Loading_Overlay.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\bin\Debug\MySql.Data.xml
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Loading_Overlay.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.exe.config
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.exe
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\espring.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\MySql.Data.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\bin\Debug\MySql.Data.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Admin_Form.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Approve_Order.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Generate_Barcode_Sticker.resources
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Live_Update.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Loading_Overlay.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.New_Inventory.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Order_Details.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Cutting_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Edit_Delivery_Date.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Embroidery_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Generate_Barcode.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Inventory_Preparation.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Login.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Job_Log.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.View_image.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Resources.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.new_order.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Manage_Order.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Update_Password.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Printing_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Register.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Sewing_Department.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbproj.GenerateResource.Cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.exe
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.pdb

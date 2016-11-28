@@ -1,4 +1,11 @@
-﻿' List of table available in the database
+﻿Public NotInheritable Class _FORMAT
+    Public Const DATE_FORMAT As String = "%d/%m/%Y"
+    Public Const DATETIME_FORMAT As String = "%d/%m/%Y %h:%i:%s %p"
+
+    Public Const ORDER_DELIMITER As String = "-"
+End Class
+
+' List of table available in the database
 Public NotInheritable Class _TABLE
     Public Const USER As String = "user"
     Public Const ROLE As String = "role"
