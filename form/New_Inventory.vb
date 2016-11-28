@@ -2,11 +2,13 @@
     Private loadingOverlay As Loading_Overlay
 
     Private Sub btn_add_Click(sender As Object, e As EventArgs) Handles btn_add.Click
-        If txt_inventory.Text IsNot String.Empty Then
+        If txt_inventory.Text Is String.Empty Then
+            MessageBox.Show("Please enter the name of the item", "Operation Failed")
+        ElseIf Not Method.IsItemName(txt_inventory.Text) Then
+            MessageBox.Show("Item name can only contain alphanumeric, space, underscore, hyphen, brackets, single quote and ampersand", "Operation Failed")
+        Else
             bgw_InsertItem.RunWorkerAsync(txt_inventory.Text)
             ShowLoadingOverlay(True)
-        Else
-            MessageBox.Show("Please enter the name of the item", "Operation Failed")
         End If
     End Sub
 

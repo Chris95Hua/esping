@@ -152,7 +152,7 @@ Public NotInheritable Class Method
         Return path
     End Function
 
-    ' TODO: Generate multiple stickers
+    ' TODO: Generate multiple stickers according to number of bags
     Public Shared Function GenerateBarcodeLabel(ByVal orders As Dictionary(Of String, Object)) As Image
         Dim mf As Imaging.Metafile
 
@@ -362,24 +362,24 @@ Public NotInheritable Class Method
     ' Regex for password
     ' numerical characters, letters, limited special characters only
     Public Shared Function IsPassword(ByVal password As String) As Boolean
-        Return Regex.Match(password, "^([a-zA-Z0-9@*#$%^&]{6,12})$").Success
+        Return Regex.Match(password, "^([a-zA-Z0-9!@#$%^&*=+'()\\-`.+,/\""]{4,12})$").Success
     End Function
 
     ' Regex for name
     ' no special character apart from hyphen (-), single quote (') and letters only (no numerical character), space
     Public Shared Function IsName(ByVal name As String) As Boolean
-        Return Regex.Match(name, "^([a-zA-Z0-9@*#$%^&]+)$").Success
+        Return Regex.Match(name, "^([a-zA-Z' -]+)$").Success
     End Function
 
     ' Regex for username
     ' alphanumeric, hyphen and underscore only
     Public Shared Function IsUsername(ByVal username As String) As Boolean
-        Return Regex.Match(username, "^([a-zA-Z0-9_-]+)$").Success
+        Return Regex.Match(username, "^([a-zA-Z0-9_-]{3,12})$").Success
     End Function
 
     ' Regex for inventory item
     ' numerical characters and letters only, brackets () and space
     Public Shared Function IsItemName(ByVal item As String) As Boolean
-        Return Regex.Match(item, "^([a-zA-Z0-9_-()'&]+)$").Success
+        Return Regex.Match(item, "^([a-zA-Z0-9_\\(\\) '&-]+)$").Success
     End Function
 End Class

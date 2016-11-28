@@ -1,7 +1,10 @@
 ﻿Public Class Live_Update
+    Private loadingOverlay As Loading_Overlay
+
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
         bgw_liveUpdate.RunWorkerAsync()
+        ShowLoadingOverlay(True)
     End Sub
 
     Private Sub bgw_liveUpdate_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_liveUpdate.DoWork
@@ -52,11 +55,23 @@
     End Sub
 
     Private Sub bgw_liveUpdate_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_liveUpdate.RunWorkerCompleted
+        ShowLoadingOverlay(False)
+
         If (e.Error Is Nothing) Then
             dgv_liveInfo.DataSource = e.Result
         End If
 
         dgv_liveInfo.Enabled = True
+    End Sub
+
+    Private Sub ShowLoadingOverlay(ByVal show As Boolean)
+        If show Then
+            loadingOverlay = New Loading_Overlay
+            loadingOverlay.Size = New Size(Me.Width - 16, Me.Height - 38)
+            loadingOverlay.ShowDialog()
+        Else
+            loadingOverlay.Close()
+        End If
     End Sub
 
 End Class

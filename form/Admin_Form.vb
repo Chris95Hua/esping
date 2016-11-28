@@ -23,43 +23,49 @@
 
     Private Sub btn_ManageOrder_Click(sender As Object, e As EventArgs) Handles btn_ManageOrder.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim ManageForm As New Manage_Order
-        ManageForm.ShowDialog()
+        Dim manageForm As New Manage_Order
+        manageForm.ShowDialog()
     End Sub
 
     Private Sub btn_ApproveOrder_Click(sender As Object, e As EventArgs) Handles btn_ApproveOrder.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim ApproveForm As New Approve_Order
-        ApproveForm.ShowDialog()
+        Dim approveForm As New Approve_Order
+        approveForm.ShowDialog()
     End Sub
 
     Private Sub btn_InventoryPreparation_Click(sender As Object, e As EventArgs) Handles btn_InventoryPreparation.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim InventoryForm As New Inventory_Preparation
-        InventoryForm.ShowDialog()
+        Dim inventoryForm As New Inventory_Preparation
+        inventoryForm.ShowDialog()
     End Sub
 
     Private Sub btn_CuttingDepartment_Click(sender As Object, e As EventArgs) Handles btn_CuttingDepartment.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim CuttingForm As New Cutting_Department
-        CuttingForm.ShowDialog()
+        Dim cuttingForm As New Cutting_Department
+        cuttingForm.ShowDialog()
     End Sub
 
     Private Sub btn_EmbroideryDepartment_Click(sender As Object, e As EventArgs) Handles btn_EmbroideryDepartment.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim EmbroideryForm As New Embroidery_Department
-        EmbroideryForm.ShowDialog()
+        Dim embroideryForm As New Embroidery_Department
+        embroideryForm.ShowDialog()
     End Sub
 
     Private Sub btn_printingDepartment_Click(sender As Object, e As EventArgs) Handles btn_printingDepartment.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim PrintingForm As New Printing_Department
-        PrintingForm.ShowDialog()
+        Dim printingForm As New Printing_Department
+        printingForm.ShowDialog()
     End Sub
 
     Private Sub btn_SewingDepartment_Click(sender As Object, e As EventArgs) Handles btn_SewingDepartment.Click
         Session.department_id = _PROCESS.ADMIN
-        Dim SewingForm As New Sewing_Department
-        SewingForm.ShowDialog()
+        Dim sewingForm As New Sewing_Department
+        sewingForm.ShowDialog()
+    End Sub
+
+    Private Sub btn_job_Click(sender As Object, e As EventArgs) Handles btn_job.Click
+        Session.department_id = _PROCESS.ADMIN
+        Dim jobForm As New Live_Update
+        jobForm.ShowDialog()
     End Sub
 End Class

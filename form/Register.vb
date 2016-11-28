@@ -11,11 +11,12 @@
     End Sub
 
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
-        If txt_firstName.Text = "" Or txt_lastName.Text = "" Then
-            MessageBox.Show("Please fill in all the information", "Account Registration Failed")
-            ' TODO: perform regex validation
-        ElseIf txt_password.TextLength < 4 Or txt_userName.TextLength < 4 Then
-            MessageBox.Show("Password and username must contain at least 4 characters", "Account Registration Failed")
+        If Not Method.IsName(txt_firstName.Text) Or Not Method.IsName(txt_lastName.Text) Then
+            MessageBox.Show("Name fields cannot be empty and can only contain alphanumeric, space, single quote and hyphen", "Account Registration Failed")
+        ElseIf Not Method.IsUsername(txt_userName.Text) Then
+            MessageBox.Show("Username should be 3-12 characters long and can only contain alphanumeric, hyphen and underscore", "Account Registration Failed")
+        ElseIf Not Method.IsPassword(txt_password.Text) Then
+            MessageBox.Show("Password should be 4-12 characters long and cannot contain space and certain special characters like semicolon", "Account Registration Failed")
         Else
             Dim dataIn As New Dictionary(Of String, Object)
             Dim salt As String = Security.GenerateSalt()
