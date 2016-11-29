@@ -48,10 +48,18 @@
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Method.IsOrderFormat(txt_search.Text) Then
-                searchID = Method.GetOrderID(txt_search.Text)
-                LoadDataGridData(searchID)
-            Else
-                MessageBox.Show("Invalid order number", "Error")
+                Dim temp As Integer = 0
+                For i As Integer = 0 To dgv_details.RowCount - 1
+                    If dgv_details.Rows(i).Cells(0).Value.ToString = txt_search.Text Then
+                        temp = 1
+                    End If
+                Next
+                If temp = 1 Then
+                    searchID = Method.GetOrderID(txt_search.Text)
+                    LoadDataGridData(searchID)
+                Else
+                    MessageBox.Show("Invalid order number", "Error")
+                End If
             End If
         End If
     End Sub
@@ -109,7 +117,8 @@
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                                   " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
                                                   "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
-                                                  " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
+                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%embroidery%' OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%embroidery%')",
+                                                  " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
                                                   " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                                   " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", embroideryID, ")",

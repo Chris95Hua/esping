@@ -99,7 +99,7 @@
 
             Dim sqlStmt As String = String.Concat("SELECT CONCAT_WS('-', ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")As '", _ORDER_CUSTOMER.ORDER_ID, "', ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ") AS '", _ORDER_CUSTOMER.ORDER_ID, "', ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                                   _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
                                                   "DATE_FORMAT(", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.DELIVERY_DATE, ", '", _FORMAT.DATE_FORMAT, "') As ", _ORDER_CUSTOMER.DELIVERY_DATE, ", ",

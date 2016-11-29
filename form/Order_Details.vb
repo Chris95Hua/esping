@@ -373,13 +373,13 @@ Public Class Order_Details
         ShowLoadingOverlay(True)
     End Sub
 
-    Private Sub pic_artwork_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg)
+    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
+        Dim showImg As New View_image(My.Settings.PAYMENT_DIR, paymentImg)
         showImg.ShowDialog()
     End Sub
 
-    Private Sub lbl_docPath_Click(sender As Object, e As EventArgs)
-        Dim showImg As New View_image(My.Settings.PAYMENT_DIR, paymentImg)
+    Private Sub pic_artwork_Click(sender As Object, e As EventArgs) Handles pic_artwork.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg)
         showImg.ShowDialog()
     End Sub
 
