@@ -120,7 +120,7 @@
                                                   " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
                                                   " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
-                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%printing%' OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%printing%')",
+                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%printing%' IS NOT NULL OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%printing%' IS NOT NULL)",
                                                   " AND ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", printingID, ")",
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",

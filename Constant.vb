@@ -127,7 +127,7 @@ Public NotInheritable Class _STATUS
     Public Const CUTTING_2 As String = "Cutting Department - Scan out and transferred goods to Printing and Embroidery"
     Public Const EMBROIDERY_0 As String = "Pending for action in Embroidery"
     Public Const EMBROIDERY_1 As String = "Embroidery Department - Scanned in"
-    Public Const EMBROIDERY_2 As String = "Embroidery Department - Scanned out and transferred goods to Sewing"
+    Public Const EMBROIDERY_2 As String = "Embroidery Department - Scanned out"
     Public Const PRINTING_0 As String = "Pending for action in Printing"
     Public Const PRINTING_1 As String = "Printing Department - Scanned in"
     Public Const PRINTING_2 As String = "Printing Department - Scanned out and transferred goods to Printing"

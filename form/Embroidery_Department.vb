@@ -117,7 +117,7 @@
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                                   " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
                                                   "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
-                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%embroidery%' OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%embroidery%')",
+                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%embroidery%' IS NOT NULL OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%embroidery%' IS NOT NULL)",
                                                   " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
                                                   " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
