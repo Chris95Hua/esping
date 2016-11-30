@@ -20,8 +20,8 @@ Public Class Order_Details
         'set listview's column width
         With ListView1
             .Columns(0).Width = CInt(.Width * 0.4)
-            .Columns(1).Width = CInt(.Width * 0.3)
-            .Columns(2).Width = CInt(.Width * 0.3)
+            .Columns(1).Width = CInt(.Width * 0.2)
+            .Columns(2).Width = CInt(.Width * 0.4)
         End With
     End Sub
 
@@ -397,8 +397,8 @@ Public Class Order_Details
 
         ' production parts
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS)) Then
-            Dim parts As New Dictionary(Of String, Integer)
-            parts = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS))
+            Dim parts As New Dictionary(Of String, Object)
+            parts = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS))
 
             If parts.ContainsKey(_JSON_FIELD.FRONT) Then
                 txt_front.Text = parts.Item(_JSON_FIELD.FRONT)

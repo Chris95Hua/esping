@@ -31,42 +31,42 @@ Partial Class Generate_Barcode_Sticker
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(23, 27)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Location = New System.Drawing.Point(34, 42)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(88, 13)
+        Me.Label1.Size = New System.Drawing.Size(132, 20)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Numbers of Bags"
         '
         'btn_print
         '
-        Me.btn_print.Location = New System.Drawing.Point(88, 71)
-        Me.btn_print.Margin = New System.Windows.Forms.Padding(2)
+        Me.btn_print.Location = New System.Drawing.Point(132, 109)
         Me.btn_print.Name = "btn_print"
-        Me.btn_print.Size = New System.Drawing.Size(77, 27)
+        Me.btn_print.Size = New System.Drawing.Size(116, 42)
         Me.btn_print.TabIndex = 2
         Me.btn_print.Text = "PRINT"
         Me.btn_print.UseVisualStyleBackColor = True
         '
         'num_bags
         '
-        Me.num_bags.Location = New System.Drawing.Point(116, 27)
+        Me.num_bags.Location = New System.Drawing.Point(174, 42)
+        Me.num_bags.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.num_bags.Maximum = New Decimal(New Integer() {999999999, 0, 0, 0})
         Me.num_bags.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_bags.Name = "num_bags"
-        Me.num_bags.Size = New System.Drawing.Size(120, 20)
+        Me.num_bags.Size = New System.Drawing.Size(180, 26)
         Me.num_bags.TabIndex = 3
         Me.num_bags.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Generate_Barcode_Sticker
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(261, 122)
+        Me.ClientSize = New System.Drawing.Size(392, 188)
         Me.Controls.Add(Me.num_bags)
         Me.Controls.Add(Me.btn_print)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MaximumSize = New System.Drawing.Size(414, 244)
+        Me.MinimumSize = New System.Drawing.Size(414, 244)
         Me.Name = "Generate_Barcode_Sticker"
         Me.Text = "Generate Barcode Sticker"
         CType(Me.num_bags, System.ComponentModel.ISupportInitialize).EndInit()

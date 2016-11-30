@@ -30,10 +30,9 @@ Partial Class New_Inventory
         '
         'btn_add
         '
-        Me.btn_add.Location = New System.Drawing.Point(75, 63)
-        Me.btn_add.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_add.Location = New System.Drawing.Point(112, 97)
         Me.btn_add.Name = "btn_add"
-        Me.btn_add.Size = New System.Drawing.Size(86, 30)
+        Me.btn_add.Size = New System.Drawing.Size(129, 46)
         Me.btn_add.TabIndex = 5
         Me.btn_add.Text = "Add"
         Me.btn_add.UseVisualStyleBackColor = True
@@ -41,19 +40,17 @@ Partial Class New_Inventory
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(22, 21)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Location = New System.Drawing.Point(33, 32)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(35, 13)
+        Me.Label1.Size = New System.Drawing.Size(51, 20)
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Name"
         '
         'txt_inventory
         '
-        Me.txt_inventory.Location = New System.Drawing.Point(60, 19)
-        Me.txt_inventory.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_inventory.Location = New System.Drawing.Point(90, 29)
         Me.txt_inventory.Name = "txt_inventory"
-        Me.txt_inventory.Size = New System.Drawing.Size(148, 20)
+        Me.txt_inventory.Size = New System.Drawing.Size(220, 26)
         Me.txt_inventory.TabIndex = 3
         '
         'bgw_InsertItem
@@ -61,14 +58,14 @@ Partial Class New_Inventory
         '
         'New_Inventory
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(236, 123)
+        Me.ClientSize = New System.Drawing.Size(354, 167)
         Me.Controls.Add(Me.btn_add)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt_inventory)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.MinimumSize = New System.Drawing.Size(252, 162)
+        Me.MaximumSize = New System.Drawing.Size(376, 223)
+        Me.MinimumSize = New System.Drawing.Size(376, 223)
         Me.Name = "New_Inventory"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "New Inventory"

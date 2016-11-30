@@ -9,17 +9,17 @@
 
     Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
         ' insert data into database
-        Dim bags As New Dictionary(Of String, Integer)
-        If num_Back.Value > 0 Then
-            bags.Add(_JSON_FIELD.BACK, num_Back.Value)
+        Dim bags As New Dictionary(Of String, Object)
+        If txt_back.Text IsNot Nothing Then
+            bags.Add(_JSON_FIELD.BACK, txt_back.Text)
         End If
 
-        If num_Front.Value > 0 Then
-            bags.Add(_JSON_FIELD.FRONT, num_Front.Value)
+        If txt_front.Text IsNot Nothing Then
+            bags.Add(_JSON_FIELD.FRONT, txt_front.Text)
         End If
 
-        If num_Sleeve.Value > 0 Then
-            bags.Add(_JSON_FIELD.SLEEVE, num_Sleeve.Value)
+        If txt_sleeve.Text IsNot Nothing Then
+            bags.Add(_JSON_FIELD.SLEEVE, txt_sleeve.Text)
         End If
 
         Dim order As New Dictionary(Of String, Object)
