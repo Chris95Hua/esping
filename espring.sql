@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2016 at 06:19 AM
+-- Generation Time: Nov 30, 2016 at 10:30 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -69,7 +69,9 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `item`, `quantity`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(2, 'cotton', 0, 0, '0000-00-00 00:00:00', NULL, NULL);
+(1, 'Fabric', 0, 0, '0000-00-00 00:00:00', NULL, NULL),
+(2, 'Collar', 0, 0, '0000-00-00 00:00:00', NULL, NULL),
+(3, 'Cuff', 0, 0, '0000-00-00 00:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -82,20 +84,22 @@ CREATE TABLE `order_customer` (
   `order_name` varchar(64) NOT NULL,
   `salesperson_id` int(10) UNSIGNED NOT NULL,
   `customer` varchar(128) NOT NULL,
-  `fabric` varchar(128) NOT NULL COMMENT 'Assumed to be string of text only',
+  `fabric` varchar(128) NOT NULL,
   `collar` int(10) UNSIGNED NOT NULL,
   `cuff` int(10) UNSIGNED NOT NULL,
-  `front` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `back` varchar(70) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
-  `artwork` char(51) DEFAULT NULL,
-  `size` varchar(128) NOT NULL COMMENT 'Uses json string, assumed to be multiple values',
+  `front` varchar(20) DEFAULT NULL,
+  `front_dept` int(1) UNSIGNED NOT NULL,
+  `back` varchar(20) DEFAULT NULL,
+  `back_dept` int(1) UNSIGNED NOT NULL,
+  `artwork` varchar(340) DEFAULT NULL,
+  `size` varchar(160) NOT NULL,
   `material` varchar(128) NOT NULL,
   `colour` varchar(128) NOT NULL,
   `packaging` varchar(128) NOT NULL,
   `issue_date` date NOT NULL,
   `delivery_date` date NOT NULL,
   `delivery_type` tinyint(1) UNSIGNED NOT NULL,
-  `payment` varchar(32) NOT NULL COMMENT 'Uses json string',
+  `payment` varchar(32) NOT NULL,
   `payment_doc` char(51) DEFAULT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
@@ -110,13 +114,6 @@ CREATE TABLE `order_customer` (
   `e_user` int(10) UNSIGNED DEFAULT NULL,
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_customer`
---
-
-INSERT INTO `order_customer` (`order_id`, `order_name`, `salesperson_id`, `customer`, `fabric`, `collar`, `cuff`, `front`, `back`, `artwork`, `size`, `material`, `colour`, `packaging`, `issue_date`, `delivery_date`, `delivery_type`, `payment`, `payment_doc`, `amount`, `remarks`, `inventory_order`, `production_parts`, `approval`, `inventory`, `cutting`, `embroidery`, `printing`, `sewing`, `e_user`, `e_date`) VALUES
-(1, 'Test Order 01', 1, 'Nelson', '{"fabric":1}', 2, 4, '{"printing":1,"heat":1}', '{"printing":1,"heat":1}', NULL, '{"xs":2,"s":2,"m":5,"l":2,"3xl":4}', 'Cotton', 'White', '{"normal":1,"sugerbag":1}', '2016-11-20', '2016-12-29', 0, '{"cash":1}', NULL, '1200.00', NULL, '{"Cotton":"6","Cuff":"12"}', NULL, 1, 0, 2, 2, 2, 2, 1, '2016-11-22 15:12:52');
 
 -- --------------------------------------------------------
 
@@ -134,22 +131,6 @@ CREATE TABLE `order_log` (
   `e_user` int(10) UNSIGNED DEFAULT NULL,
   `e_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_log`
---
-
-INSERT INTO `order_log` (`log_id`, `order_id`, `department_id`, `datetime`, `status`, `c_user`, `e_user`, `e_date`) VALUES
-(1, 1, 5, '2016-11-20 21:54:08', 'Processing', 1, NULL, NULL),
-(2, 1, 1, '2016-11-21 16:25:26', 'Approved', 1, NULL, NULL),
-(3, 1, 2, '2016-11-22 14:49:14', 'Cutting Department - Scan in', 1, NULL, NULL),
-(4, 1, 2, '2016-11-22 14:49:21', 'Cutting Department - Scan out and transferred goods to Printing and Embroidery', 1, NULL, NULL),
-(5, 1, 6, '2016-11-22 14:55:29', 'Printing Department - Scanned in', 1, NULL, NULL),
-(6, 1, 6, '2016-11-22 14:55:40', 'Printing Department - Scanned out and transferred goods to Printing', 1, NULL, NULL),
-(7, 1, 3, '2016-11-22 15:03:00', 'Embroidery Department - Scanned in', 1, NULL, NULL),
-(8, 1, 3, '2016-11-22 15:12:35', 'Embroidery Department - Scanned out and transferred goods to Sewing', 1, NULL, NULL),
-(9, 1, 7, '2016-11-22 15:12:45', 'Sewing Department - Scanned in', 1, NULL, NULL),
-(10, 1, 7, '2016-11-22 15:12:52', 'Sewing Department - Scanned out and transferred goods to Logistic Department', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -188,7 +169,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `salt`, `role`, `department_id`, `c_user`, `c_date`, `e_user`, `e_date`) VALUES
-(1, 'Espring', 'Admin', 'admin', 'diTAY05RnRCSLw9oTagitfP156pMRth++VxSGwj1JsQ=', 'EWgTriOV3Pkbs5E9ncddHS6XPXj4NtKPXm9PcvyX+hiV', 0, 0, 0, '2016-11-07 00:00:00', 1, '2016-11-18 13:47:04');
+(1, 'Admin', 'Espring', 'admin', 'rjzLG6rlS+ONny+/8l9Omady8Fl1EyhhfONz0gmmIpI=', 'xGsL38dZj8yazjismTQu2imW9qtzLX/jP8uaiZsYki2n', 0, 0, 0, '2016-11-07 00:00:00', 1, '2016-11-28 11:37:34');
 
 --
 -- Indexes for dumped tables
@@ -244,17 +225,17 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inventory_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `order_customer`
 --
 ALTER TABLE `order_customer`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_log`
 --
 ALTER TABLE `order_log`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `role`
 --

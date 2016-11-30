@@ -47,6 +47,10 @@ Partial Class Inventory_Preparation
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.bgw_LoadSubmit = New System.ComponentModel.BackgroundWorker()
+        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txt_measurement = New System.Windows.Forms.TextBox()
+        Me.measurement = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         CType(Me.nud_quantity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -55,12 +59,13 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel4.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
+        Me.TableLayoutPanel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'txt_barcode
         '
         Me.txt_barcode.Location = New System.Drawing.Point(85, 36)
-        Me.txt_barcode.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_barcode.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_barcode.MaxLength = 10
         Me.txt_barcode.Name = "txt_barcode"
         Me.txt_barcode.Size = New System.Drawing.Size(226, 20)
@@ -85,7 +90,7 @@ Partial Class Inventory_Preparation
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.ItemHeight = 16
         Me.ListBox1.Location = New System.Drawing.Point(2, 2)
-        Me.ListBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ListBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(211, 228)
         Me.ListBox1.TabIndex = 2
@@ -93,8 +98,8 @@ Partial Class Inventory_Preparation
         'btn_add
         '
         Me.btn_add.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.btn_add.Location = New System.Drawing.Point(54, 39)
-        Me.btn_add.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_add.Location = New System.Drawing.Point(54, 40)
+        Me.btn_add.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_add.Name = "btn_add"
         Me.btn_add.Size = New System.Drawing.Size(98, 31)
         Me.btn_add.TabIndex = 5
@@ -105,7 +110,7 @@ Partial Class Inventory_Preparation
         '
         Me.btn_submit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_submit.Location = New System.Drawing.Point(562, 424)
-        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_submit.Name = "btn_submit"
         Me.btn_submit.Size = New System.Drawing.Size(98, 31)
         Me.btn_submit.TabIndex = 8
@@ -116,7 +121,7 @@ Partial Class Inventory_Preparation
         '
         Me.btn_delete.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btn_delete.Location = New System.Drawing.Point(54, 2)
-        Me.btn_delete.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_delete.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_delete.Name = "btn_delete"
         Me.btn_delete.Size = New System.Drawing.Size(98, 31)
         Me.btn_delete.TabIndex = 4
@@ -176,7 +181,7 @@ Partial Class Inventory_Preparation
         '
         Me.nud_quantity.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.nud_quantity.Location = New System.Drawing.Point(54, 39)
-        Me.nud_quantity.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.nud_quantity.Margin = New System.Windows.Forms.Padding(2)
         Me.nud_quantity.Maximum = New Decimal(New Integer() {99999999, 0, 0, 0})
         Me.nud_quantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nud_quantity.Name = "nud_quantity"
@@ -204,10 +209,10 @@ Partial Class Inventory_Preparation
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.item, Me.quantity})
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.item, Me.quantity, Me.measurement})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(432, 2)
-        Me.ListView1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ListView1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(211, 238)
@@ -218,11 +223,12 @@ Partial Class Inventory_Preparation
         'item
         '
         Me.item.Text = "Item Name"
-        Me.item.Width = 135
+        Me.item.Width = 91
         '
         'quantity
         '
         Me.quantity.Text = "Quantity"
+        Me.quantity.Width = 65
         '
         'TableLayoutPanel1
         '
@@ -237,7 +243,7 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel1.Controls.Add(Me.ListView1, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 1, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(2, 2)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -252,9 +258,10 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel2.ColumnCount = 1
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel3, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel4, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel4, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel6, 0, 1)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(217, 2)
-        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
@@ -273,7 +280,7 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel3.Controls.Add(Me.nud_quantity, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(2, 2)
-        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -290,13 +297,13 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.Controls.Add(Me.btn_delete, 0, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.btn_add, 0, 1)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(2, 81)
-        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(2, 160)
+        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 2
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(207, 75)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(207, 76)
         Me.TableLayoutPanel4.TabIndex = 6
         '
         'rtb_remarks
@@ -306,7 +313,7 @@ Partial Class Inventory_Preparation
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rtb_remarks.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rtb_remarks.Location = New System.Drawing.Point(4, 19)
-        Me.rtb_remarks.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.rtb_remarks.Margin = New System.Windows.Forms.Padding(2)
         Me.rtb_remarks.Name = "rtb_remarks"
         Me.rtb_remarks.Size = New System.Drawing.Size(639, 81)
         Me.rtb_remarks.TabIndex = 7
@@ -320,9 +327,9 @@ Partial Class Inventory_Preparation
         Me.GroupBox1.Controls.Add(Me.rtb_remarks)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(2, 248)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(645, 102)
         Me.GroupBox1.TabIndex = 18
         Me.GroupBox1.TabStop = False
@@ -338,7 +345,7 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel5.Controls.Add(Me.TableLayoutPanel1, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.GroupBox1, 0, 1)
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(11, 66)
-        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.0!))
@@ -348,6 +355,50 @@ Partial Class Inventory_Preparation
         '
         'bgw_LoadSubmit
         '
+        '
+        'TableLayoutPanel6
+        '
+        Me.TableLayoutPanel6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel6.ColumnCount = 1
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel6.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.txt_measurement, 0, 1)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(2, 81)
+        Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(2)
+        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
+        Me.TableLayoutPanel6.RowCount = 2
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(207, 75)
+        Me.TableLayoutPanel6.TabIndex = 0
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Label3.AutoSize = True
+        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label3.Location = New System.Drawing.Point(51, 24)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label3.MinimumSize = New System.Drawing.Size(98, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(105, 13)
+        Me.Label3.TabIndex = 11
+        Me.Label3.Text = "Unit of Measurement"
+        '
+        'txt_measurement
+        '
+        Me.txt_measurement.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txt_measurement.Location = New System.Drawing.Point(53, 40)
+        Me.txt_measurement.Name = "txt_measurement"
+        Me.txt_measurement.Size = New System.Drawing.Size(100, 20)
+        Me.txt_measurement.TabIndex = 12
+        '
+        'measurement
+        '
+        Me.measurement.Text = "UoM"
+        Me.measurement.Width = 50
         '
         'Inventory_Preparation
         '
@@ -359,7 +410,7 @@ Partial Class Inventory_Preparation
         Me.Controls.Add(Me.btn_submit)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt_barcode)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(686, 507)
         Me.Name = "Inventory_Preparation"
         Me.Text = "Inventory Preparation"
@@ -374,6 +425,8 @@ Partial Class Inventory_Preparation
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel6.ResumeLayout(False)
+        Me.TableLayoutPanel6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -403,4 +456,8 @@ Partial Class Inventory_Preparation
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents bgw_LoadSubmit As System.ComponentModel.BackgroundWorker
+    Friend WithEvents measurement As ColumnHeader
+    Friend WithEvents TableLayoutPanel6 As TableLayoutPanel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txt_measurement As TextBox
 End Class

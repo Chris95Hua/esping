@@ -91,7 +91,7 @@
 
         If result = DialogResult.Yes Then
             dgv_details.Enabled = False
-            bgw_OrderDelete.RunWorkerAsync(dgv_details.SelectedCells.Item(0).Value)
+            bgw_OrderDelete.RunWorkerAsync(Method.GetOrderID(dgv_details.SelectedCells.Item(0).Value.ToString()))
             ShowLoadingOverlay(True)
         End If
     End Sub
@@ -107,7 +107,9 @@
                                               _ORDER_CUSTOMER.COLLAR, ", ",
                                               _ORDER_CUSTOMER.CUFF, ", ",
                                               _ORDER_CUSTOMER.FRONT, ", ",
+                                              _ORDER_CUSTOMER.FRONT_DEPT, ", ",
                                               _ORDER_CUSTOMER.BACK, ", ",
+                                              _ORDER_CUSTOMER.BACK_DEPT, ", ",
                                               _ORDER_CUSTOMER.ARTWORK, ", ",
                                               _ORDER_CUSTOMER.SIZE, ", ",
                                               _ORDER_CUSTOMER.MATERIAL, ", ",
@@ -202,10 +204,14 @@
         ftpFiles = Database.SelectRows(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}, _ORDER_CUSTOMER.ARTWORK, _ORDER_CUSTOMER.PAYMENT_DOC).First
 
         If ftpFiles IsNot Nothing And Database.Delete(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", id}) Then
+            ' delete artwork
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK)) Then
-                Method.FtpDelete(My.Settings.ARTWORK_DIR, ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK))
+                For Each artwork In Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, String))(ftpFiles.Item(_ORDER_CUSTOMER.ARTWORK)).Values
+                    Method.FtpDelete(My.Settings.ARTWORK_DIR, artwork)
+                Next
             End If
 
+            ' delete payment
             If Not IsDBNull(ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
                 Method.FtpDelete(My.Settings.PAYMENT_DIR, ftpFiles.Item(_ORDER_CUSTOMER.PAYMENT_DOC))
             End If

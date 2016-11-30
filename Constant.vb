@@ -54,7 +54,9 @@ Public NotInheritable Class _ORDER_CUSTOMER
     Public Const COLLAR As String = "collar"
     Public Const CUFF As String = "cuff"
     Public Const FRONT As String = "front"
+    Public Const FRONT_DEPT As String = "front_dept"
     Public Const BACK As String = "back"
+    Public Const BACK_DEPT As String = "back_dept"
     Public Const ARTWORK As String = "artwork"
     Public Const SIZE As String = "size"
     Public Const MATERIAL As String = "material"
@@ -152,9 +154,7 @@ Public NotInheritable Class _JSON_FIELD
     Public Const FABRIC As String = "fabric"
     Public Const SPLIT As String = "split"
 
-    Public Const PRINTING As String = "printing"
     Public Const HEAT As String = "heat"
-    Public Const EMBROIDERY As String = "embroidery"
     Public Const PLAIN As String = "plain"
 
     Public Const XS As String = "xs"
@@ -177,12 +177,12 @@ Public NotInheritable Class _JSON_FIELD
     Public Const BACK As String = "back"
     Public Const SLEEVE As String = "sleeve"
 
-    Public Const ARTWORK1 As String = "artwork1"
-    Public Const ARTWORK2 As String = "artwork2"
-    Public Const ARTWORK3 As String = "artwork3"
-    Public Const ARTWORK4 As String = "artwork4"
-    Public Const ARTWORK5 As String = "artwork5"
-    Public Const ARTWORK6 As String = "artwork6"
+    Public Const ARTWORK1 As String = "a1"
+    Public Const ARTWORK2 As String = "a2"
+    Public Const ARTWORK3 As String = "a3"
+    Public Const ARTWORK4 As String = "a4"
+    Public Const ARTWORK5 As String = "a5"
+    Public Const ARTWORK6 As String = "a6"
 End Class
 
 
@@ -218,6 +218,14 @@ Public Enum _PROCESS
     SEWING = 7
 End Enum
 
+
+' Printing/Embroidery
+Public Enum _OPTIONAL_DEPT
+    NONE = 0
+    PRINTING = 1
+    EMBROIDERY = 2
+    PRINTING_EMBROIDERY = 3
+End Enum
 
 ' File config/constant when opening/saving images/files
 Public NotInheritable Class _FILE

@@ -65,7 +65,6 @@ C:\Users\user\Desktop\espring\bin\Debug\espring.pdb
 C:\Users\user\Desktop\espring\bin\Debug\espring.xml
 C:\Users\user\Desktop\espring\bin\Debug\MySql.Data.dll
 C:\Users\user\Desktop\espring\bin\Debug\MySql.Data.xml
-C:\Users\user\Desktop\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\espring\obj\Debug\espring.Approve_Order.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.Delete_Item.resources
 C:\Users\user\Desktop\espring\obj\Debug\espring.New_Inventory.resources
@@ -126,3 +125,7 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.pd
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Generate_Barcode_Sticker.resources
 C:\Users\Nelson\Documents\Visual Studio 2012\Projects\espring\obj\Debug\espring.Live_Update.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Admin_Form.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Generate_Barcode_Sticker.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Live_Update.resources
+C:\Users\user\Desktop\espring\obj\Debug\espring.Loading_Overlay.resources

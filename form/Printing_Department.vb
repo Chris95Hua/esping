@@ -47,14 +47,8 @@
     ' Search event
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
-            If Method.IsOrderFormat(txt_search.Text) Then
-                Dim temp As Integer = 0
-                For i As Integer = 0 To dgv_details.RowCount - 1
-                    If dgv_details.Rows(i).Cells(0).Value.ToString = txt_search.Text Then
-                        temp = 1
-                    End If
-                Next
-                If temp = 1 Then
+            If e.KeyCode = Keys.Enter Then
+                If Method.IsOrderFormat(txt_search.Text) Then
                     searchID = Method.GetOrderID(txt_search.Text)
                     LoadDataGridData(searchID)
                 Else
@@ -66,6 +60,9 @@
 
     ' Get data for datagridview
     Private Sub bgw_PrintLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_PrintLoader.DoWork
+        Dim printChecked As Integer = _OPTIONAL_DEPT.PRINTING
+        Dim printEmbroideryChecked As Integer = _OPTIONAL_DEPT.PRINTING_EMBROIDERY
+
         If e.Argument <> -1 Then
             ' search
             Dim search As String = String.Concat("SELECT ",
@@ -75,7 +72,9 @@
                                               _ORDER_CUSTOMER.COLLAR, ", ",
                                               _ORDER_CUSTOMER.CUFF, ", ",
                                               _ORDER_CUSTOMER.FRONT, ", ",
+                                              _ORDER_CUSTOMER.FRONT_DEPT, ", ",
                                               _ORDER_CUSTOMER.BACK, ", ",
+                                              _ORDER_CUSTOMER.BACK_DEPT, ", ",
                                               _ORDER_CUSTOMER.ARTWORK, ", ",
                                               _ORDER_CUSTOMER.SIZE, ", ",
                                               _ORDER_CUSTOMER.MATERIAL, ", ",
@@ -93,7 +92,9 @@
                                               _ORDER_CUSTOMER.PRINTING,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument,
-                                              " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2
+                                              " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
+                                              " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, "))"
                                         )
 
             e.Result = Database.ExecuteReader(search)
@@ -117,12 +118,13 @@
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                                   " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
                                                   "=", _TABLE.ORDER_LOG, ".", _ORDER_LOG.ORDER_ID,
-                                                  " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, " = ", 2,
-                                                  " AND ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
+                                                  " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
-                                                  " WHERE (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, " LIKE '%printing%' IS NOT NULL OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, " LIKE '%printing%' IS NOT NULL)",
-                                                  " AND ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", printingID, ")",
+                                                  " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", cuttingID, ",", printingID, ")",
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                                  " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUTTING, "=", 2,
+                                                  " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, "))",
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
                                                   " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                             )

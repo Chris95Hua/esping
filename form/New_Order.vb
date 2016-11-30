@@ -47,17 +47,17 @@
 
 
         ' front
-        Dim front As New Dictionary(Of String, Integer)
-        If cb_fPrinting.CheckState = CheckState.Checked Then
-            front.Add(_JSON_FIELD.PRINTING, cb_fPrinting.CheckState)
+        If cb_fPrinting.CheckState = CheckState.Checked And cb_fEmbroidery.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.FRONT_DEPT, _OPTIONAL_DEPT.PRINTING_EMBROIDERY)
+        ElseIf cb_fEmbroidery.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.FRONT_DEPT, _OPTIONAL_DEPT.EMBROIDERY)
+        ElseIf cb_fPrinting.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.FRONT_DEPT, _OPTIONAL_DEPT.PRINTING)
         End If
 
+        Dim front As New Dictionary(Of String, Integer)
         If cb_fHeatTransfer.CheckState = CheckState.Checked Then
             front.Add(_JSON_FIELD.HEAT, cb_fHeatTransfer.CheckState)
-        End If
-
-        If cb_fEmbroidery.CheckState = CheckState.Checked Then
-            front.Add(_JSON_FIELD.EMBROIDERY, cb_fEmbroidery.CheckState)
         End If
 
         If cb_fPlain.CheckState = CheckState.Checked Then
@@ -67,17 +67,17 @@
 
 
         ' back
-        Dim back As New Dictionary(Of String, Integer)
-        If cb_bPrinting.CheckState = CheckState.Checked Then
-            back.Add(_JSON_FIELD.PRINTING, cb_bPrinting.CheckState)
+        If cb_bPrinting.CheckState = CheckState.Checked And cb_bEmbroidery.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.BACK_DEPT, _OPTIONAL_DEPT.PRINTING_EMBROIDERY)
+        ElseIf cb_bEmbroidery.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.BACK_DEPT, _OPTIONAL_DEPT.EMBROIDERY)
+        ElseIf cb_bPrinting.CheckState = CheckState.Checked Then
+            order.Add(_ORDER_CUSTOMER.BACK_DEPT, _OPTIONAL_DEPT.PRINTING)
         End If
 
+        Dim back As New Dictionary(Of String, Integer)
         If cb_bHeatTransfer.CheckState = CheckState.Checked Then
             back.Add(_JSON_FIELD.HEAT, cb_bHeatTransfer.CheckState)
-        End If
-
-        If cb_bEmbroidery.CheckState = CheckState.Checked Then
-            back.Add(_JSON_FIELD.EMBROIDERY, cb_bEmbroidery.CheckState)
         End If
 
         If cb_bPlain.CheckState = CheckState.Checked Then
@@ -92,33 +92,33 @@
 
 
         ' sizes
-        Dim size As New Dictionary(Of String, Integer)
-        If num_XS.Value > 0 Then
-            size.Add(_JSON_FIELD.XS, num_XS.Value)
+        Dim size As New Dictionary(Of String, Integer())
+        If num_XS_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.XS, {num_XS_size.Value, num_XS_amount.Value})
         End If
 
-        If num_S.Value > 0 Then
-            size.Add(_JSON_FIELD.S, num_S.Value)
+        If num_S_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.S, {num_S_size.Value, num_S_amount.Value})
         End If
 
-        If num_M.Value > 0 Then
-            size.Add(_JSON_FIELD.M, num_M.Value)
+        If num_M_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.M, {num_M_size.Value, num_M_amount.Value})
         End If
 
-        If num_L.Value > 0 Then
-            size.Add(_JSON_FIELD.L, num_L.Value)
+        If num_L_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.L, {num_L_size.Value, num_L_amount.Value})
         End If
 
-        If num_XL.Value > 0 Then
-            size.Add(_JSON_FIELD.XL, num_XL.Value)
+        If num_XL_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.XL, {num_XL_size.Value, num_XL_amount.Value})
         End If
 
-        If num_2XL.Value > 0 Then
-            size.Add(_JSON_FIELD.XXL, num_2XL.Value)
+        If num_2XL_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.XXL, {num_2XL_size.Value, num_2XL_amount.Value})
         End If
 
-        If num_3XL.Value > 0 Then
-            size.Add(_JSON_FIELD.XXXL, num_3XL.Value)
+        If num_3XL_amount.Value > 0 Then
+            size.Add(_JSON_FIELD.XXXL, {num_3XL_size.Value, num_3XL_amount.Value})
         End If
         order.Add(_ORDER_CUSTOMER.SIZE, Newtonsoft.Json.JsonConvert.SerializeObject(size))
 
@@ -163,32 +163,32 @@
         ' artwork
         Dim tempArtworkDic As New Dictionary(Of String, Object)
         If txt_artwork1.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork1.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork1.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK1, imgStore)
             Method.FtpUpload(txt_artwork1.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
         If txt_artwork2.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork2.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork2.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK2, imgStore)
             Method.FtpUpload(txt_artwork2.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
         If txt_artwork3.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork3.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork3.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK3, imgStore)
             Method.FtpUpload(txt_artwork3.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
         If txt_artwork4.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork4.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork4.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK4, imgStore)
             Method.FtpUpload(txt_artwork4.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
         If txt_artwork5.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork5.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork5.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK5, imgStore)
             Method.FtpUpload(txt_artwork5.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
         If txt_artwork6.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork6.Text)
+            Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork6.Text)
             tempArtworkDic.Add(_JSON_FIELD.ARTWORK6, imgStore)
             Method.FtpUpload(txt_artwork6.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
@@ -310,13 +310,13 @@
         cb_bPlain.Checked = False
         num_collar.ResetText()
         num_cuff.ResetText()
-        num_XS.ResetText()
-        num_S.ResetText()
-        num_M.ResetText()
-        num_L.ResetText()
-        num_XL.ResetText()
-        num_2XL.ResetText()
-        num_3XL.ResetText()
+        num_XS_amount.ResetText()
+        num_S_amount.ResetText()
+        num_M_amount.ResetText()
+        num_L_amount.ResetText()
+        num_XL_amount.ResetText()
+        num_2XL_amount.ResetText()
+        num_3XL_amount.ResetText()
         txt_material.Clear()
         txt_colour.Clear()
         cb_no.Checked = False

@@ -17,9 +17,11 @@ Public Class Order_Details
         Me.orderID = orderID
         Me.status = status
 
+        'set listview's column width
         With ListView1
-            .Columns(0).Width = CInt(.Width * 0.7) 'set column width to be 20% of controls width
-            .Columns(1).Width = CInt(.Width * 0.3) 'set column width to be 50% of controls width
+            .Columns(0).Width = CInt(.Width * 0.4)
+            .Columns(1).Width = CInt(.Width * 0.3)
+            .Columns(2).Width = CInt(.Width * 0.3)
         End With
     End Sub
 
@@ -48,7 +50,7 @@ Public Class Order_Details
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
         Dim barcode() As Integer = {_PROCESS.INVENTORY, _PROCESS.CUTTING, _PROCESS.SEWING}
 
-        ' payment visibility
+        ' payment details are only visible to admin/during approval
         If paymentVisibility.Contains(Session.department_id) Then
             GroupBox7.Visible = True
         End If
@@ -83,7 +85,9 @@ Public Class Order_Details
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLLAR, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUFF, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ARTWORK, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SIZE, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.MATERIAL, ", ",
@@ -164,20 +168,12 @@ Public Class Order_Details
         End If
 
         ' front
-        If details.ContainsKey(_ORDER_CUSTOMER.FRONT) Then
+        If details.ContainsKey(_ORDER_CUSTOMER.FRONT) And Not IsDBNull(details.Item(_ORDER_CUSTOMER.FRONT)) Then
             Dim front As New Dictionary(Of String, Integer)
             front = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.FRONT))
 
-            If front.ContainsKey(_JSON_FIELD.PRINTING) Then
-                cb_fPrinting.CheckState = CheckState.Checked
-            End If
-
             If front.ContainsKey(_JSON_FIELD.HEAT) Then
                 cb_fHeatTransfer.CheckState = CheckState.Checked
-            End If
-
-            If front.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
-                cb_fEmbroidery.CheckState = CheckState.Checked
             End If
 
             If front.ContainsKey(_JSON_FIELD.PLAIN) Then
@@ -185,27 +181,41 @@ Public Class Order_Details
             End If
         End If
 
+        ' front printing/embroidery
+        Select Case details.Item(_ORDER_CUSTOMER.FRONT_DEPT)
+            Case _OPTIONAL_DEPT.PRINTING
+                cb_fPrinting.CheckState = CheckState.Checked
+            Case _OPTIONAL_DEPT.EMBROIDERY
+                cb_fEmbroidery.CheckState = CheckState.Checked
+            Case _OPTIONAL_DEPT.PRINTING_EMBROIDERY
+                cb_fPrinting.CheckState = CheckState.Checked
+                cb_fEmbroidery.CheckState = CheckState.Checked
+        End Select
+
         ' back
-        If details.ContainsKey(_ORDER_CUSTOMER.BACK) Then
+        If details.ContainsKey(_ORDER_CUSTOMER.BACK) And Not IsDBNull(details.Item(_ORDER_CUSTOMER.BACK)) Then
             Dim back As New Dictionary(Of String, Integer)
             back = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.BACK))
 
-            If back.ContainsKey(_JSON_FIELD.PRINTING) Then
-                cb_bPrinting.CheckState = CheckState.Checked
-            End If
-
             If back.ContainsKey(_JSON_FIELD.HEAT) Then
                 cb_bHeatTransfer.CheckState = CheckState.Checked
-            End If
-
-            If back.ContainsKey(_JSON_FIELD.EMBROIDERY) Then
-                cb_bEmbroidery.CheckState = CheckState.Checked
             End If
 
             If back.ContainsKey(_JSON_FIELD.PLAIN) Then
                 cb_bPlain.CheckState = CheckState.Checked
             End If
         End If
+
+        ' back printing/embroidery
+        Select Case details.Item(_ORDER_CUSTOMER.BACK_DEPT)
+            Case _OPTIONAL_DEPT.PRINTING
+                cb_bPrinting.CheckState = CheckState.Checked
+            Case _OPTIONAL_DEPT.EMBROIDERY
+                cb_bEmbroidery.CheckState = CheckState.Checked
+            Case _OPTIONAL_DEPT.PRINTING_EMBROIDERY
+                cb_bPrinting.CheckState = CheckState.Checked
+                cb_bEmbroidery.CheckState = CheckState.Checked
+        End Select
 
         ' artwork
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.ARTWORK)) Then
@@ -269,35 +279,42 @@ Public Class Order_Details
 
         ' size
         If details.ContainsKey(_ORDER_CUSTOMER.SIZE) Then
-            Dim size As New Dictionary(Of String, Integer)
-            size = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.SIZE))
+            Dim size As New Dictionary(Of String, Integer())
+            size = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer()))(details.Item(_ORDER_CUSTOMER.SIZE))
 
             If size.ContainsKey(_JSON_FIELD.XS) Then
-                txt_XS.Text = size.Item(_JSON_FIELD.XS)
+                lbl_XS.Text = String.Concat("(", size.Item(_JSON_FIELD.XS)(0), """) XS")
+                txt_XS.Text = size.Item(_JSON_FIELD.XS)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.S) Then
-                txt_S.Text = size.Item(_JSON_FIELD.S)
+                lbl_S.Text = String.Concat("(", size.Item(_JSON_FIELD.S)(0), """) S")
+                txt_S.Text = size.Item(_JSON_FIELD.S)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.M) Then
-                txt_M.Text = size.Item(_JSON_FIELD.M)
+                lbl_M.Text = String.Concat("(", size.Item(_JSON_FIELD.M)(0), """) M")
+                txt_M.Text = size.Item(_JSON_FIELD.M)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.L) Then
-                txt_L.Text = size.Item(_JSON_FIELD.L)
+                lbl_L.Text = String.Concat("(", size.Item(_JSON_FIELD.L)(0), """) L")
+                txt_L.Text = size.Item(_JSON_FIELD.L)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.XL) Then
-                txt_XL.Text = size.Item(_JSON_FIELD.XL)
+                lbl_XL.Text = String.Concat("(", size.Item(_JSON_FIELD.XL)(0), """) XL")
+                txt_XL.Text = size.Item(_JSON_FIELD.XL)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.XXL) Then
-                txt_2XL.Text = size.Item(_JSON_FIELD.XXL)
+                lbl_2XL.Text = String.Concat("(", size.Item(_JSON_FIELD.XXL)(0), """) 2XL")
+                txt_2XL.Text = size.Item(_JSON_FIELD.XXL)(1)
             End If
 
             If size.ContainsKey(_JSON_FIELD.XXXL) Then
-                txt_3XL.Text = size.Item(_JSON_FIELD.XXXL)
+                lbl_3XL.Text = String.Concat("(", size.Item(_JSON_FIELD.XXXL)(0), """) 3XL")
+                txt_3XL.Text = size.Item(_JSON_FIELD.XXXL)(1)
             End If
         End If
 
@@ -398,14 +415,11 @@ Public Class Order_Details
 
         ' Inventory
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.INVENTORY_ORDER)) Then
-            Dim inventoryItem As New Dictionary(Of String, Integer)
-            Dim pair As KeyValuePair(Of String, Integer)
-            Dim tempListView As ListViewItem
+            Dim inventoryItem As New Dictionary(Of String, String())
 
-            inventoryItem = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Integer))(details.Item(_ORDER_CUSTOMER.INVENTORY_ORDER))
-            For Each pair In inventoryItem
-                tempListView = ListView1.Items.Add(pair.Key)
-                tempListView.SubItems.Add(pair.Value)
+            inventoryItem = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, String()))(details.Item(_ORDER_CUSTOMER.INVENTORY_ORDER))
+            For Each pair As KeyValuePair(Of String, String()) In inventoryItem
+                ListView1.Items.Add(New ListViewItem({pair.Value(0), pair.Value(1), pair.Value(2)}))
             Next
         End If
     End Sub
@@ -610,9 +624,5 @@ Public Class Order_Details
             MessageBox.Show("Order status has been updated successfully", "Update Success")
             DialogResult = DialogResult.OK
         End If
-    End Sub
-
-    Private Sub pic_artwork_Click_1(sender As Object, e As EventArgs) Handles pic_artwork1.Click
-
     End Sub
 End Class

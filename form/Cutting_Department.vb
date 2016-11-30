@@ -67,7 +67,9 @@
                                               _ORDER_CUSTOMER.COLLAR, ", ",
                                               _ORDER_CUSTOMER.CUFF, ", ",
                                               _ORDER_CUSTOMER.FRONT, ", ",
+                                              _ORDER_CUSTOMER.FRONT_DEPT, ", ",
                                               _ORDER_CUSTOMER.BACK, ", ",
+                                              _ORDER_CUSTOMER.BACK_DEPT, ", ",
                                               _ORDER_CUSTOMER.ARTWORK, ", ",
                                               _ORDER_CUSTOMER.SIZE, ", ",
                                               _ORDER_CUSTOMER.MATERIAL, ", ",
@@ -112,8 +114,8 @@
                                                   " WHERE ", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, " IN ",
                                                   " (SELECT MAX(", _ORDER_LOG.DATETIME, ") FROM ", _TABLE.ORDER_LOG,
                                                   " WHERE ", _ORDER_LOG.DEPARTMENT_ID, " IN (", approvalID, ",", cuttingID, ")",
-                                                  " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL, "=", 1,
                                                   " GROUP BY ", _ORDER_LOG.ORDER_ID, ")",
+                                                  " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.APPROVAL, "=", 1,
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
                                                   " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                             )

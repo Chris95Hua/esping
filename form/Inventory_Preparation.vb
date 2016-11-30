@@ -7,10 +7,15 @@
 
         txt_welcome.Text = "Welcome: " + Session.first_name
         loadInventoryList()
+
+        'set ListView column width
         With ListView1
-            .Columns(0).Width = CInt(.Width * 0.7) 'set column width to be 20% of controls width
-            .Columns(1).Width = CInt(.Width * 0.3) 'set column width to be 50% of controls width
+            .Columns(0).Width = CInt(.Width * 0.6)
+            .Columns(1).Width = CInt(.Width * 0.2)
+            .Columns(2).Width = CInt(.Width * 0.2)
         End With
+
+        btn_delete.Enabled = False
     End Sub
 
     ' Logout
@@ -34,6 +39,12 @@
         deleteInventory_form.ShowDialog()
         loadItems = True
         loadInventoryList()
+
+        If ListView1.Items.Count = 0 Then
+            btn_delete.Enabled = False
+        Else
+            btn_delete.Enabled = True
+        End If
     End Sub
 
     ' Load inventory items from database
@@ -46,15 +57,23 @@
 
     ' Add inventory to list
     Private Sub btn_add_Click(sender As Object, e As EventArgs) Handles btn_add.Click
-        Dim findText = ListView1.FindItemWithText(ListBox1.SelectedItem)
-        Dim tempListView As ListViewItem
-
-        If findText Is Nothing Then
-            tempListView = ListView1.Items.Add(ListBox1.SelectedItem)
-            tempListView.SubItems.Add(nud_quantity.Value)
+        If txt_measurement.Text = String.Empty Then
+            MessageBox.Show("Please fill in the unit of measurement", "Error")
         Else
-            Dim curCount As Integer = findText.SubItems(1).Text
-            findText.SubItems(1).Text = curCount + nud_quantity.Value
+            Dim findItem = ListView1.FindItemWithText(ListBox1.SelectedItem)
+            Dim findMeasure = ListView1.FindItemWithText(txt_measurement.Text)
+            Dim tempListView As ListViewItem
+
+            If findItem Is Nothing Or findMeasure Is Nothing Then
+                tempListView = ListView1.Items.Add(ListBox1.SelectedItem)
+                tempListView.SubItems.Add(nud_quantity.Value)
+                tempListView.SubItems.Add(txt_measurement.Text)
+            Else
+                Dim curCount As Integer = findMeasure.SubItems(1).Text
+                findMeasure.SubItems(1).Text = curCount + nud_quantity.Value
+            End If
+
+            btn_delete.Enabled = True
         End If
     End Sub
 
@@ -78,11 +97,11 @@
         ElseIf ListView1.Items.Count = 0 Then
             MessageBox.Show("Please add at least 1 item", "Operation Failed")
         Else
-            Dim inventoryList As New Dictionary(Of String, Object)
+            Dim inventoryList As New Dictionary(Of String, String())
             Dim invList As New Dictionary(Of String, Object)
 
             For index As Integer = 0 To ListView1.Items.Count - 1
-                inventoryList.Add(ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text)
+                inventoryList.Add(index, {ListView1.Items(index).SubItems(0).Text, ListView1.Items(index).SubItems(1).Text, ListView1.Items(index).SubItems(2).Text})
             Next
 
             invList.Add(_ORDER_CUSTOMER.INVENTORY_ORDER, Newtonsoft.Json.JsonConvert.SerializeObject(inventoryList))
@@ -137,6 +156,7 @@
                     txt_barcode.Clear()
                     ListView1.Items.Clear()
                     rtb_remarks.Clear()
+                    txt_measurement.Clear()
                 Else
                     MessageBox.Show("An error has occurred while adding the items", "Operation Failed")
                 End If
