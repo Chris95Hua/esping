@@ -123,11 +123,11 @@ Public NotInheritable Class _STATUS
     Public Const INVENTORY_0 As String = "Pending inventory details"
     Public Const INVENTORY_1 As String = "Collar and Cuff Department"
     Public Const CUTTING_0 As String = "Pending for action in Cutting Department"
-    Public Const CUTTING_1 As String = "Cutting Department - Scan in"
-    Public Const CUTTING_2 As String = "Cutting Department - Scan out and transferred goods to Printing and Embroidery"
+    Public Const CUTTING_1 As String = "Cutting Department - Scanned in"
+    Public Const CUTTING_2 As String = "Cutting Department - Scanned out"
     Public Const EMBROIDERY_0 As String = "Pending for action in Embroidery"
     Public Const EMBROIDERY_1 As String = "Embroidery Department - Scanned in"
-    Public Const EMBROIDERY_2 As String = "Embroidery Department - Scanned out"
+    Public Const EMBROIDERY_2 As String = "Embroidery Department - Scanned out and transferred goods to Sewing"
     Public Const PRINTING_0 As String = "Pending for action in Printing"
     Public Const PRINTING_1 As String = "Printing Department - Scanned in"
     Public Const PRINTING_2 As String = "Printing Department - Scanned out and transferred goods to Printing"
@@ -176,6 +176,13 @@ Public NotInheritable Class _JSON_FIELD
     Public Const FRONT As String = "front"
     Public Const BACK As String = "back"
     Public Const SLEEVE As String = "sleeve"
+
+    Public Const ARTWORK1 As String = "artwork1"
+    Public Const ARTWORK2 As String = "artwork2"
+    Public Const ARTWORK3 As String = "artwork3"
+    Public Const ARTWORK4 As String = "artwork4"
+    Public Const ARTWORK5 As String = "artwork5"
+    Public Const ARTWORK6 As String = "artwork6"
 End Class
 
 

@@ -5,7 +5,7 @@ Public Class Order_Details
     Private orderID As Integer
     Public status As Integer
     Public updateDateTime As DateTime
-    Private artworkImg As String
+    Private artworkImg1, artworkImg2, artworkImg3, artworkImg4, artworkImg5, artworkImg6 As String
     Private paymentImg As String
     Private fromSearch As Boolean = False
 
@@ -44,8 +44,14 @@ Public Class Order_Details
             ShowLoadingOverlay(True)
         End If
 
+        Dim paymentVisibility() As Integer = {_PROCESS.APPROVAL, _PROCESS.ORDER}
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
         Dim barcode() As Integer = {_PROCESS.INVENTORY, _PROCESS.CUTTING, _PROCESS.SEWING}
+
+        ' payment visibility
+        If paymentVisibility.Contains(Session.department_id) Then
+            GroupBox7.Visible = True
+        End If
 
         ' approval
         If Session.department_id = _PROCESS.APPROVAL And status = 0 Then
@@ -203,14 +209,55 @@ Public Class Order_Details
 
         ' artwork
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.ARTWORK)) Then
-            artworkImg = details.Item(_ORDER_CUSTOMER.ARTWORK)
+            Dim art As New Dictionary(Of String, Object)
+            art = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(details.Item(_ORDER_CUSTOMER.ARTWORK))
+
+            If art.ContainsKey(_JSON_FIELD.ARTWORK1) Then
+                artworkImg1 = art.Item(_JSON_FIELD.ARTWORK1)
+            End If
+            If art.ContainsKey(_JSON_FIELD.ARTWORK2) Then
+                artworkImg2 = art.Item(_JSON_FIELD.ARTWORK2)
+            End If
+            If art.ContainsKey(_JSON_FIELD.ARTWORK3) Then
+                artworkImg3 = art.Item(_JSON_FIELD.ARTWORK3)
+            End If
+            If art.ContainsKey(_JSON_FIELD.ARTWORK4) Then
+                artworkImg4 = art.Item(_JSON_FIELD.ARTWORK4)
+            End If
+            If art.ContainsKey(_JSON_FIELD.ARTWORK5) Then
+                artworkImg5 = art.Item(_JSON_FIELD.ARTWORK5)
+            End If
+            If art.ContainsKey(_JSON_FIELD.ARTWORK6) Then
+                artworkImg6 = art.Item(_JSON_FIELD.ARTWORK6)
+            End If
         End If
 
-        If artworkImg Is Nothing Then
-            pic_artwork.Text = "No artwork available"
-            pic_artwork.Enabled = False
+        If artworkImg1 Is Nothing Then
+            pic_artwork1.Text = "No artwork available"
+            pic_artwork1.Enabled = False
+        End If
+        If artworkImg2 Is Nothing Then
+            pic_artwork2.Text = "No artwork available"
+            pic_artwork2.Enabled = False
+        End If
+        If artworkImg3 Is Nothing Then
+            pic_artwork3.Text = "No artwork available"
+            pic_artwork3.Enabled = False
+        End If
+        If artworkImg4 Is Nothing Then
+            pic_artwork4.Text = "No artwork available"
+            pic_artwork4.Enabled = False
+        End If
+        If artworkImg5 Is Nothing Then
+            pic_artwork5.Text = "No artwork available"
+            pic_artwork5.Enabled = False
+        End If
+        If artworkImg6 Is Nothing Then
+            pic_artwork6.Text = "No artwork available"
+            pic_artwork6.Enabled = False
         End If
 
+        ' payment
         If Not IsDBNull(details.Item(_ORDER_CUSTOMER.PAYMENT_DOC)) Then
             paymentImg = details.Item(_ORDER_CUSTOMER.PAYMENT_DOC)
         End If
@@ -378,9 +425,34 @@ Public Class Order_Details
         showImg.ShowDialog()
     End Sub
 
-    Private Sub pic_artwork_Click(sender As Object, e As EventArgs) Handles pic_artwork.Click
-        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg)
-        showImg.ShowDialog()
+    Private Sub pic_artwork1_Click(sender As Object, e As EventArgs) Handles pic_artwork1.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg1)
+        showImg.Show()
+    End Sub
+
+    Private Sub pic_artwork2_Click(sender As Object, e As EventArgs) Handles pic_artwork2.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg2)
+        showImg.Show()
+    End Sub
+
+    Private Sub pic_artwork3_Click(sender As Object, e As EventArgs) Handles pic_artwork3.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg3)
+        showImg.Show()
+    End Sub
+
+    Private Sub pic_artwork4_Click(sender As Object, e As EventArgs) Handles pic_artwork4.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg4)
+        showImg.Show()
+    End Sub
+
+    Private Sub pic_artwork5_Click(sender As Object, e As EventArgs) Handles pic_artwork5.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg5)
+        showImg.Show()
+    End Sub
+
+    Private Sub pic_artwork6_Click(sender As Object, e As EventArgs) Handles pic_artwork6.Click
+        Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg6)
+        showImg.Show()
     End Sub
 
     Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
@@ -538,5 +610,9 @@ Public Class Order_Details
             MessageBox.Show("Order status has been updated successfully", "Update Success")
             DialogResult = DialogResult.OK
         End If
+    End Sub
+
+    Private Sub pic_artwork_Click_1(sender As Object, e As EventArgs) Handles pic_artwork1.Click
+
     End Sub
 End Class

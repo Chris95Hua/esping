@@ -160,21 +160,47 @@
         End If
 
 
-        ' artwork and payment doc
-        If txt_artwork.Text.Length() > 0 Then
-            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork.Text)
-            order.Add(_ORDER_CUSTOMER.ARTWORK, imgStore)
-            Method.FtpUpload(txt_artwork.Text, My.Settings.ARTWORK_DIR, imgStore)
+        ' artwork
+        Dim tempArtworkDic As New Dictionary(Of String, Object)
+        If txt_artwork1.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork1.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK1, imgStore)
+            Method.FtpUpload(txt_artwork1.Text, My.Settings.ARTWORK_DIR, imgStore)
         End If
+        If txt_artwork2.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork2.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK2, imgStore)
+            Method.FtpUpload(txt_artwork2.Text, My.Settings.ARTWORK_DIR, imgStore)
+        End If
+        If txt_artwork3.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork3.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK3, imgStore)
+            Method.FtpUpload(txt_artwork3.Text, My.Settings.ARTWORK_DIR, imgStore)
+        End If
+        If txt_artwork4.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork4.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK4, imgStore)
+            Method.FtpUpload(txt_artwork4.Text, My.Settings.ARTWORK_DIR, imgStore)
+        End If
+        If txt_artwork5.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork5.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK5, imgStore)
+            Method.FtpUpload(txt_artwork5.Text, My.Settings.ARTWORK_DIR, imgStore)
+        End If
+        If txt_artwork6.Text.Length() > 0 Then
+            Dim imgStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork6.Text)
+            tempArtworkDic.Add(_JSON_FIELD.ARTWORK6, imgStore)
+            Method.FtpUpload(txt_artwork6.Text, My.Settings.ARTWORK_DIR, imgStore)
+        End If
+        order.Add(_ORDER_CUSTOMER.ARTWORK, Newtonsoft.Json.JsonConvert.SerializeObject(tempArtworkDic))
 
+
+        ' payment
         If txt_docPath.Text.Length() > 0 Then
             Dim docStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_docPath.Text)
             order.Add(_ORDER_CUSTOMER.PAYMENT_DOC, docStore)
             Method.FtpUpload(txt_docPath.Text, My.Settings.PAYMENT_DIR, docStore)
         End If
-
-
-        ' payment
         Dim payment As New Dictionary(Of String, Integer)
         If cb_cash.CheckState = CheckState.Checked Then
             payment.Add(_JSON_FIELD.CASH, cb_cash.CheckState)
@@ -220,13 +246,37 @@
     End Sub
 
     Private Sub btn_artwork_Click(sender As Object, e As EventArgs) Handles btn_artwork.Click
-        Dim artwork As String = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
+        Dim artwork As String() = Method.DialogGetFile(_FILE.TYPE.IMAGE, True)
+        Dim tempArtwork As String
 
-        If artwork IsNot Nothing Then
-            If My.Computer.FileSystem.GetFileInfo(artwork).Length() > My.Settings.MAX_UPLOAD_MB * 1048576 Then
-                MessageBox.Show("Image size exceeded " & My.Settings.MAX_UPLOAD_MB & "MB, please select another file or compress the image", "Error")
-            Else
-                txt_artwork.Text = artwork
+        If artwork.Length > 6 Then
+            MessageBox.Show("Maximum artwork pictures is 6", "Error")
+        Else
+            For Each tempArtwork In artwork
+                If artwork IsNot Nothing Then
+                    If My.Computer.FileSystem.GetFileInfo(tempArtwork).Length() > My.Settings.MAX_UPLOAD_MB * 1048576 Then
+                        MessageBox.Show("Image size exceeded " & My.Settings.MAX_UPLOAD_MB & "MB, please select another file or compress the image", "Error")
+                    End If
+                End If
+            Next
+
+            If artwork.Length >= 1 Then
+                txt_artwork1.Text = artwork(0)
+            End If
+            If artwork.Length >= 2 Then
+                txt_artwork2.Text = artwork(1)
+            End If
+            If artwork.Length >= 3 Then
+                txt_artwork3.Text = artwork(2)
+            End If
+            If artwork.Length >= 4 Then
+                txt_artwork4.Text = artwork(3)
+            End If
+            If artwork.Length >= 5 Then
+                txt_artwork5.Text = artwork(4)
+            End If
+            If artwork.Length >= 6 Then
+                txt_artwork6.Text = artwork(5)
             End If
         End If
     End Sub
@@ -277,7 +327,12 @@
         cb_cash.Checked = False
         cb_cheque.Checked = False
         num_amount.ResetText()
-        txt_artwork.ResetText()
+        txt_artwork1.ResetText()
+        txt_artwork2.ResetText()
+        txt_artwork3.ResetText()
+        txt_artwork4.ResetText()
+        txt_artwork5.ResetText()
+        txt_artwork6.ResetText()
         txt_docPath.ResetText()
     End Sub
 
