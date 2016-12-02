@@ -1,6 +1,7 @@
 ﻿Public Class Cutting_Department
     Private loadingOverlay As Loading_Overlay
     Private searchID As Integer = -1
+    Private searchFullID As String
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -48,7 +49,8 @@
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Method.IsOrderFormat(txt_search.Text) Then
-                searchID = Method.GetOrderID(txt_search.Text)
+                searchFullID = txt_search.Text
+                searchID = Method.GetOrderID(searchFullID)
                 LoadDataGridData(searchID)
             Else
                 MessageBox.Show("Invalid order number", "Error")
@@ -139,7 +141,7 @@
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = searchID Then
+                            If row.Cells(0).Value = searchFullID Then
                                 row.Cells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(6).Value = details.status
                                 Select Case details.status

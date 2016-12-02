@@ -53,7 +53,8 @@ Partial Class Printing_Department
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_logout, Me.btn_passUpdate, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -65,14 +66,14 @@ Partial Class Printing_Department
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 22)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 22)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'txt_welcome
@@ -80,16 +81,17 @@ Partial Class Printing_Department
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 22)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.txt_search.Location = New System.Drawing.Point(12, 42)
+        Me.txt_search.Location = New System.Drawing.Point(8, 27)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txt_search.MaxLength = 10
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(302, 26)
+        Me.txt_search.Size = New System.Drawing.Size(203, 20)
         Me.txt_search.TabIndex = 6
         Me.txt_search.Text = "Search"
         '
@@ -123,7 +125,8 @@ Partial Class Printing_Department
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
-        Me.dgv_details.Location = New System.Drawing.Point(12, 82)
+        Me.dgv_details.Location = New System.Drawing.Point(8, 53)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -137,7 +140,7 @@ Partial Class Printing_Department
         Me.dgv_details.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(990, 581)
+        Me.dgv_details.Size = New System.Drawing.Size(660, 378)
         Me.dgv_details.TabIndex = 3
         '
         'order_id
@@ -193,10 +196,9 @@ Partial Class Printing_Department
         'btn_refresh
         '
         Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(877, 38)
-        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_refresh.Location = New System.Drawing.Point(585, 25)
         Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 2
         Me.btn_refresh.Text = "Refresh"
         Me.btn_refresh.UseVisualStyleBackColor = True
@@ -206,10 +208,11 @@ Partial Class Printing_Department
         Me.lbl_page.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl_page.AutoSize = True
         Me.lbl_page.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_page.Location = New System.Drawing.Point(174, 675)
-        Me.lbl_page.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.lbl_page.Location = New System.Drawing.Point(116, 439)
+        Me.lbl_page.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lbl_page.MinimumSize = New System.Drawing.Size(67, 0)
         Me.lbl_page.Name = "lbl_page"
-        Me.lbl_page.Size = New System.Drawing.Size(100, 25)
+        Me.lbl_page.Size = New System.Drawing.Size(67, 17)
         Me.lbl_page.TabIndex = 12
         Me.lbl_page.Text = "Label1"
         Me.lbl_page.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -218,9 +221,10 @@ Partial Class Printing_Department
         '
         Me.btn_next.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_next.Enabled = False
-        Me.btn_next.Location = New System.Drawing.Point(292, 669)
+        Me.btn_next.Location = New System.Drawing.Point(195, 435)
+        Me.btn_next.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_next.Name = "btn_next"
-        Me.btn_next.Size = New System.Drawing.Size(136, 31)
+        Me.btn_next.Size = New System.Drawing.Size(91, 20)
         Me.btn_next.TabIndex = 5
         Me.btn_next.Text = "Next"
         Me.btn_next.UseVisualStyleBackColor = True
@@ -229,18 +233,19 @@ Partial Class Printing_Department
         '
         Me.btn_previous.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_previous.Enabled = False
-        Me.btn_previous.Location = New System.Drawing.Point(12, 669)
+        Me.btn_previous.Location = New System.Drawing.Point(8, 435)
+        Me.btn_previous.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_previous.Name = "btn_previous"
-        Me.btn_previous.Size = New System.Drawing.Size(136, 31)
+        Me.btn_previous.Size = New System.Drawing.Size(91, 20)
         Me.btn_previous.TabIndex = 4
         Me.btn_previous.Text = "Previous"
         Me.btn_previous.UseVisualStyleBackColor = True
         '
         'Printing_Department
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.lbl_page)
         Me.Controls.Add(Me.btn_next)
         Me.Controls.Add(Me.btn_previous)
@@ -248,8 +253,8 @@ Partial Class Printing_Department
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.txt_search)
-        Me.MaximumSize = New System.Drawing.Size(1024, 768)
-        Me.MinimumSize = New System.Drawing.Size(1024, 768)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Printing_Department"
         Me.Text = "Printing Department"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

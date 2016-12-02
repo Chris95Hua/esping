@@ -1,10 +1,21 @@
-﻿Public Class Live_Update
+﻿Imports CrystalDecisions.CrystalReports.Engine
+
+Public Class Live_Update
     Private loadingOverlay As Loading_Overlay
+    Dim jobReport As New ReportDocument
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
         bgw_liveUpdate.RunWorkerAsync()
         ShowLoadingOverlay(True)
+
+        'Dim ds As Char = IO.Path.DirectorySeparatorChar
+        'jobReport.Load(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & ds & "form" & ds & "Job.rpt")
+
+        jobReport.Load(My.Settings.REPORT_DIR & "Job.rpt")
+        'jobReport.SetDataSource()
+
+        crv_job.ReportSource = jobReport
     End Sub
 
     Private Sub bgw_liveUpdate_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_liveUpdate.DoWork
@@ -38,10 +49,8 @@
         ShowLoadingOverlay(False)
 
         If (e.Error Is Nothing) Then
-            dgv_liveInfo.DataSource = e.Result
+            'dgv_liveInfo.DataSource = e.Result
         End If
-
-        dgv_liveInfo.Enabled = True
     End Sub
 
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)

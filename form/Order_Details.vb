@@ -3,6 +3,7 @@
 Public Class Order_Details
     Private loadingOverlay As Loading_Overlay
     Private orderID As Integer
+    Private orderIDFull As String
     Public status As Integer
     Public updateDateTime As DateTime
     Private artworkImg1, artworkImg2, artworkImg3, artworkImg4, artworkImg5, artworkImg6 As String
@@ -10,12 +11,13 @@ Public Class Order_Details
     Private fromSearch As Boolean = False
 
     ' Order ID and status
-    Sub New(ByVal orderID As Integer, ByVal status As Integer)
+    Sub New(ByVal orderID As Integer, ByVal status As Integer, Optional orderIDFull As String = Nothing)
         ' This call is required by the designer.
         InitializeComponent()
 
         Me.orderID = orderID
         Me.status = status
+        Me.orderIDFull = orderIDFull
 
         'set listview's column width
         With ListView1
@@ -26,12 +28,13 @@ Public Class Order_Details
     End Sub
 
     ' Full order detail
-    Sub New(ByVal orderID As Integer, ByVal orderDetail As Dictionary(Of String, Object), ByVal status As Integer)
+    Sub New(ByVal orderID As Integer, ByVal orderDetail As Dictionary(Of String, Object), ByVal status As Integer, Optional orderIDFull As String = Nothing)
         ' This call is required by the designer.
         InitializeComponent()
 
         Me.orderID = orderID
         Me.status = status
+        Me.orderIDFull = orderIDFull
         fromSearch = True
 
         PopulateDetails(orderDetail)
@@ -485,7 +488,7 @@ Public Class Order_Details
             Case _PROCESS.SEWING
                 Dim orderDetails As New Dictionary(Of String, Object)
 
-                orderDetails.Add(_BADGE.ORDER, orderID)
+                orderDetails.Add(_BADGE.ORDER, orderIDFull)
                 orderDetails.Add(_BADGE.CUSTOMER, txt_cusName.Text)
                 orderDetails.Add(_BADGE.ORDER_NAME, txt_orderName.Text)
 
