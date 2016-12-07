@@ -232,7 +232,7 @@ Partial Class new_order
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(260, 94)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(259, 94)
         Me.TableLayoutPanel4.TabIndex = 2
         '
         'Label4
@@ -261,7 +261,7 @@ Partial Class new_order
         '
         Me.cb_fHeatTransfer.AutoSize = True
         Me.cb_fHeatTransfer.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_fHeatTransfer.Location = New System.Drawing.Point(133, 35)
+        Me.cb_fHeatTransfer.Location = New System.Drawing.Point(132, 35)
         Me.cb_fHeatTransfer.Name = "cb_fHeatTransfer"
         Me.cb_fHeatTransfer.Size = New System.Drawing.Size(124, 24)
         Me.cb_fHeatTransfer.TabIndex = 6
@@ -272,7 +272,7 @@ Partial Class new_order
         '
         Me.cb_fPlain.AutoSize = True
         Me.cb_fPlain.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_fPlain.Location = New System.Drawing.Point(133, 67)
+        Me.cb_fPlain.Location = New System.Drawing.Point(132, 67)
         Me.cb_fPlain.Name = "cb_fPlain"
         Me.cb_fPlain.Size = New System.Drawing.Size(69, 24)
         Me.cb_fPlain.TabIndex = 8
@@ -329,7 +329,7 @@ Partial Class new_order
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(265, 337)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(264, 337)
         Me.TableLayoutPanel8.TabIndex = 5
         '
         'Label9
@@ -562,9 +562,9 @@ Partial Class new_order
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.TableLayoutPanel8)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(291, 3)
+        Me.GroupBox2.Location = New System.Drawing.Point(290, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(277, 362)
+        Me.GroupBox2.Size = New System.Drawing.Size(276, 362)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Sizes"
@@ -576,7 +576,7 @@ Partial Class new_order
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.51724!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.48276!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 412.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 414.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel11, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox1, 0, 0)
@@ -598,13 +598,13 @@ Partial Class new_order
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox3, 0, 0)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox4, 0, 1)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox5, 0, 2)
-        Me.TableLayoutPanel11.Location = New System.Drawing.Point(574, 3)
+        Me.TableLayoutPanel11.Location = New System.Drawing.Point(572, 3)
         Me.TableLayoutPanel11.Name = "TableLayoutPanel11"
         Me.TableLayoutPanel11.RowCount = 3
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(407, 362)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(409, 362)
         Me.TableLayoutPanel11.TabIndex = 3
         '
         'GroupBox3
@@ -612,7 +612,7 @@ Partial Class new_order
         Me.GroupBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox3.Controls.Add(Me.TableLayoutPanel9)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(23, 3)
+        Me.GroupBox3.Location = New System.Drawing.Point(24, 3)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(360, 112)
         Me.GroupBox3.TabIndex = 4
@@ -683,7 +683,7 @@ Partial Class new_order
         Me.GroupBox4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox4.Controls.Add(Me.TableLayoutPanel10)
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(26, 125)
+        Me.GroupBox4.Location = New System.Drawing.Point(27, 125)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(354, 117)
         Me.GroupBox4.TabIndex = 5
@@ -762,7 +762,7 @@ Partial Class new_order
         Me.GroupBox5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox5.Controls.Add(Me.TableLayoutPanel13)
         Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(22, 252)
+        Me.GroupBox5.Location = New System.Drawing.Point(23, 252)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(362, 106)
         Me.GroupBox5.TabIndex = 6
@@ -848,7 +848,7 @@ Partial Class new_order
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(282, 362)
+        Me.GroupBox1.Size = New System.Drawing.Size(281, 362)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Clothes"
@@ -871,7 +871,7 @@ Partial Class new_order
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(260, 94)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(259, 94)
         Me.TableLayoutPanel5.TabIndex = 3
         '
         'Label5
@@ -900,7 +900,7 @@ Partial Class new_order
         '
         Me.cb_bHeatTransfer.AutoSize = True
         Me.cb_bHeatTransfer.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_bHeatTransfer.Location = New System.Drawing.Point(133, 35)
+        Me.cb_bHeatTransfer.Location = New System.Drawing.Point(132, 35)
         Me.cb_bHeatTransfer.Name = "cb_bHeatTransfer"
         Me.cb_bHeatTransfer.Size = New System.Drawing.Size(124, 24)
         Me.cb_bHeatTransfer.TabIndex = 10
@@ -911,7 +911,7 @@ Partial Class new_order
         '
         Me.cb_bPlain.AutoSize = True
         Me.cb_bPlain.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_bPlain.Location = New System.Drawing.Point(133, 67)
+        Me.cb_bPlain.Location = New System.Drawing.Point(132, 67)
         Me.cb_bPlain.Name = "cb_bPlain"
         Me.cb_bPlain.Size = New System.Drawing.Size(69, 24)
         Me.cb_bPlain.TabIndex = 12
@@ -940,7 +940,7 @@ Partial Class new_order
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 1
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(254, 31)
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(253, 31)
         Me.TableLayoutPanel7.TabIndex = 1
         '
         'Label8
@@ -971,7 +971,7 @@ Partial Class new_order
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(260, 34)
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(259, 34)
         Me.TableLayoutPanel6.TabIndex = 4
         '
         'num_collar
@@ -980,7 +980,7 @@ Partial Class new_order
         Me.num_collar.Location = New System.Drawing.Point(75, 5)
         Me.num_collar.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.num_collar.Name = "num_collar"
-        Me.num_collar.Size = New System.Drawing.Size(57, 26)
+        Me.num_collar.Size = New System.Drawing.Size(56, 26)
         Me.num_collar.TabIndex = 13
         '
         'Label6
@@ -999,7 +999,7 @@ Partial Class new_order
         Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.Label7.Location = New System.Drawing.Point(148, 7)
+        Me.Label7.Location = New System.Drawing.Point(147, 7)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(43, 20)
         Me.Label7.TabIndex = 0
@@ -1008,7 +1008,7 @@ Partial Class new_order
         'num_cuff
         '
         Me.num_cuff.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.num_cuff.Location = New System.Drawing.Point(198, 5)
+        Me.num_cuff.Location = New System.Drawing.Point(197, 5)
         Me.num_cuff.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.num_cuff.Name = "num_cuff"
         Me.num_cuff.Size = New System.Drawing.Size(58, 26)
@@ -1029,14 +1029,14 @@ Partial Class new_order
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(260, 32)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(259, 32)
         Me.TableLayoutPanel3.TabIndex = 1
         '
         'cb_split
         '
         Me.cb_split.AutoSize = True
         Me.cb_split.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_split.Location = New System.Drawing.Point(159, 3)
+        Me.cb_split.Location = New System.Drawing.Point(157, 3)
         Me.cb_split.Name = "cb_split"
         Me.cb_split.Size = New System.Drawing.Size(66, 24)
         Me.cb_split.TabIndex = 4
@@ -1047,9 +1047,9 @@ Partial Class new_order
         '
         Me.cb_fabricCL.AutoSize = True
         Me.cb_fabricCL.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.cb_fabricCL.Location = New System.Drawing.Point(55, 3)
+        Me.cb_fabricCL.Location = New System.Drawing.Point(54, 3)
         Me.cb_fabricCL.Name = "cb_fabricCL"
-        Me.cb_fabricCL.Size = New System.Drawing.Size(98, 24)
+        Me.cb_fabricCL.Size = New System.Drawing.Size(97, 24)
         Me.cb_fabricCL.TabIndex = 3
         Me.cb_fabricCL.Text = "Fabric CL"
         Me.cb_fabricCL.UseVisualStyleBackColor = True

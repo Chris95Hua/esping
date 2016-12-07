@@ -131,6 +131,174 @@ Public NotInheritable Class Method
     End Function
 
 
+    Private Shared Function RoundedRectangle(ByVal rectangle As Rectangle, ByVal radius As Integer) As Drawing2D.GraphicsPath
+        Dim path As New Drawing2D.GraphicsPath()
+        Dim diameter As Integer = radius * 2
+
+        path.AddLine(rectangle.Left + diameter, rectangle.Top, rectangle.Right - diameter, rectangle.Top)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Right - diameter, rectangle.Top, rectangle.Right, rectangle.Top + diameter), -90, 90)
+
+        path.AddLine(rectangle.Right, rectangle.Top + diameter, rectangle.Right, rectangle.Bottom - diameter)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Right - diameter, rectangle.Bottom - diameter, rectangle.Right, rectangle.Bottom), 0, 90)
+
+        path.AddLine(rectangle.Right - diameter, rectangle.Bottom, rectangle.Left + diameter, rectangle.Bottom)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Left, rectangle.Bottom - diameter, rectangle.Left + diameter, rectangle.Bottom), 90, 90)
+
+        path.AddLine(rectangle.Left, rectangle.Bottom - diameter, rectangle.Left, rectangle.Top + diameter)
+        path.AddArc(Rectangle.FromLTRB(rectangle.Left, rectangle.Top, rectangle.Left + diameter, rectangle.Top + diameter), 180, 90)
+
+        path.CloseFigure()
+
+        Return path
+    End Function
+
+    ' TODO: Generate multiple stickers according to number of bags
+    Public Shared Function GenerateBarcodeLabel(ByVal orders As Dictionary(Of String, Object)) As Image
+        Dim mf As Imaging.Metafile
+
+        ' settings
+        Dim padding As Integer = 8
+        Dim width As Integer = 400
+        Dim height As Integer = 360
+        Dim fontSizeTitle As Integer = 17
+        Dim fontSizeNormal As Integer = 11
+        Dim fontSizeSmall As Integer = 10
+        Dim font As String = "arial"
+
+        ' check arguments passed
+        If orders.ContainsKey(_BADGE.ORDER) And
+           orders.ContainsKey(_BADGE.ORDER_NAME) And
+           orders.ContainsKey(_BADGE.CUSTOMER) And
+           orders.ContainsKey(_BADGE.BAG) Then
+
+            Dim bags As Integer = orders.Item(_BADGE.BAG)
+            orders.Remove(_BADGE.BAG)
+
+            ' construct rounded rectangle
+            Dim border As Rectangle = Rectangle.Round(New RectangleF(0, 0, width, height + fontSizeTitle + 4))
+
+            ' create metafile for drawing
+            Using stream As New IO.MemoryStream()
+                Using offScreenBufferGraphics As Graphics = Graphics.FromHwndInternal(IntPtr.Zero)
+                    Dim deviceContextHandle As IntPtr = offScreenBufferGraphics.GetHdc()
+
+                    mf = New Imaging.Metafile(
+                                stream,
+                                deviceContextHandle,
+                                border,
+                                Imaging.MetafileFrameUnit.Pixel,
+                                Imaging.EmfType.EmfPlusOnly)
+                    offScreenBufferGraphics.ReleaseHdc()
+                End Using
+            End Using
+
+
+            ' generate barcode and label
+            Dim barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
+            Dim barcode As Image = barcode128.Draw(orders.Item(_BADGE.ORDER), 60, 2)
+
+            ' center
+            Dim formatCenter As New StringFormat()
+            formatCenter.Alignment = StringAlignment.Center
+
+            Dim formatLeft As New StringFormat()
+            formatLeft.Alignment = StringAlignment.Near
+
+            ' pen for drawing lines and rounded rectangle
+            Dim linePen As New Pen(Color.Black, 2)
+
+            ' Y coordinates
+            Dim yMarginFromTop As Integer = padding
+            Dim yMarginFromBottom As Integer = height - fontSizeNormal - barcode.Height - (2 * padding)
+
+            ' start drawing
+            ' ========================================================================================
+            Using graphic As Graphics = Graphics.FromImage(mf)
+                ' graphic mode
+                graphic.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+                ' draw border
+                graphic.DrawPath(linePen, RoundedRectangle(border, 50))
+
+                ' customer name
+                graphic.DrawString(orders.Item(_BADGE.CUSTOMER), New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                orders.Remove(_BADGE.CUSTOMER)
+                yMarginFromTop += (1.5 * padding) + fontSizeTitle
+
+                If orders.ContainsKey(_BADGE.ADDRESS_1) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_1), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                    yMarginFromTop += padding + fontSizeNormal
+                End If
+
+                If orders.ContainsKey(_BADGE.ADDRESS_2) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_2), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                    yMarginFromTop += padding + fontSizeNormal
+                End If
+
+                If orders.ContainsKey(_BADGE.ADDRESS_3) Then
+                    graphic.DrawString(orders.Item(_BADGE.ADDRESS_3), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                End If
+
+                ' separator (customer - order name)
+                yMarginFromTop = (height / 4) + (2 * padding)
+                graphic.DrawLine(linePen, New Point(0, yMarginFromTop), New Point(width, yMarginFromTop))
+
+                ' order name
+                yMarginFromTop += padding
+                graphic.DrawString(orders.Item(_BADGE.ORDER_NAME), New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 2, yMarginFromTop, formatCenter)
+                orders.Remove(_BADGE.ORDER_NAME)
+
+                ' separator (order name - details)
+                yMarginFromTop += (2 * padding) + fontSizeTitle
+                graphic.DrawLine(linePen, New Point(0, yMarginFromTop), New Point(width, yMarginFromTop))
+
+                ' barcode
+                Dim barcodeX As Integer = (width - barcode.Width) / 2
+                Dim barcodeY As Integer = height - barcode.Height - padding - (padding / 2)
+
+                graphic.DrawImage(barcode, barcodeX, barcodeY)
+
+                ' barcode text
+                graphic.DrawString(orders.Item(_BADGE.ORDER), New Font(font, fontSizeNormal), New SolidBrush(Color.Black), width / 2, height - padding, formatCenter)
+                orders.Remove(_BADGE.ORDER)
+
+                ' details separator
+                graphic.DrawLine(linePen, New Point(width / 2, yMarginFromTop), New Point(width / 2, yMarginFromBottom))
+
+                ' right details (quantity)
+                graphic.DrawString("BAGS: " & bags & "/" & bags, New Font(font, fontSizeTitle, FontStyle.Bold), New SolidBrush(Color.Black), width / 4 * 3, yMarginFromTop - fontSizeTitle + (Math.Abs(yMarginFromBottom - yMarginFromTop) / 2), formatCenter)
+
+                ' left details (sizes)
+                Dim sizeOffset As Integer = 0
+                Dim total As Integer
+                For Each pair In orders
+                    If sizeOffset > 6 Then
+                        graphic.DrawString(String.Format("{0,-3}", pair.Key) & " - " & pair.Value, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24 * 6, yMarginFromTop + padding + ((sizeOffset - 8) * fontSizeSmall), formatLeft)
+                    Else
+                        graphic.DrawString(String.Format("{0,-3}", pair.Key) & " - " & pair.Value, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24, yMarginFromTop + padding + (sizeOffset * fontSizeSmall), formatLeft)
+                    End If
+
+                    total += pair.Value
+                    sizeOffset += 2
+                Next
+
+                graphic.DrawString("TOTAL: " & total, New Font(font, fontSizeSmall), New SolidBrush(Color.Black), width / 24, yMarginFromBottom - (3 * padding), formatLeft)
+
+                ' seperator (order detail - barcode)
+                graphic.DrawLine(linePen, New Point(0, yMarginFromBottom), New Point(width, yMarginFromBottom))
+            End Using
+            ' ========================================================================================
+
+            linePen.Dispose()
+
+            ' return image
+            Return mf
+        End If
+
+        Return Nothing
+    End Function
+
+
     Public Shared Function CreateOrder(ByVal order As Dictionary(Of String, Object)) As Boolean
         Dim sqlStmt As New StringBuilder()
         Dim orderValues As New StringBuilder()
@@ -186,9 +354,31 @@ Public NotInheritable Class Method
         Return orderID
     End Function
 
-    Public Shared Function IsOrderFormat(ByVal jobString As String) As Boolean
-        Dim regexFormat As String = String.Concat("^([0-9]*", _FORMAT.ORDER_DELIMITER, "[0-9]*){1}$")
-        Return Regex.Match(jobString, regexFormat).Success
+    Public Shared Function GetDept(ByVal OrderID As Integer, ByVal Dept As String) As String
+        Dim itemList As List(Of Dictionary(Of String, Object))
+        itemList = Database.SelectRows(_TABLE.ORDER_CUSTOMER, {_ORDER_CUSTOMER.ORDER_ID, "=", OrderID}, Dept)
+        Select Case itemList(0).Item(Dept)
+            Case _OPTIONAL_DEPT.PRINTING
+                Return _DEPARTMENT_BARCODE.TO_PRINTING
+            Case _OPTIONAL_DEPT.EMBROIDERY
+                Return _DEPARTMENT_BARCODE.TO_EMBROIDERY
+            Case _OPTIONAL_DEPT.PRINTING_EMBROIDERY
+                Return _DEPARTMENT_BARCODE.TO_PRINT_EMBROIDERY
+        End Select
+        Return "N"
+    End Function
+
+    Public Shared Function IsOrderFormat(ByVal jobString As String, Optional ByVal FormatType As Integer = Nothing) As Boolean
+        If FormatType = 1 Then
+            Dim regexFormat As String = String.Concat("^([0-9]*", _FORMAT.ORDER_DELIMITER, "[0-9]", _FORMAT.ORDER_DELIMITER, "[a-zA-Z0-9]*){1}$")
+            Return Regex.Match(jobString, regexFormat).Success
+        ElseIf FormatType = 2 Then
+            Dim regexFormat As String = String.Concat("[a-zA-Z]")
+            Return Regex.Match(jobString, regexFormat).Success
+        Else
+            Dim regexFormat As String = String.Concat("^([0-9]*", _FORMAT.ORDER_DELIMITER, "[0-9]*){1}$")
+            Return Regex.Match(jobString, regexFormat).Success
+        End If
     End Function
 
     ' Regex for password

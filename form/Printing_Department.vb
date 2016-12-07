@@ -1,7 +1,6 @@
 ﻿Public Class Printing_Department
     Private loadingOverlay As Loading_Overlay
     Private searchID As Integer = -1
-    Private searchFullID As String
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -48,14 +47,26 @@
     ' Search event
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
-            If e.KeyCode = Keys.Enter Then
-                If Method.IsOrderFormat(txt_search.Text) Then
-                    searchFullID = txt_search.Text
-                    searchID = Method.GetOrderID(searchFullID)
-                    LoadDataGridData(searchID)
+            Dim tempDept As String
+            ' check A to Z & 0 to 9 only
+            If Method.IsOrderFormat(txt_search.Text, 1) Then
+                tempDept = txt_search.Text.Substring(txt_search.Text.Length - 1)
+                If Method.IsOrderFormat(tempDept, 2) Then
+                    If tempDept = _DEPARTMENT_BARCODE.TO_PRINTING Or tempDept = _DEPARTMENT_BARCODE.TO_PRINT_EMBROIDERY Then
+                        txt_search.Text = txt_search.Text.Remove(txt_search.Text.Length - 2)
+                        searchID = Method.GetOrderID(txt_search.Text)
+                        LoadDataGridData(searchID)
+                    Else
+                        MessageBox.Show("Item doesn't belong to this department", "Error")
+                    End If
                 Else
                     MessageBox.Show("Invalid order number", "Error")
                 End If
+            ElseIf Method.IsOrderFormat(txt_search.Text) Then
+                searchID = Method.GetOrderID(txt_search.Text)
+                LoadDataGridData(searchID)
+            Else
+                txt_search.Clear()
             End If
         End If
     End Sub
@@ -151,7 +162,7 @@
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = searchFullID Then
+                            If row.Cells(0).Value = searchID Then
                                 row.Cells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(6).Value = details.status
                                 Select Case details.status

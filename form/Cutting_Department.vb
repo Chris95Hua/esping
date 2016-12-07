@@ -1,7 +1,6 @@
 ﻿Public Class Cutting_Department
     Private loadingOverlay As Loading_Overlay
     Private searchID As Integer = -1
-    Private searchFullID As String
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -141,7 +140,7 @@
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = searchFullID Then
+                            If row.Cells(0).Value = searchID Then
                                 row.Cells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(6).Value = details.status
                                 Select Case details.status

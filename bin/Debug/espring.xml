@@ -6,152 +6,133 @@ espring
 </name>
 </assembly>
 <members>
-<member name="T:espring.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:espring.My.Resources.Resources.ResourceManager">
-<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member>
-<member name="P:espring.My.Resources.Resources.Culture">
-<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member>
-<member name="P:espring.My.Resources.Resources.loading">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="T:espring.Database">
- <summary>
- Database operations
- </summary>
-</member>
 <member name="M:espring.Database.ExecuteNonQuery(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
- <summary>
+	<summary>
  Execute non query (insert, update, delete)
  </summary>
- <param name="sqlCommand">SQL statement</param>
- <param name="values">Parameters</param>
- <returns>Number of rows affected</returns>
-</member>
-<member name="M:espring.Database.ExecuteReader(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
- <summary>
+	<param name="sqlCommand">SQL statement</param>
+	<param name="values">Parameters</param>
+	<returns>Number of rows affected</returns>
+</member><member name="M:espring.Database.ExecuteReader(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
  Read rows from table (select)
  </summary>
- <param name="sqlCommand">SQL statement</param>
- <param name="values">Conditions (optional)</param>
- <returns>List of dictionary which consists of column name and its data</returns>
-</member>
-<member name="M:espring.Database.GetDataTable(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
- <summary>
+	<param name="sqlCommand">SQL statement</param>
+	<param name="values">Conditions (optional)</param>
+	<returns>List of dictionary which consists of column name and its data</returns>
+</member><member name="M:espring.Database.GetDataTable(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
  Get rows from database as DataTable
  </summary>
- <param name="sqlCommand">SQL statement</param>
- <param name="values">Conditions (optional)</param>
- <returns>DataTable which consists of column name and its data</returns>
-</member>
-<member name="M:espring.Database.IsConditionValid(System.Object[])">
- <summary>
+	<param name="sqlCommand">SQL statement</param>
+	<param name="values">Conditions (optional)</param>
+	<returns>DataTable which consists of column name and its data</returns>
+</member><member name="M:espring.Database.IsConditionValid(System.Object[])">
+	<summary>
  Check if condition is valid
  </summary>
- <param name="condition">Condition passed</param>
- <returns>True if the condition is valid, else false</returns>
-</member>
-<member name="M:espring.Database.Insert(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
- <summary>
+	<param name="condition">Condition passed</param>
+	<returns>True if the condition is valid, else false</returns>
+</member><member name="M:espring.Database.Insert(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
  Insert a new record into table
  </summary>
- <param name="table">Name of the table</param>
- <param name="data">Column names and values</param>
- <remarks>
+	<param name="table">Name of the table</param>
+	<param name="data">Column names and values</param>
+	<remarks>
  This function does not accept or use any conditions when performing 
  insertion, use ExecuteNonQuery() for conditional insert instead
  </remarks>
- <returns>True if success or false otherwise</returns>
-</member>
-<member name="M:espring.Database.Update(System.String,System.Object[],System.Collections.Generic.Dictionary{System.String,System.Object})">
- <summary>
+	<returns>True if success or false otherwise</returns>
+</member><member name="M:espring.Database.Update(System.String,System.Object[],System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
  Update single record in table using ID
  </summary>
- <param name="table">Name of the table</param>
- <param name="condition">Condition used when updating (e.g: "id", "=", "5")</param>
- <param name="data">Column names and values</param>
- <returns>True if success or false otherwise</returns>
-</member>
-<member name="M:espring.Database.Delete(System.String,System.Object[])">
- <summary>
+	<param name="table">Name of the table</param>
+	<param name="condition">Condition used when updating (e.g: "id", "=", "5")</param>
+	<param name="data">Column names and values</param>
+	<returns>True if success or false otherwise</returns>
+</member><member name="M:espring.Database.Delete(System.String,System.Object[])">
+	<summary>
  Delete single record from table using ID
  </summary>
- <param name="table">Name of the table</param>
- <param name="condition">Condition used when deleting (e.g: "id", "=", "5")</param>
- <returns>True if success or false otherwise</returns>
-</member>
-<member name="M:espring.Database.ColumnsToReturn(System.String[])">
- <summary>
+	<param name="table">Name of the table</param>
+	<param name="condition">Condition used when deleting (e.g: "id", "=", "5")</param>
+	<returns>True if success or false otherwise</returns>
+</member><member name="M:espring.Database.ColumnsToReturn(System.String[])">
+	<summary>
  Determine columns to return
  </summary>
- <param name="returnColumns">Columns to be returned</param>
- <returns>Columns to return in string</returns>
-</member>
-<member name="M:espring.Database.SelectAllRows(System.String,System.String[])">
- <summary>
+	<param name="returnColumns">Columns to be returned</param>
+	<returns>Columns to return in string</returns>
+</member><member name="M:espring.Database.SelectAllRows(System.String,System.String[])">
+	<summary>
  Return all rows from table
  </summary>
- <param name="table">Name of the table</param>
- <param name="returnColumns">Columns to be returned (optional)</param>
- <remarks>
+	<param name="table">Name of the table</param>
+	<param name="returnColumns">Columns to be returned (optional)</param>
+	<remarks>
  This function does not accept or use any conditions when selecting 
  from database, use ExecuteReader() for conditional selection instead
  </remarks>
- <returns>List of dictionary which consists of column name and its data</returns>
-</member>
-<member name="M:espring.Database.SelectRows(System.String,System.Object[],System.String[])">
- <summary>
+	<returns>List of dictionary which consists of column name and its data</returns>
+</member><member name="M:espring.Database.SelectRows(System.String,System.Object[],System.String[])">
+	<summary>
  Return all rows from table. Return null (nothing) if no records can be found
  </summary>
- <param name="table">Name of the table</param>
- <param name="condition">Condition used when selecting (e.g: "id", "=", "5")</param>
- <param name="returnColumns">Columns to be returned (optional)</param>
- <returns>List of dictionary which consists of column name and its data</returns>
-</member>
-<member name="T:espring.Method">
- <summary>
- Generic class for housing all the reusable methods/models
+	<param name="table">Name of the table</param>
+	<param name="condition">Condition used when selecting (e.g: "id", "=", "5")</param>
+	<param name="returnColumns">Columns to be returned (optional)</param>
+	<returns>List of dictionary which consists of column name and its data</returns>
+</member><member name="T:espring.Database">
+	<summary>
+ Database operations
  </summary>
-</member>
-<member name="M:espring.Method.DialogGetFile(System.Int32,System.Boolean)">
- <summary>
- Get array of selected files
- </summary>
- <param name="type">Type of files to be selected</param>
- <param name="multi">Enable multiselect (optional, default to false)</param>
- <returns>Array of selected files</returns>
-</member>
-<member name="T:espring.Security">
- <summary>
- Security operations
- </summary>
-</member>
-<member name="M:espring.Security.Hash(System.String,System.String)">
- <summary>
+</member><member name="M:espring.Security.Hash(System.String,System.String)">
+	<summary>
  Hash password using salt
  </summary>
- <param name="password">Password string</param>
- <param name="salt">Salt string</param>
- <returns>Hashed string</returns>
-</member>
-<member name="M:espring.Security.GenerateSalt(System.Int32)">
- <summary>
+	<param name="password">Password string</param>
+	<param name="salt">Salt string</param>
+	<returns>Hashed string</returns>
+</member><member name="M:espring.Security.GenerateSalt(System.Int32)">
+	<summary>
  Generate random string of salt
  </summary>
- <param name="size">Byte size to be used when generating salt (optional)</param>
- <returns>String of salt</returns>
+	<param name="size">Byte size to be used when generating salt (optional)</param>
+	<returns>String of salt</returns>
+</member><member name="T:espring.Security">
+	<summary>
+ Security operations
+ </summary>
+</member><member name="P:espring.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:espring.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:espring.My.Resources.Resources.loading">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="T:espring.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:espring.Method.DialogGetFile(System.Int32,System.Boolean)">
+	<summary>
+ Get array of selected files
+ </summary>
+	<param name="type">Type of files to be selected</param>
+	<param name="multi">Enable multiselect (optional, default to false)</param>
+	<returns>Array of selected files</returns>
+</member><member name="T:espring.Method">
+	<summary>
+ Generic class for housing all the reusable methods/models
+ </summary>
 </member>
 </members>
 </doc>

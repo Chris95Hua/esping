@@ -1,7 +1,6 @@
 ﻿Public Class Approve_Order
     Private loadingOverlay As Loading_Overlay
     Private searchID As Integer = -1
-    Private searchFullID As String
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -49,8 +48,7 @@
     Private Sub txt_search_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Method.IsOrderFormat(txt_search.Text) Then
-                searchFullID = txt_search.Text
-                searchID = Method.GetOrderID(searchFullID)
+                searchID = Method.GetOrderID(txt_search.Text)
                 LoadDataGridData(searchID)
             Else
                 MessageBox.Show("Invalid order number", "Error")
@@ -142,7 +140,7 @@
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = searchFullID Then
+                            If row.Cells(0).Value = searchID Then
                                 row.Cells(5).Value = _STATUS.APPROVAL_1
                                 row.Cells(6).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(7).Value = details.status

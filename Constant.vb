@@ -13,6 +13,7 @@ Public NotInheritable Class _TABLE
     Public Const ORDER_LOG As String = "order_log"
     Public Const DEPARTMENT As String = "department"
     Public Const INVENTORY As String = "inventory"
+    Public Const PACKAGE As String = "package"
 End Class
 'SELECT CONCAT_WS("-", order_customer.salesperson_id, LPAD(order_customer.order_id, 13, '0')) As "job" FROM order_customer
 
@@ -32,6 +33,14 @@ Public NotInheritable Class _USER
     Public Const E_DATE As String = "e_date"
 End Class
 
+' List of columns available in "package" table
+Public NotInheritable Class _PACKAGE
+    Public Const PACKAGE_ID As String = "package_id"
+    Public Const ORDER_ID As String = "order_id"
+    Public Const PACKAGE_KEY As String = "package_key"
+    Public Const DEPT As String = "dept"
+    Public Const STATUS As String = "status"
+End Class
 
 ' List of columns available in "role" table
 Public NotInheritable Class _ROLE
@@ -183,6 +192,9 @@ Public NotInheritable Class _JSON_FIELD
     Public Const ARTWORK4 As String = "a4"
     Public Const ARTWORK5 As String = "a5"
     Public Const ARTWORK6 As String = "a6"
+
+    Public Const PACKAGE_NAME As String = "packagename"
+    Public Const NUMBER_OF_BAGS As String = "numberofbags"
 End Class
 
 
@@ -205,6 +217,19 @@ Public NotInheritable Class _BADGE
     Public Const XXXL As String = "3xl"
 End Class
 
+Public NotInheritable Class _DEPARTMENT_BARCODE
+    Public Const ITEM_BACK As String = "B"
+    Public Const ITEM_FRONT As String = "F"
+    Public Const ITEM_SLEEVE As String = "V"
+    Public Const TO_EMBROIDERY As String = "E"
+    Public Const TO_PRINTING As String = "P"
+    Public Const TO_SEWING As String = "S"
+    Public Const TO_PRINT_EMBROIDERY As String = "Z"
+    Public Const SHOW_E As String = "Embroidery"
+    Public Const SHOW_P As String = "Printing"
+    Public Const SHOW_S As String = "Sewing"
+    Public Const SHOW_Z As String = "Embroidery & Printing"
+End Class
 
 ' Department/process
 Public Enum _PROCESS
@@ -217,7 +242,6 @@ Public Enum _PROCESS
     PRINTING = 6
     SEWING = 7
 End Enum
-
 
 ' Printing/Embroidery
 Public Enum _OPTIONAL_DEPT

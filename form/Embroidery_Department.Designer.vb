@@ -181,7 +181,7 @@ Partial Class Embroidery_Department
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.txt_search.Location = New System.Drawing.Point(12, 42)
-        Me.txt_search.MaxLength = 10
+        Me.txt_search.MaxLength = 13
         Me.txt_search.Name = "txt_search"
         Me.txt_search.Size = New System.Drawing.Size(302, 26)
         Me.txt_search.TabIndex = 6
