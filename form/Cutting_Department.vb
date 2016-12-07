@@ -33,7 +33,7 @@
 
     ' Clear search field
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
-        txt_search.Text = ""
+        txt_search.Clear()
         txt_search.ForeColor = Color.Black
     End Sub
 

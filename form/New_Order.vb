@@ -2,7 +2,8 @@
     Private loadingOverlay As Loading_Overlay
 
     Private Sub form_load(sender As Object, e As System.EventArgs) Handles Me.Load
-        d_delivery.Value = DateTime.Now
+        d_delivery.MinDate = Date.Now()
+        d_delivery.Value = Date.Now()
     End Sub
 
     Private Sub btn_close_Click(sender As Object, e As EventArgs) Handles btn_close.Click

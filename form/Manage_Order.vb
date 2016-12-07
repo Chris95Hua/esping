@@ -32,7 +32,7 @@
 
     ' Clear search field
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
-        txt_search.Text = ""
+        txt_search.Clear()
         txt_search.ForeColor = Color.Black
     End Sub
 
@@ -66,7 +66,9 @@
 
     ' Update delivery date
     Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
-        Dim editDeliveryForm As New Edit_Delivery_Date(Date.ParseExact(dgv_details.SelectedCells.Item(4).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture))
+        Dim oldDeliveryDate As Date = Date.ParseExact(dgv_details.SelectedCells.Item(4).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture)
+        Dim issueDate As Date = Date.ParseExact(dgv_details.SelectedCells.Item(3).Value, "dd/MM/yyyy", Globalization.CultureInfo.InvariantCulture)
+        Dim editDeliveryForm As New Edit_Delivery_Date(oldDeliveryDate, issueDate)
 
         If editDeliveryForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Dim id As Integer = dgv_details.SelectedCells.Item(0).Value

@@ -342,7 +342,7 @@ Partial Class new_order
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(176, 219)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(175, 219)
         Me.TableLayoutPanel8.TabIndex = 5
         '
         'Label9
@@ -572,7 +572,7 @@ Partial Class new_order
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(184, 235)
+        Me.GroupBox2.Size = New System.Drawing.Size(183, 235)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Sizes"
@@ -584,7 +584,7 @@ Partial Class new_order
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.51724!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.48276!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 276.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 277.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel11, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox1, 0, 0)
@@ -607,14 +607,14 @@ Partial Class new_order
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox3, 0, 0)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox4, 0, 1)
         Me.TableLayoutPanel11.Controls.Add(Me.GroupBox5, 0, 2)
-        Me.TableLayoutPanel11.Location = New System.Drawing.Point(381, 2)
+        Me.TableLayoutPanel11.Location = New System.Drawing.Point(380, 2)
         Me.TableLayoutPanel11.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel11.Name = "TableLayoutPanel11"
         Me.TableLayoutPanel11.RowCount = 3
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(273, 235)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(274, 235)
         Me.TableLayoutPanel11.TabIndex = 3
         '
         'GroupBox3
@@ -622,7 +622,7 @@ Partial Class new_order
         Me.GroupBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox3.Controls.Add(Me.TableLayoutPanel9)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(16, 2)
+        Me.GroupBox3.Location = New System.Drawing.Point(17, 2)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
@@ -700,7 +700,7 @@ Partial Class new_order
         Me.GroupBox4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox4.Controls.Add(Me.TableLayoutPanel10)
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(18, 81)
+        Me.GroupBox4.Location = New System.Drawing.Point(19, 81)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(2)

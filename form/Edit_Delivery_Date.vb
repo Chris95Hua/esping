@@ -1,8 +1,9 @@
 ﻿Public Class Edit_Delivery_Date
-    Sub New(ByVal oldDate As Date)
+    Sub New(ByVal oldDate As Date, ByVal issueDate As Date)
         ' This call is required by the designer.
         InitializeComponent()
 
+        d_newDeliveryDate.MinDate = issueDate
         d_newDeliveryDate.Value = oldDate
     End Sub
 
