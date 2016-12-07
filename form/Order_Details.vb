@@ -3,6 +3,7 @@
 Public Class Order_Details
     Private loadingOverlay As Loading_Overlay
     Private orderID, salePersonID As Integer
+    Private orderIDFull As String
     Public status As Integer
     Public updateDateTime As DateTime
     Private artworkImg1, artworkImg2, artworkImg3, artworkImg4, artworkImg5, artworkImg6 As String
@@ -10,12 +11,13 @@ Public Class Order_Details
     Private fromSearch As Boolean = False
 
     ' Order ID and status
-    Sub New(ByVal orderID As Integer, ByVal status As Integer)
+    Sub New(ByVal orderID As Integer, ByVal status As Integer, Optional orderIDFull As String = Nothing)
         ' This call is required by the designer.
         InitializeComponent()
 
         Me.orderID = orderID
         Me.status = status
+        Me.orderIDFull = orderIDFull
 
         'set listview's column width
         With ListView1
@@ -26,12 +28,13 @@ Public Class Order_Details
     End Sub
 
     ' Full order detail
-    Sub New(ByVal orderID As Integer, ByVal orderDetail As Dictionary(Of String, Object), ByVal status As Integer)
+    Sub New(ByVal orderID As Integer, ByVal orderDetail As Dictionary(Of String, Object), ByVal status As Integer, Optional orderIDFull As String = Nothing)
         ' This call is required by the designer.
         InitializeComponent()
 
         Me.orderID = orderID
         Me.status = status
+        Me.orderIDFull = orderIDFull
         fromSearch = True
 
         PopulateDetails(orderDetail)
@@ -48,7 +51,7 @@ Public Class Order_Details
 
         Dim paymentVisibility() As Integer = {_PROCESS.APPROVAL, _PROCESS.ORDER}
         Dim checkInOut() As Integer = {_PROCESS.CUTTING, _PROCESS.EMBROIDERY, _PROCESS.PRINTING, _PROCESS.SEWING}
-        Dim barcode() As Integer = {_PROCESS.INVENTORY, _PROCESS.CUTTING, _PROCESS.SEWING}
+        Dim barcode() As Integer = {_PROCESS.ORDER, _PROCESS.INVENTORY, _PROCESS.CUTTING, _PROCESS.SEWING}
 
         ' payment details are only visible to admin/during approval
         If paymentVisibility.Contains(Session.department_id) Then
@@ -102,7 +105,7 @@ Public Class Order_Details
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.AMOUNT, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.REMARKS, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRODUCTION_PARTS, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.INVENTORY_ORDER,
+                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.INVENTORY_ORDER,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, " = ", "@", _ORDER_CUSTOMER.ORDER_ID
                                         )
@@ -401,24 +404,21 @@ Public Class Order_Details
         End If
 
         ' production parts
-        Dim packageList As List(Of Dictionary(Of String, Object))
-        packageList = Database.SelectRows(_TABLE.PACKAGE, {_PACKAGE.ORDER_ID, "=", Me.orderID})
-        If packageList IsNot Nothing Then
-            Dim packagekeyparts As New Dictionary(Of String, Object)
-            Dim tempdept As String = ""
-            For Each packageDic In packageList
-                packagekeyparts = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(packageDic.Item(_PACKAGE.PACKAGE_KEY))
-                If packageDic.Item(_PACKAGE.DEPT) = "E" Then
-                    tempdept = _DEPARTMENT_BARCODE.SHOW_E
-                ElseIf packageDic.Item(_PACKAGE.DEPT) = "P" Then
-                    tempdept = _DEPARTMENT_BARCODE.SHOW_P
-                ElseIf packageDic.Item(_PACKAGE.DEPT) = "S" Then
-                    tempdept = _DEPARTMENT_BARCODE.SHOW_S
-                ElseIf packageDic.Item(_PACKAGE.DEPT) = "Z" Then
-                    tempdept = _DEPARTMENT_BARCODE.SHOW_Z
-                End If
-                ListView2.Items.Add(New ListViewItem({packagekeyparts.Item(_JSON_FIELD.PACKAGE_NAME), tempdept, packagekeyparts.Item(_JSON_FIELD.NUMBER_OF_BAGS)}))
-            Next
+        If Not IsDBNull(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS)) Then
+            Dim parts As New Dictionary(Of String, Object)
+            parts = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(details.Item(_ORDER_CUSTOMER.PRODUCTION_PARTS))
+
+            If parts.ContainsKey(_JSON_FIELD.FRONT) Then
+                txt_front.Text = parts.Item(_JSON_FIELD.FRONT)
+            End If
+
+            If parts.ContainsKey(_JSON_FIELD.BACK) Then
+                txt_back.Text = parts.Item(_JSON_FIELD.BACK)
+            End If
+
+            If parts.ContainsKey(_JSON_FIELD.SLEEVE) Then
+                txt_sleeve.Text = parts.Item(_JSON_FIELD.SLEEVE)
+            End If
         End If
 
         ' Inventory
@@ -486,14 +486,15 @@ Public Class Order_Details
     Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
         Select Case Session.department_id
             Case _PROCESS.ORDER
-
+                Dim barcodeSticker As New Generate_Barcode(orderIDFull)
+                barcodeSticker.ShowDialog()
             Case _PROCESS.CUTTING
                 Dim barcodeForm As New Generate_Barcode_Department(orderID, salePersonID)
                 barcodeForm.ShowDialog()
             Case _PROCESS.SEWING
                 Dim orderDetails As New Dictionary(Of String, Object)
 
-                orderDetails.Add(_BADGE.ORDER, orderID)
+                orderDetails.Add(_BADGE.ORDER, orderIDFull)
                 orderDetails.Add(_BADGE.CUSTOMER, txt_cusName.Text)
                 orderDetails.Add(_BADGE.ORDER_NAME, txt_orderName.Text)
 

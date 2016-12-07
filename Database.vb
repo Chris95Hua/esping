@@ -139,6 +139,7 @@ Public NotInheritable Class Database
     End Function
 
 
+
     ''' <summary>
     ''' Check if condition is valid
     ''' </summary>
@@ -197,66 +198,6 @@ Public NotInheritable Class Database
         Return False
     End Function
 
-    ''' <summary>
-    ''' Insert a new record into table
-    ''' </summary>
-    ''' <param name="table">Name of the table</param>
-    ''' <param name="data">Column names and values</param>
-    ''' <remarks>
-    ''' This function does not accept or use any conditions when performing 
-    ''' insertion, use ExecuteNonQuery() for conditional insert instead
-    ''' </remarks>
-    ''' <returns>True if success or false otherwise</returns>
-    Public Shared Function InsertMultiple(ByVal table As String, ByVal dataList As List(Of Dictionary(Of String, Object))) As String
-        Dim sqlStmt As New StringBuilder()
-        Dim values As New StringBuilder()
-        Dim addComma As Boolean = False
-        Dim sqlStmtRepaet As Boolean = True
-        Dim bracketOpen As Boolean = False
-
-        sqlStmt.Append("INSERT INTO ").Append(table).Append(" (")
-        For Each eachData In dataList
-            For Each key In eachData
-                ' add comma
-                If addComma Then
-                    If sqlStmtRepaet Then
-                        sqlStmt.Append(", ")
-                    End If
-                    values.Append(", ")
-                Else
-                    values.Append(" VALUES (")
-                End If
-
-                ' put in table fields and parameter
-                If sqlStmtRepaet Then
-                    sqlStmt.Append(key.Key)
-                End If
-                If bracketOpen Then
-                    values.Append("(")
-                    bracketOpen = False
-                End If
-                values.Append(key.Value)
-
-                ' skip the first field and value
-                addComma = True
-            Next
-            values.Append(")")
-            sqlStmtRepaet = False
-            bracketOpen = True
-        Next
-
-        ' append all strings
-        Return sqlStmt.Append(") ").Append(values).ToString()
-
-        'Dim conn As New MySqlConnection(connectionString)
-        ' Dim cmd As New MySqlCommand(sqlStmt.ToString, conn)
-
-        'If cmd.ExecuteNonQuery() Then
-        'Return True
-        'End If
-
-        Return False
-    End Function
 
     ''' <summary>
     ''' Update single record in table using ID
@@ -384,6 +325,7 @@ Public NotInheritable Class Database
             pair.Add(condition(0), condition(2))
 
             sqlStmt.Append(ColumnsToReturn(returnColumns)).Append(" FROM ").Append(table).Append(" WHERE BINARY ").Append(condition(0)).Append(condition(1)).Append("@").Append(condition(0))
+
             Return ExecuteReader(sqlStmt.ToString(), pair)
         End If
 

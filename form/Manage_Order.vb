@@ -100,7 +100,9 @@
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_OrderLoader.DoWork
         If e.Argument <> -1 Then
             ' search
-            Dim search As String = String.Concat("SELECT ",
+            Dim search As String = String.Concat("SELECT CONCAT_WS('-', ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")As 'orderIDFull', ",
                                               _ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _ORDER_CUSTOMER.FABRIC, ", ",
@@ -167,7 +169,7 @@
                 orderDetails = e.Result
 
                 If orderDetails IsNot Nothing Then
-                    Dim details As New Order_Details(searchID, orderDetails.First, -1)
+                    Dim details As New Order_Details(searchID, orderDetails.First, -1, orderDetails.First.Item("orderIDFull"))
                     details.ShowDialog()
                 Else
                     MessageBox.Show("Could not find matching order", "Error")
@@ -239,7 +241,7 @@
     ' View order detail
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
         Dim orderID As Integer = Method.GetOrderID(dgv_details.SelectedCells(0).Value.ToString())
-        Dim details As New Order_Details(orderID, -1)
+        Dim details As New Order_Details(orderID, -1, dgv_details.SelectedCells(0).Value.ToString())
         details.ShowDialog()
     End Sub
 

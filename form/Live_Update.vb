@@ -1,8 +1,16 @@
-﻿Public Class Live_Update
+﻿Imports CrystalDecisions.CrystalReports.Engine
+Imports MySql.Data.MySqlClient
+
+Public Class Live_Update
     Private loadingOverlay As Loading_Overlay
+    Dim jobReport As New ReportDocument
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
+
+        jobReport.Load(My.Settings.REPORT_DIR & "Job.rpt")
+        crv_job.ReportSource = jobReport
+
         bgw_liveUpdate.RunWorkerAsync()
         ShowLoadingOverlay(True)
     End Sub
@@ -38,10 +46,11 @@
         ShowLoadingOverlay(False)
 
         If (e.Error Is Nothing) Then
-            dgv_liveInfo.DataSource = e.Result
+            Dim test As Job_Schedule = New Job_Schedule()
+            test.Tables("job_schedule").Merge(e.Result)
+            jobReport.SetDataSource(test)
+            crv_job.RefreshReport()
         End If
-
-        dgv_liveInfo.Enabled = True
     End Sub
 
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)

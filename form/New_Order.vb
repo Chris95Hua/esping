@@ -32,6 +32,7 @@
         order.Add(_ORDER_CUSTOMER.CUSTOMER, txt_cusName.Text)
         order.Add(_ORDER_CUSTOMER.ORDER_NAME, txt_orderName.Text)
 
+
         ' clothes type
         Dim type As New Dictionary(Of String, Integer)
         If cb_fabricCL.CheckState = CheckState.Checked Then

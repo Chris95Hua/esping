@@ -394,7 +394,6 @@ Partial Class Inventory_Preparation
         Me.MaximumSize = New System.Drawing.Size(1024, 768)
         Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Inventory_Preparation"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inventory Preparation"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)

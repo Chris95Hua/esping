@@ -43,7 +43,7 @@
 
                 Database.Insert(_TABLE.PACKAGE, packageDic)
             Next
-                MessageBox.Show("Package recorded")
+            MessageBox.Show("Package recorded")
         End If
     End Sub
 

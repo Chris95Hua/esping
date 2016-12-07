@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Job_Schedule" targetNamespace="http://tempuri.org/Job_Schedule.xsd" xmlns:mstns="http://tempuri.org/Job_Schedule.xsd" xmlns="http://tempuri.org/Job_Schedule.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Job_Schedule" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Job_Schedule" msprop:Generator_UserDSName="Job_Schedule">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="job_schedule" msprop:Generator_TableClassName="job_scheduleDataTable" msprop:Generator_TableVarName="tablejob_schedule" msprop:Generator_TablePropName="_job_schedule" msprop:Generator_RowDeletingName="job_scheduleRowDeleting" msprop:Generator_RowChangingName="job_scheduleRowChanging" msprop:Generator_RowEvHandlerName="job_scheduleRowChangeEventHandler" msprop:Generator_RowDeletedName="job_scheduleRowDeleted" msprop:Generator_UserTableName="job_schedule" msprop:Generator_RowChangedName="job_scheduleRowChanged" msprop:Generator_RowEvArgName="job_scheduleRowChangeEvent" msprop:Generator_RowClassName="job_scheduleRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="job_sheet_no" msprop:Generator_ColumnVarNameInTable="columnjob_sheet_no" msprop:Generator_ColumnPropNameInRow="job_sheet_no" msprop:Generator_ColumnPropNameInTable="job_sheet_noColumn" msprop:Generator_UserColumnName="job_sheet_no" type="xs:string" minOccurs="0" />
+              <xs:element name="customer" msprop:Generator_ColumnVarNameInTable="columncustomer" msprop:Generator_ColumnPropNameInRow="customer" msprop:Generator_ColumnPropNameInTable="customerColumn" msprop:Generator_UserColumnName="customer" type="xs:string" minOccurs="0" />
+              <xs:element name="first_name" msprop:Generator_ColumnVarNameInTable="columnfirst_name" msprop:Generator_ColumnPropNameInRow="first_name" msprop:Generator_ColumnPropNameInTable="first_nameColumn" msprop:Generator_UserColumnName="first_name" type="xs:string" minOccurs="0" />
+              <xs:element name="issue_date" msprop:Generator_ColumnVarNameInTable="columnissue_date" msprop:Generator_ColumnPropNameInRow="issue_date" msprop:Generator_ColumnPropNameInTable="issue_dateColumn" msprop:Generator_UserColumnName="issue_date" type="xs:string" minOccurs="0" />
+              <xs:element name="delivery_date" msprop:Generator_ColumnVarNameInTable="columndelivery_date" msprop:Generator_ColumnPropNameInRow="delivery_date" msprop:Generator_ColumnPropNameInTable="delivery_dateColumn" msprop:Generator_UserColumnName="delivery_date" type="xs:string" minOccurs="0" />
+              <xs:element name="status" msprop:Generator_ColumnVarNameInTable="columnstatus" msprop:Generator_ColumnPropNameInRow="status" msprop:Generator_ColumnPropNameInTable="statusColumn" msprop:Generator_UserColumnName="status" type="xs:string" minOccurs="0" />
+              <xs:element name="duration" msprop:Generator_ColumnVarNameInTable="columnduration" msprop:Generator_ColumnPropNameInRow="duration" msprop:Generator_ColumnPropNameInTable="durationColumn" msprop:Generator_UserColumnName="duration" type="xs:string" minOccurs="0" />
+              <xs:element name="remarks" msprop:Generator_ColumnVarNameInTable="columnremarks" msprop:Generator_ColumnPropNameInRow="remarks" msprop:Generator_ColumnPropNameInTable="remarksColumn" msprop:Generator_UserColumnName="remarks" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

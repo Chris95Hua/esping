@@ -1,6 +1,7 @@
 ﻿Public Class Cutting_Department
     Private loadingOverlay As Loading_Overlay
     Private searchID As Integer = -1
+    Private searchFullID As String
     Private pageNumber As Integer = 1
     Private currentPageNumber As Integer = 1
     Private loadRowsFrom As Integer = 0
@@ -63,6 +64,7 @@
             ' search
             Dim search As String = String.Concat("SELECT ",
                                               _ORDER_CUSTOMER.ORDER_NAME, ", ",
+                                              _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
                                               _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _ORDER_CUSTOMER.FABRIC, ", ",
                                               _ORDER_CUSTOMER.COLLAR, ", ",
@@ -140,7 +142,7 @@
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
                         For Each row As DataGridViewRow In dgv_details.Rows
-                            If row.Cells(0).Value = searchID Then
+                            If row.Cells(0).Value = searchFullID Then
                                 row.Cells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
                                 row.Cells(6).Value = details.status
                                 Select Case details.status
