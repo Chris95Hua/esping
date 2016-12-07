@@ -32,7 +32,7 @@
 
     ' Clear search field
     Private Sub txt_Search_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles txt_search.GotFocus
-        txt_search.Clear()
+        txt_search.Text = ""
         txt_search.ForeColor = Color.Black
     End Sub
 
@@ -104,15 +104,18 @@
                                               _ORDER_CUSTOMER.REMARKS, ", ",
                                               _ORDER_CUSTOMER.INVENTORY_ORDER, ", ",
                                               _ORDER_CUSTOMER.PRODUCTION_PARTS, ", ",
-                                              "CASE WHEN (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) AND (",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
-                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND (",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ")) THEN -1",
-                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 AND (",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
+                                              "CASE WHEN ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ") AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                              " AND ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ") AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2))) THEN -1",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 0 AND (((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = ", printChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2)",
+                                              " OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                              " OR ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = ", embroideryChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3",
+                                              " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, "< 2)))) THEN -1",
+                                              " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 0 AND (((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = ", printChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2)",
+                                              " OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                              " OR ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = ", embroideryChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3",
+                                              " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, "< 2)))) THEN -1",
                                               " ELSE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " END AS ", _ORDER_CUSTOMER.SEWING,
                                               " FROM ", _TABLE.ORDER_CUSTOMER,
                                               " WHERE ", _ORDER_CUSTOMER.ORDER_ID, " = ", e.Argument,
@@ -158,15 +161,18 @@
                                                   " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " = 2 THEN '", _STATUS.SEWING_2, "'",
                                                   " END AS ", _ORDER_LOG.STATUS, ", ",
                                                   "DATE_FORMAT(", _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ", '", _FORMAT.DATETIME_FORMAT, "') As ", _ORDER_LOG.DATETIME, ", ",
-                                                  "CASE WHEN (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) AND (",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
-                                                  " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND (",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ")) THEN -1",
-                                                  " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 AND (",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
+                                                  "CASE WHEN ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ") AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                                  " AND ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ") AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ",
+                                                  _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2))) THEN -1",
+                                                  " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 0 AND (((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = ", printChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2)",
+                                                  " OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                                  " OR ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = ", embroideryChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 3",
+                                                  " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, "< 2)))) THEN -1",
+                                                  " WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " = 0 AND (((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = ", printChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2)",
+                                                  " OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3 AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2)))",
+                                                  " OR ((", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = ", embroideryChecked, " AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) OR (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " = 3",
+                                                  " AND (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, "< 2)))) THEN -1",
                                                   " ELSE ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SEWING, " END AS ", _ORDER_CUSTOMER.SEWING,
                                                   " FROM ", _TABLE.ORDER_CUSTOMER, " INNER JOIN ", _TABLE.ORDER_LOG,
                                                   " ON ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID,
@@ -179,7 +185,15 @@
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
                                                   " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                                   )
-
+            '"CASE WHEN (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) AND (",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
+            '" WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND (",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ")) THEN -1",
+            '" WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 AND (",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
+            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
             e.Result = Database.GetDataTable(sqlStmt)
         End If
     End Sub
@@ -207,7 +221,7 @@
                                     ' scanned in
                                     Case 1
                                         row.Cells(4).Value = _STATUS.SEWING_1
-                                    ' scanned out
+                                        ' scanned out
                                     Case 2
                                         row.Cells(4).Value = _STATUS.SEWING_2
                                 End Select
@@ -254,7 +268,7 @@
                 ' scanned in
                 Case 1
                     dgv_details.SelectedCells(4).Value = _STATUS.SEWING_1
-                ' scanned out
+                    ' scanned out
                 Case 2
                     dgv_details.SelectedCells(4).Value = _STATUS.SEWING_2
             End Select
