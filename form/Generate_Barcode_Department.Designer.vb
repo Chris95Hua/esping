@@ -22,6 +22,7 @@ Partial Class Generate_Barcode_Department
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Generate_Barcode_Department))
         Me.btn_print = New System.Windows.Forms.Button()
         Me.bgw_generateBarcode = New System.ComponentModel.BackgroundWorker()
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -36,18 +37,24 @@ Partial Class Generate_Barcode_Department
         Me.num_bag = New System.Windows.Forms.NumericUpDown()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btn_delete = New System.Windows.Forms.Button()
+        Me.btn_preview = New System.Windows.Forms.Button()
+        Me.btn_printer = New System.Windows.Forms.Button()
+        Me.pd_barcode = New System.Drawing.Printing.PrintDocument()
+        Me.ppd_barcode = New System.Windows.Forms.PrintPreviewDialog()
+        Me.pdg_settings = New System.Windows.Forms.PrintDialog()
+        Me.bgw_loadBarcode = New System.ComponentModel.BackgroundWorker()
         CType(Me.num_bag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btn_print
         '
         Me.btn_print.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.btn_print.Location = New System.Drawing.Point(242, 265)
+        Me.btn_print.Location = New System.Drawing.Point(454, 268)
         Me.btn_print.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_print.Name = "btn_print"
         Me.btn_print.Size = New System.Drawing.Size(92, 27)
         Me.btn_print.TabIndex = 31
-        Me.btn_print.Text = "PRINT"
+        Me.btn_print.Text = "Print"
         Me.btn_print.UseVisualStyleBackColor = True
         '
         'bgw_generateBarcode
@@ -164,11 +171,52 @@ Partial Class Generate_Barcode_Department
         Me.btn_delete.Text = "Delete"
         Me.btn_delete.UseVisualStyleBackColor = True
         '
+        'btn_preview
+        '
+        Me.btn_preview.Location = New System.Drawing.Point(145, 268)
+        Me.btn_preview.Name = "btn_preview"
+        Me.btn_preview.Size = New System.Drawing.Size(94, 27)
+        Me.btn_preview.TabIndex = 42
+        Me.btn_preview.Text = "Preview"
+        Me.btn_preview.UseVisualStyleBackColor = True
+        '
+        'btn_printer
+        '
+        Me.btn_printer.Location = New System.Drawing.Point(32, 268)
+        Me.btn_printer.Margin = New System.Windows.Forms.Padding(2)
+        Me.btn_printer.Name = "btn_printer"
+        Me.btn_printer.Size = New System.Drawing.Size(108, 27)
+        Me.btn_printer.TabIndex = 41
+        Me.btn_printer.Text = "Printer Settings"
+        Me.btn_printer.UseVisualStyleBackColor = True
+        '
+        'pd_barcode
+        '
+        '
+        'ppd_barcode
+        '
+        Me.ppd_barcode.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.ppd_barcode.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.ppd_barcode.ClientSize = New System.Drawing.Size(400, 300)
+        Me.ppd_barcode.Enabled = True
+        Me.ppd_barcode.Icon = CType(resources.GetObject("ppd_barcode.Icon"), System.Drawing.Icon)
+        Me.ppd_barcode.Name = "ppd_barcode"
+        Me.ppd_barcode.Visible = False
+        '
+        'pdg_settings
+        '
+        Me.pdg_settings.UseEXDialog = True
+        '
+        'bgw_loadBarcode
+        '
+        '
         'Generate_Barcode_Department
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(577, 306)
+        Me.Controls.Add(Me.btn_preview)
+        Me.Controls.Add(Me.btn_printer)
         Me.Controls.Add(Me.btn_print)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.btn_add)
@@ -203,4 +251,10 @@ Partial Class Generate_Barcode_Department
     Friend WithEvents num_bag As NumericUpDown
     Friend WithEvents Label1 As Label
     Friend WithEvents btn_delete As Button
+    Friend WithEvents btn_preview As Button
+    Friend WithEvents btn_printer As Button
+    Friend WithEvents pd_barcode As Printing.PrintDocument
+    Friend WithEvents ppd_barcode As PrintPreviewDialog
+    Friend WithEvents pdg_settings As PrintDialog
+    Friend WithEvents bgw_loadBarcode As System.ComponentModel.BackgroundWorker
 End Class

@@ -79,7 +79,6 @@
 
     Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
         ' max 26 barcode digit for default size
-        stickerCount = 0
         pd_barcodeSticker.Print()
     End Sub
 
@@ -239,7 +238,6 @@
         pdg_settings.AllowPrintToFile = False
 
         If pdg_settings.ShowDialog = Windows.Forms.DialogResult.OK Then
-            stickerCount = 0
             pd_barcodeSticker.PrinterSettings = pdg_settings.PrinterSettings
             pd_barcodeSticker.Print()
         End If
@@ -249,5 +247,10 @@
         stickerCount = 0
         ValidatePageSettings()
         ppd_preview.ShowDialog()
+    End Sub
+
+    ' reset sticker count before printing
+    Private Sub pd_barcodeSticker_BeginPrint(ByVal sender As Object, ByVal e As Printing.PrintEventArgs) Handles pd_barcodeSticker.BeginPrint
+        stickerCount = 0
     End Sub
 End Class

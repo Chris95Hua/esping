@@ -62,9 +62,10 @@
     Private Sub bgw_CutLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_CutLoader.DoWork
         If e.Argument <> -1 Then
             ' search
-            Dim search As String = String.Concat("SELECT ",
+            Dim search As String = String.Concat("SELECT CONCAT_WS('-', ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
+                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_ID, ")As 'orderIDFull', ",
                                               _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
                                               _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _ORDER_CUSTOMER.FABRIC, ", ",
                                               _ORDER_CUSTOMER.COLLAR, ", ",
@@ -137,7 +138,7 @@
                 Dim orderDetails As New List(Of Dictionary(Of String, Object))
                 orderDetails = e.Result
                 If orderDetails IsNot Nothing Then
-                    Dim details As New Order_Details(searchID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.CUTTING))
+                    Dim details As New Order_Details(searchID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.CUTTING), orderDetails.First.Item("orderIDFull"))
 
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
@@ -186,7 +187,7 @@
     Private Sub dgv_details_CellMouseDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles dgv_details.CellMouseDoubleClick
         Dim orderID As Integer = Method.GetOrderID(dgv_details.SelectedCells(0).Value.ToString())
         Dim status As Integer = dgv_details.SelectedCells(6).Value
-        Dim details As New Order_Details(orderID, status)
+        Dim details As New Order_Details(orderID, status, dgv_details.SelectedCells(0).Value.ToString())
 
         If details.ShowDialog() = DialogResult.OK Then
             dgv_details.SelectedCells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")

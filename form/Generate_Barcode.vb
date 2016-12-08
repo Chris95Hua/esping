@@ -14,8 +14,8 @@
             scale = 1
         End If
 
-        'Me.orderID = orderID
-        Me.orderID = "121-2332311a"
+        Me.orderID = orderID
+        'Me.orderID = "121-2332311a"
 
         Dim barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
         barcodeImage = barcode128.Draw(Me.orderID, 60, scale)

@@ -83,7 +83,6 @@ Public Class Order_Details
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_DetailsLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ORDER_NAME, ", ",
-                                              _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FABRIC, ", ",
                                               _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.COLLAR, ", ",
@@ -140,10 +139,6 @@ Public Class Order_Details
         ' order name
         If details.ContainsKey(_ORDER_CUSTOMER.ORDER_NAME) Then
             txt_orderName.Text = details.Item(_ORDER_CUSTOMER.ORDER_NAME)
-        End If
-
-        If details.ContainsKey(_ORDER_CUSTOMER.SALESPERSON_ID) Then
-            salePersonID = details.Item(_ORDER_CUSTOMER.SALESPERSON_ID)
         End If
 
         ' customer
@@ -489,7 +484,7 @@ Public Class Order_Details
                 Dim barcodeSticker As New Generate_Barcode(orderIDFull)
                 barcodeSticker.ShowDialog()
             Case _PROCESS.CUTTING
-                Dim barcodeForm As New Generate_Barcode_Department(orderID, salePersonID)
+                Dim barcodeForm As New Generate_Barcode_Department(orderIDFull)
                 barcodeForm.ShowDialog()
             Case _PROCESS.SEWING
                 Dim orderDetails As New Dictionary(Of String, Object)

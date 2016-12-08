@@ -80,7 +80,9 @@
 
         If e.Argument <> -1 Then
             ' search
-            Dim search As String = String.Concat("SELECT ",
+            Dim search As String = String.Concat("SELECT CONCAT_WS('-', ",
+                                              _ORDER_CUSTOMER.SALESPERSON_ID, ", ",
+                                              _ORDER_CUSTOMER.ORDER_ID, ")As 'orderIDFull', ",
                                               _ORDER_CUSTOMER.ORDER_NAME, ", ",
                                               _ORDER_CUSTOMER.CUSTOMER, ", ",
                                               _ORDER_CUSTOMER.FABRIC, ", ",
@@ -185,15 +187,7 @@
                                                   " ORDER BY ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.ISSUE_DATE, " DESC",
                                                   " LIMIT ", loadRowsFrom, ",", My.Settings.PAGINATION_LIMIT
                                                   )
-            '"CASE WHEN (", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 OR ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2) AND (",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
-            '" WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.PRINTING, " < 2 AND (",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ") OR ",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", printChecked, ",", printEmbroideryChecked, ")) THEN -1",
-            '" WHEN ", _TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.EMBROIDERY, " < 2 AND (",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.FRONT_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ") OR ",
-            '_TABLE.ORDER_CUSTOMER, ".", _ORDER_CUSTOMER.BACK_DEPT, " IN (", embroideryChecked, ",", printEmbroideryChecked, ")) THEN -1",
+
             e.Result = Database.GetDataTable(sqlStmt)
         End If
     End Sub
@@ -209,7 +203,7 @@
                 orderDetails = e.Result
 
                 If orderDetails IsNot Nothing Then
-                    Dim details As New Order_Details(searchID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.SEWING))
+                    Dim details As New Order_Details(searchID, orderDetails.First, orderDetails.First.Item(_ORDER_CUSTOMER.SEWING), orderDetails.First.Item("orderIDFull"))
 
                     If details.ShowDialog() = DialogResult.OK Then
                         ' search the record in datagridview and update it
@@ -259,7 +253,7 @@
         Dim orderID As Integer = Method.GetOrderID(dgv_details.SelectedCells(0).Value.ToString())
         Dim status As Integer = dgv_details.SelectedCells(6).Value
 
-        Dim details As New Order_Details(orderID, status)
+        Dim details As New Order_Details(orderID, status, dgv_details.SelectedCells(0).Value.ToString())
 
         If details.ShowDialog() = DialogResult.OK Then
             dgv_details.SelectedCells(5).Value = details.updateDateTime.ToString("dd/MM/yyyy hh:mm:ss tt")
