@@ -1,5 +1,5 @@
 ﻿Public Class Generate_Barcode
-    Private fontSizeNormal As Integer = 7    '6                 ' normal font size (text below barcode)
+    Private fontSizeNormal As Integer = 6                 ' normal font size (text below barcode)
     Private fontFamily As String = "IDAutomationHC39M Free Version"
 
     Dim orderID As String
@@ -12,9 +12,8 @@
         Me.orderID = orderID
         'Me.orderID = "121-2332311a"
 
-        ' Printer settings (configure papersize)
+        ' Printer settings (papersize)
         ' ===================================
-        'pd_barcode.DefaultPageSettings.PaperSize = New Printing.PaperSize("Barcode Sticker", 189, 106)
         pd_barcode.DefaultPageSettings.PaperSize = New Printing.PaperSize("Barcode Sticker", 132, 94)
 
         ppd_barcode.Document = pd_barcode

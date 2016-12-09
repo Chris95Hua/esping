@@ -1,7 +1,7 @@
 ﻿Imports System.Text
 
 Public Class Generate_Barcode_Department
-    Private fontSizeNormal As Integer = 7                     ' normal font size (text below barcode)
+    Private fontSizeNormal As Integer = 6                     ' normal font size (text below barcode)
     Private fontFamily As String = "IDAutomationHC39M Free Version"
 
     Private stickerCount As Integer = 0

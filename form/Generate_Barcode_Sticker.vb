@@ -40,9 +40,8 @@
         orderID = order.Item(_BADGE.ORDER)
         order.Remove(_BADGE.ORDER)
 
-        ' Printer settings
+        ' Printer settings (papersize)
         ' ===================================
-        ' TODO: configure papersize
         'pd_barcodeSticker.DefaultPageSettings.PaperSize = New Printing.PaperSize("Barcode Sticker", 827, 1169)
     End Sub
 
