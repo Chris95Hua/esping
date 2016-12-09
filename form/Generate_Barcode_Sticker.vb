@@ -6,16 +6,17 @@
     Private stickerHeight As Integer = 350                     ' sticker height
     Private stickerOutterMargin As Integer = 40                ' distance between stickers (vertical & horizontal)
     Private fontSizeTitle As Integer = 15                      ' font size for title (customer name, order name, bags)
-    Private fontSizeNormal As Integer = 10                     ' normal font size (text below barcode)
+    Private fontSizeNormal As Integer = 10                     ' normal font size (text below barcode, address)
+    Private fontSizeBarcode As Integer = 14                    ' font size to use for barcode font
     Private fontSizeSmall As Integer = 8                       ' small font size (size & quantity, total pieces)
     Private fontFamily As String = "arial"                     ' font family to be used
+    Private barcodeFont As String = "IDAutomationHC39M Free Version"
 
     ' ===================================
     Private order As New Dictionary(Of String, Object)
     Private orderID As String
     Private customer As String
     Private orderName As String
-    Dim barcode As Image
 
 
     Private totalBagsCount As Integer
@@ -48,15 +49,6 @@
 
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
-
-        ' generate barcode and label
-        Dim scale As Integer = 2
-        If orderID.Length > 6 Then
-            scale = 1
-        End If
-
-        Dim barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
-        barcode = barcode128.Draw(orderID, 60, scale)
 
         ValidatePageSettings()
         ppd_preview.Document = pd_barcodeSticker
@@ -124,7 +116,7 @@
 
             ' Y coordinates
             Dim yMarginFromTop As Integer = stickerPadding
-            Dim yMarginFromBottom As Integer = stickerHeight - fontSizeNormal - barcode.Height - (2 * stickerPadding)
+            Dim yMarginFromBottom As Integer = stickerHeight - fontSizeNormal - (4 * fontSizeBarcode) - (2 * stickerPadding)
 
             ' graphic mode
             e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -162,14 +154,8 @@
             yMarginFromTop += (2 * stickerPadding) + fontSizeTitle
             e.Graphics.DrawLine(linePen, New Point(0, yMarginFromTop), New Point(stickerWidth, yMarginFromTop))
 
-            ' barcode
-            Dim barcodeX As Integer = ((stickerWidth - barcode.Width) / 2) - 3
-            Dim barcodeY As Integer = stickerHeight - barcode.Height - stickerPadding - (stickerPadding / 2)
-
-            e.Graphics.DrawImage(barcode, barcodeX, barcodeY)
-
             ' barcode text
-            e.Graphics.DrawString(orderID, New Font(fontFamily, fontSizeNormal), New SolidBrush(Color.Black), stickerWidth / 2, stickerHeight - stickerPadding, formatCenter)
+            e.Graphics.DrawString("*" & orderID & "*", New Font(barcodeFont, fontSizeBarcode), New SolidBrush(Color.Black), (stickerWidth / 2) + 1, Math.Floor(stickerHeight - 2 - stickerPadding - (4 * fontSizeBarcode)), formatCenter)
 
             ' details separator
             e.Graphics.DrawLine(linePen, New Point(stickerWidth / 2, yMarginFromTop), New Point(stickerWidth / 2, yMarginFromBottom))

@@ -95,9 +95,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Zen.Barcode.Core">
-      <HintPath>..\..\..\..\Desktop\espring\packages\Zen.Barcode.Core.Code128.3.1.0\lib\net45\Zen.Barcode.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />

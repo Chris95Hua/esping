@@ -1,8 +1,8 @@
 ﻿Imports System.Text
 
 Public Class Generate_Barcode_Department
-    Private fontSizeNormal As Integer = 10                     ' normal font size (text below barcode)
-    Private fontFamily As String = "arial"
+    Private fontSizeNormal As Integer = 7                     ' normal font size (text below barcode)
+    Private fontFamily As String = "IDAutomationHC39M Free Version"
 
     Private stickerCount As Integer = 0
     Private stickerToPrint As Integer = 0
@@ -16,12 +16,11 @@ Public Class Generate_Barcode_Department
     Private curPrintStickerCount As Integer = 0
 
     Private loadingOverlay As Loading_Overlay
-    Private barcode128 As Zen.Barcode.Code128BarcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum
 
     Sub New(ByVal orderIDFull As String)
         InitializeComponent()
 
-        pd_barcode.DefaultPageSettings.PaperSize = New Printing.PaperSize("Barcode Sticker", 189, 106)
+        pd_barcode.DefaultPageSettings.PaperSize = New Printing.PaperSize("Barcode Sticker", 132, 94)
         ppd_barcode.Document = pd_barcode
 
         Me.orderID = orderIDFull
@@ -34,40 +33,17 @@ Public Class Generate_Barcode_Department
 
     ' generate document to print
     Private Sub PrintBarcode(ByVal sender As Object, ByVal e As Printing.PrintPageEventArgs) Handles pd_barcode.PrintPage
-        Dim xOrigin As Integer = Math.Floor((pd_barcode.DefaultPageSettings.PaperSize.Width() - pd_barcode.DefaultPageSettings.PrintableArea.Width()) / 2)
-        Dim yOrigin As Integer = Math.Floor((pd_barcode.DefaultPageSettings.PaperSize.Height() - pd_barcode.DefaultPageSettings.PrintableArea.Height()) / 2)
 
         ' text format
         Dim formatCenter As New StringFormat()
         formatCenter.Alignment = StringAlignment.Center
 
-        ' pen for drawing lines and rounded rectangle
-        Dim linePen As New Pen(Color.Black, 2)
-
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-
-        ' scale barcode
-        Dim scale As Integer = 2
-        If orderID.Length > 6 Then
-            scale = 1
-        End If
-
-        Dim imageScale As Double = 0.36
-
         If barcodeValues.ContainsKey(_PACKAGE.DEPT & curBarcodeIndex) Then
-            Dim barcodeString As String = orderID & _FORMAT.ORDER_DELIMITER & barcodeValues(_PACKAGE.DEPT & curBarcodeIndex)
-            Dim barcodeImage As Image = barcode128.Draw(barcodeString, 60, scale)
-            Dim scaledBarcode As New Bitmap(barcodeImage, CInt(barcodeImage.Width * imageScale), CInt(barcodeImage.Height * imageScale))
+            Dim barcodeString As String = "*" & orderID & _FORMAT.ORDER_DELIMITER & barcodeValues(_PACKAGE.DEPT & curBarcodeIndex) & "*"
 
             ' barcode
-            Dim totalHeight As Integer = scaledBarcode.Height + 10 + fontSizeNormal
-            Dim barcodeX As Integer = ((pd_barcode.DefaultPageSettings.PaperSize.Width() - scaledBarcode.Width) / 2) - 3
-            Dim barcodeY As Integer = (pd_barcode.DefaultPageSettings.PaperSize.Height() - totalHeight) / 2
-
-            e.Graphics.DrawImage(scaledBarcode, barcodeX, barcodeY)
-
-            ' barcode text
-            e.Graphics.DrawString(barcodeString, New Font(fontFamily, fontSizeNormal), New SolidBrush(Color.Black), pd_barcode.DefaultPageSettings.PaperSize.Width() / 2, barcodeY + scaledBarcode.Height + 10, formatCenter)
+            Dim textLocation As Integer = ((pd_barcode.DefaultPageSettings.PaperSize.Height() - fontSizeNormal) / 2) - 14
+            e.Graphics.DrawString(barcodeString, New Font(fontFamily, fontSizeNormal), New SolidBrush(Color.Black), (pd_barcode.DefaultPageSettings.PaperSize.Width() / 2) + 1, textLocation, formatCenter)
 
             If curPrintStickerCount < barcodeCount.Item(_PACKAGE.DEPT & curBarcodeIndex) - 1 Then
                 curPrintStickerCount += 1
@@ -80,8 +56,6 @@ Public Class Generate_Barcode_Department
         stickerCount += 1
 
         ' create new page
-        linePen.Dispose()
-
         e.HasMorePages = (stickerCount < stickerToPrint)
     End Sub
 

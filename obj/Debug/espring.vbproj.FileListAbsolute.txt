@@ -147,5 +147,4 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vb
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.exe
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.xml
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.pdb
-C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.vbprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\espring\obj\Debug\espring.Generate_Barcode_Department.resources
