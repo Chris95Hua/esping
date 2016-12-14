@@ -25,7 +25,12 @@
         ShowLoadingOverlay(False)
 
         If (e.Error Is Nothing) Then
-            PictureBox1.Image = Image.FromStream(e.Result)
+            If e.Result IsNot Nothing Then
+                PictureBox1.Image = Image.FromStream(e.Result)
+            Else
+                MessageBox.Show("No image found", "Error")
+                Me.Close()
+            End If
         End If
     End Sub
 

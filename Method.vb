@@ -80,7 +80,7 @@ Public NotInheritable Class Method
 
             Return True
         Catch ex As WebException
-            MessageBox.Show(ex.Message.ToString(), "File Upload Error")
+            MessageBox.Show("Unable to upload files to FTP server", "File Upload Error")
         End Try
 
         Return False
@@ -102,7 +102,7 @@ Public NotInheritable Class Method
 
             Return ftpRequest.GetResponse.GetResponseStream()
         Catch ex As WebException
-            MessageBox.Show(ex.Message.ToString(), "File Download Error")
+            MessageBox.Show("Unable to download files from FTP server", "File Download Error")
         End Try
 
         Return Nothing
@@ -124,7 +124,7 @@ Public NotInheritable Class Method
 
             Return True
         Catch ex As WebException
-            MessageBox.Show(ex.Message.ToString(), "File Deletion Error")
+            MessageBox.Show("Unable to delete files from FTP server", "File Deletion Error")
         End Try
 
         Return False

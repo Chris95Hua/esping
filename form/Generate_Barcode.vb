@@ -10,7 +10,6 @@
         InitializeComponent()
 
         Me.orderID = orderID
-        'Me.orderID = "121-2332311a"
 
         ' Printer settings (papersize)
         ' ===================================

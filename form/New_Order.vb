@@ -165,33 +165,39 @@
         Dim tempArtworkDic As New Dictionary(Of String, Object)
         If txt_artwork1.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork1.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK1, imgStore)
-            Method.FtpUpload(txt_artwork1.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork1.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK1, imgStore)
+            End If
         End If
         If txt_artwork2.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork2.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK2, imgStore)
-            Method.FtpUpload(txt_artwork2.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork2.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK2, imgStore)
+            End If
         End If
         If txt_artwork3.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork3.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK3, imgStore)
-            Method.FtpUpload(txt_artwork3.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork3.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK3, imgStore)
+            End If
         End If
         If txt_artwork4.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork4.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK4, imgStore)
-            Method.FtpUpload(txt_artwork4.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork4.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK4, imgStore)
+            End If
         End If
         If txt_artwork5.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork5.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK5, imgStore)
-            Method.FtpUpload(txt_artwork5.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork5.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK5, imgStore)
+            End If
         End If
         If txt_artwork6.Text.Length() > 0 Then
             Dim imgStore As String = Now.ToString("yyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_artwork6.Text)
-            tempArtworkDic.Add(_JSON_FIELD.ARTWORK6, imgStore)
-            Method.FtpUpload(txt_artwork6.Text, My.Settings.ARTWORK_DIR, imgStore)
+            If Method.FtpUpload(txt_artwork6.Text, My.Settings.ARTWORK_DIR, imgStore) Then
+                tempArtworkDic.Add(_JSON_FIELD.ARTWORK6, imgStore)
+            End If
         End If
         order.Add(_ORDER_CUSTOMER.ARTWORK, Newtonsoft.Json.JsonConvert.SerializeObject(tempArtworkDic))
 
@@ -199,9 +205,11 @@
         ' payment
         If txt_docPath.Text.Length() > 0 Then
             Dim docStore As String = Now.ToString("yyyyMMddHHmmss") & "_" & Guid.NewGuid().ToString("N") & IO.Path.GetExtension(txt_docPath.Text)
-            order.Add(_ORDER_CUSTOMER.PAYMENT_DOC, docStore)
-            Method.FtpUpload(txt_docPath.Text, My.Settings.PAYMENT_DIR, docStore)
+            If Method.FtpUpload(txt_docPath.Text, My.Settings.PAYMENT_DIR, docStore) Then
+                order.Add(_ORDER_CUSTOMER.PAYMENT_DOC, docStore)
+            End If
         End If
+
         Dim payment As New Dictionary(Of String, Integer)
         If cb_cash.CheckState = CheckState.Checked Then
             payment.Add(_JSON_FIELD.CASH, cb_cash.CheckState)
