@@ -24,6 +24,7 @@ Partial Class Approve_Order
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Approve_Order))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
@@ -53,15 +54,14 @@ Partial Class Approve_Order
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_passUpdate, Me.btn_logout, Me.txt_welcome})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1002, 35)
+        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'btn_passUpdate
         '
         Me.btn_passUpdate.Name = "btn_passUpdate"
-        Me.btn_passUpdate.Size = New System.Drawing.Size(162, 29)
+        Me.btn_passUpdate.Size = New System.Drawing.Size(110, 20)
         Me.btn_passUpdate.Text = "Password Update"
         '
         'btn_logout
@@ -72,7 +72,7 @@ Partial Class Approve_Order
         Me.btn_logout.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btn_logout.Margin = New System.Windows.Forms.Padding(0, 0, 5, 0)
         Me.btn_logout.Name = "btn_logout"
-        Me.btn_logout.Size = New System.Drawing.Size(84, 29)
+        Me.btn_logout.Size = New System.Drawing.Size(58, 20)
         Me.btn_logout.Text = "Logout"
         Me.btn_logout.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
@@ -81,7 +81,7 @@ Partial Class Approve_Order
         Me.txt_welcome.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.txt_welcome.Enabled = False
         Me.txt_welcome.Name = "txt_welcome"
-        Me.txt_welcome.Size = New System.Drawing.Size(161, 29)
+        Me.txt_welcome.Size = New System.Drawing.Size(112, 20)
         Me.txt_welcome.Text = "Welcome: Nelson"
         '
         'dgv_details
@@ -111,14 +111,13 @@ Partial Class Approve_Order
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
-        Me.dgv_details.Location = New System.Drawing.Point(14, 85)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.dgv_details.Location = New System.Drawing.Point(9, 55)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
         Me.dgv_details.RowTemplate.Height = 28
         Me.dgv_details.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_details.Size = New System.Drawing.Size(970, 576)
+        Me.dgv_details.Size = New System.Drawing.Size(647, 374)
         Me.dgv_details.TabIndex = 3
         '
         'order_id
@@ -181,11 +180,10 @@ Partial Class Approve_Order
         'txt_search
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.txt_search.Location = New System.Drawing.Point(14, 45)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.txt_search.Location = New System.Drawing.Point(9, 29)
         Me.txt_search.MaxLength = 10
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(302, 26)
+        Me.txt_search.Size = New System.Drawing.Size(203, 20)
         Me.txt_search.TabIndex = 1
         Me.txt_search.Text = "Search"
         '
@@ -195,10 +193,9 @@ Partial Class Approve_Order
         'btn_refresh
         '
         Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(872, 40)
-        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_refresh.Location = New System.Drawing.Point(581, 26)
         Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 2
         Me.btn_refresh.Text = "Refresh"
         Me.btn_refresh.UseVisualStyleBackColor = True
@@ -208,10 +205,11 @@ Partial Class Approve_Order
         Me.lbl_page.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl_page.AutoSize = True
         Me.lbl_page.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_page.Location = New System.Drawing.Point(173, 675)
-        Me.lbl_page.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.lbl_page.Location = New System.Drawing.Point(115, 439)
+        Me.lbl_page.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lbl_page.MinimumSize = New System.Drawing.Size(67, 0)
         Me.lbl_page.Name = "lbl_page"
-        Me.lbl_page.Size = New System.Drawing.Size(100, 25)
+        Me.lbl_page.Size = New System.Drawing.Size(67, 17)
         Me.lbl_page.TabIndex = 12
         Me.lbl_page.Text = "Label1"
         Me.lbl_page.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -220,9 +218,10 @@ Partial Class Approve_Order
         '
         Me.btn_next.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_next.Enabled = False
-        Me.btn_next.Location = New System.Drawing.Point(293, 669)
+        Me.btn_next.Location = New System.Drawing.Point(195, 435)
+        Me.btn_next.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_next.Name = "btn_next"
-        Me.btn_next.Size = New System.Drawing.Size(136, 31)
+        Me.btn_next.Size = New System.Drawing.Size(91, 20)
         Me.btn_next.TabIndex = 5
         Me.btn_next.Text = "Next"
         Me.btn_next.UseVisualStyleBackColor = True
@@ -231,18 +230,19 @@ Partial Class Approve_Order
         '
         Me.btn_previous.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_previous.Enabled = False
-        Me.btn_previous.Location = New System.Drawing.Point(11, 669)
+        Me.btn_previous.Location = New System.Drawing.Point(7, 435)
+        Me.btn_previous.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_previous.Name = "btn_previous"
-        Me.btn_previous.Size = New System.Drawing.Size(136, 31)
+        Me.btn_previous.Size = New System.Drawing.Size(91, 20)
         Me.btn_previous.TabIndex = 4
         Me.btn_previous.Text = "Previous"
         Me.btn_previous.UseVisualStyleBackColor = True
         '
         'Approve_Order
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.lbl_page)
         Me.Controls.Add(Me.btn_next)
         Me.Controls.Add(Me.btn_previous)
@@ -250,7 +250,9 @@ Partial Class Approve_Order
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.dgv_details)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.MinimumSize = New System.Drawing.Size(1024, 768)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Approve_Order"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Approve Order"

@@ -22,6 +22,7 @@ Partial Class Register
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Register))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -42,84 +43,94 @@ Partial Class Register
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(58, 145)
+        Me.Label1.Location = New System.Drawing.Point(39, 94)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(86, 20)
+        Me.Label1.Size = New System.Drawing.Size(57, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "First Name"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(58, 206)
+        Me.Label2.Location = New System.Drawing.Point(39, 134)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(86, 20)
+        Me.Label2.Size = New System.Drawing.Size(58, 13)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Last Name"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(58, 268)
+        Me.Label3.Location = New System.Drawing.Point(39, 174)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(94, 20)
+        Me.Label3.Size = New System.Drawing.Size(62, 13)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Department"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(58, 329)
+        Me.Label4.Location = New System.Drawing.Point(39, 214)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(42, 20)
+        Me.Label4.Size = New System.Drawing.Size(29, 13)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Role"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(58, 392)
+        Me.Label5.Location = New System.Drawing.Point(39, 255)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(83, 20)
+        Me.Label5.Size = New System.Drawing.Size(55, 13)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Username"
         '
         'txt_firstName
         '
-        Me.txt_firstName.Location = New System.Drawing.Point(180, 142)
+        Me.txt_firstName.Location = New System.Drawing.Point(120, 92)
+        Me.txt_firstName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txt_firstName.Name = "txt_firstName"
-        Me.txt_firstName.Size = New System.Drawing.Size(187, 26)
+        Me.txt_firstName.Size = New System.Drawing.Size(126, 20)
         Me.txt_firstName.TabIndex = 1
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(58, 454)
+        Me.Label6.Location = New System.Drawing.Point(39, 295)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(78, 20)
+        Me.Label6.Size = New System.Drawing.Size(53, 13)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Password"
         '
         'txt_lastName
         '
-        Me.txt_lastName.Location = New System.Drawing.Point(180, 203)
+        Me.txt_lastName.Location = New System.Drawing.Point(120, 132)
+        Me.txt_lastName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txt_lastName.Name = "txt_lastName"
-        Me.txt_lastName.Size = New System.Drawing.Size(187, 26)
+        Me.txt_lastName.Size = New System.Drawing.Size(126, 20)
         Me.txt_lastName.TabIndex = 2
         '
         'txt_userName
         '
-        Me.txt_userName.Location = New System.Drawing.Point(180, 389)
+        Me.txt_userName.Location = New System.Drawing.Point(120, 253)
+        Me.txt_userName.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txt_userName.Name = "txt_userName"
-        Me.txt_userName.Size = New System.Drawing.Size(187, 26)
+        Me.txt_userName.Size = New System.Drawing.Size(126, 20)
         Me.txt_userName.TabIndex = 5
         '
         'txt_password
         '
-        Me.txt_password.Location = New System.Drawing.Point(180, 451)
+        Me.txt_password.Location = New System.Drawing.Point(120, 293)
+        Me.txt_password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txt_password.Name = "txt_password"
         Me.txt_password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txt_password.Size = New System.Drawing.Size(187, 26)
+        Me.txt_password.Size = New System.Drawing.Size(126, 20)
         Me.txt_password.TabIndex = 6
         '
         'cb_department
@@ -128,10 +139,11 @@ Partial Class Register
         Me.cb_department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cb_department.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.cb_department.FormattingEnabled = True
-        Me.cb_department.Location = New System.Drawing.Point(180, 265)
-        Me.cb_department.MinimumSize = New System.Drawing.Size(187, 0)
+        Me.cb_department.Location = New System.Drawing.Point(120, 172)
+        Me.cb_department.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cb_department.MinimumSize = New System.Drawing.Size(126, 0)
         Me.cb_department.Name = "cb_department"
-        Me.cb_department.Size = New System.Drawing.Size(187, 28)
+        Me.cb_department.Size = New System.Drawing.Size(126, 21)
         Me.cb_department.TabIndex = 3
         '
         'cb_role
@@ -140,26 +152,29 @@ Partial Class Register
         Me.cb_role.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.cb_role.FormattingEnabled = True
         Me.cb_role.Items.AddRange(New Object() {"Admin", "Staff"})
-        Me.cb_role.Location = New System.Drawing.Point(180, 328)
+        Me.cb_role.Location = New System.Drawing.Point(120, 213)
+        Me.cb_role.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.cb_role.Name = "cb_role"
-        Me.cb_role.Size = New System.Drawing.Size(187, 28)
+        Me.cb_role.Size = New System.Drawing.Size(126, 21)
         Me.cb_role.TabIndex = 4
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(56, 31)
+        Me.Label7.Location = New System.Drawing.Point(37, 20)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(330, 46)
+        Me.Label7.Size = New System.Drawing.Size(232, 31)
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "REGISTRATION"
         '
         'btn_submit
         '
-        Me.btn_submit.Location = New System.Drawing.Point(165, 552)
+        Me.btn_submit.Location = New System.Drawing.Point(110, 359)
+        Me.btn_submit.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_submit.Name = "btn_submit"
-        Me.btn_submit.Size = New System.Drawing.Size(118, 48)
+        Me.btn_submit.Size = New System.Drawing.Size(79, 31)
         Me.btn_submit.TabIndex = 7
         Me.btn_submit.Text = "SUBMIT"
         Me.btn_submit.UseVisualStyleBackColor = True
@@ -169,9 +184,9 @@ Partial Class Register
         '
         'Register
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(448, 635)
+        Me.ClientSize = New System.Drawing.Size(303, 424)
         Me.Controls.Add(Me.btn_submit)
         Me.Controls.Add(Me.cb_role)
         Me.Controls.Add(Me.cb_department)
@@ -186,8 +201,10 @@ Partial Class Register
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label1)
-        Me.MaximumSize = New System.Drawing.Size(470, 691)
-        Me.MinimumSize = New System.Drawing.Size(470, 691)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MaximumSize = New System.Drawing.Size(319, 463)
+        Me.MinimumSize = New System.Drawing.Size(319, 463)
         Me.Name = "Register"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Register"

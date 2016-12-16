@@ -227,6 +227,7 @@ Partial Class Generate_Barcode_Department
         Me.Controls.Add(Me.num_bag)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btn_delete)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(593, 345)
         Me.MinimumSize = New System.Drawing.Size(593, 345)
         Me.Name = "Generate_Barcode_Department"

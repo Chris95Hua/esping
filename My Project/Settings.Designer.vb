@@ -92,7 +92,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("espring")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("esping")>  _
         Public Property DB_NAME() As String
             Get
                 Return CType(Me("DB_NAME"),String)
@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("ftp://192.168.1.23/espring")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("ftp://192.168.1.23/esping")>  _
         Public Property FTP_URL() As String
             Get
                 Return CType(Me("FTP_URL"),String)
@@ -116,7 +116,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("espring")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("esping")>  _
         Public Property FTP_USER() As String
             Get
                 Return CType(Me("FTP_USER"),String)
@@ -188,7 +188,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\user\Documents\Visual Studio 2015\Projects\espring\report\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\user\Documents\Visual Studio 2015\Projects\esping\report\")>  _
         Public Property REPORT_DIR() As String
             Get
                 Return CType(Me("REPORT_DIR"),String)

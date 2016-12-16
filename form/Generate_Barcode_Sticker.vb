@@ -90,12 +90,8 @@
         End If
 
         ' format sticker position on page
-        If (horizontalStickerCount = 1 Or stickerToPrint = 1) And True Then
+        If (horizontalStickerCount = 1 Or stickerToPrint = 1) Then
             xOrigin = Math.Floor((pd_barcodeSticker.DefaultPageSettings.PaperSize.Width() - stickerWidth) / 2)
-        End If
-
-        If (verticalStickerCount = 1 Or stickerToPrint = 1) And True Then
-            yOrigin = Math.Floor((pd_barcodeSticker.DefaultPageSettings.PaperSize.Height() - stickerHeight) / 2)
         End If
 
         ' text format

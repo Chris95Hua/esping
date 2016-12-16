@@ -22,6 +22,7 @@ Partial Class Job_Log
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Job_Log))
         Me.dgv_job_log = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -45,12 +46,13 @@ Partial Class Job_Log
         Me.dgv_job_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_job_log.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column3})
         Me.dgv_job_log.Enabled = False
-        Me.dgv_job_log.Location = New System.Drawing.Point(12, 83)
+        Me.dgv_job_log.Location = New System.Drawing.Point(8, 54)
+        Me.dgv_job_log.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.dgv_job_log.Name = "dgv_job_log"
         Me.dgv_job_log.ReadOnly = True
         Me.dgv_job_log.RowTemplate.Height = 28
         Me.dgv_job_log.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv_job_log.Size = New System.Drawing.Size(972, 598)
+        Me.dgv_job_log.Size = New System.Drawing.Size(648, 389)
         Me.dgv_job_log.TabIndex = 6
         '
         'Column1
@@ -70,36 +72,40 @@ Partial Class Job_Log
         'lbl_orderName
         '
         Me.lbl_orderName.AutoSize = True
-        Me.lbl_orderName.Location = New System.Drawing.Point(153, 49)
+        Me.lbl_orderName.Location = New System.Drawing.Point(102, 32)
+        Me.lbl_orderName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbl_orderName.Name = "lbl_orderName"
-        Me.lbl_orderName.Size = New System.Drawing.Size(46, 20)
+        Me.lbl_orderName.Size = New System.Drawing.Size(32, 13)
         Me.lbl_orderName.TabIndex = 2
         Me.lbl_orderName.Text = "world"
         '
         'lbl_customer
         '
         Me.lbl_customer.AutoSize = True
-        Me.lbl_customer.Location = New System.Drawing.Point(153, 11)
+        Me.lbl_customer.Location = New System.Drawing.Point(102, 7)
+        Me.lbl_customer.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbl_customer.Name = "lbl_customer"
-        Me.lbl_customer.Size = New System.Drawing.Size(45, 20)
+        Me.lbl_customer.Size = New System.Drawing.Size(31, 13)
         Me.lbl_customer.TabIndex = 3
         Me.lbl_customer.Text = "Hello"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 49)
+        Me.Label2.Location = New System.Drawing.Point(8, 32)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(136, 20)
+        Me.Label2.Size = New System.Drawing.Size(94, 13)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Order Name         -"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 11)
+        Me.Label1.Location = New System.Drawing.Point(8, 7)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(137, 20)
+        Me.Label1.Size = New System.Drawing.Size(91, 13)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Customer Name  -"
         '
@@ -109,26 +115,27 @@ Partial Class Job_Log
         'btn_refresh
         '
         Me.btn_refresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_refresh.Location = New System.Drawing.Point(870, 32)
-        Me.btn_refresh.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_refresh.Location = New System.Drawing.Point(580, 21)
         Me.btn_refresh.Name = "btn_refresh"
-        Me.btn_refresh.Size = New System.Drawing.Size(112, 35)
+        Me.btn_refresh.Size = New System.Drawing.Size(75, 23)
         Me.btn_refresh.TabIndex = 7
         Me.btn_refresh.Text = "Refresh"
         Me.btn_refresh.UseVisualStyleBackColor = True
         '
         'Job_Log
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1002, 712)
+        Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.dgv_job_log)
         Me.Controls.Add(Me.lbl_orderName)
         Me.Controls.Add(Me.lbl_customer)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.MinimumSize = New System.Drawing.Size(1024, 768)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Job_Log"
         Me.Text = "Job Log"
         CType(Me.dgv_job_log, System.ComponentModel.ISupportInitialize).EndInit()

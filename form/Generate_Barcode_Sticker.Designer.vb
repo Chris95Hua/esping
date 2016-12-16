@@ -176,6 +176,7 @@ Partial Class Generate_Barcode_Sticker
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(281, 172)
         Me.Name = "Generate_Barcode_Sticker"

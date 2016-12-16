@@ -110,6 +110,7 @@ Partial Class Generate_Barcode
         Me.Controls.Add(Me.btn_printer)
         Me.Controls.Add(Me.btn_print)
         Me.Controls.Add(Me.Label1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Generate_Barcode"
         Me.Text = "Generate_Barcode"
         CType(Me.num_bags, System.ComponentModel.ISupportInitialize).EndInit()

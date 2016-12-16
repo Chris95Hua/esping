@@ -22,6 +22,7 @@ Partial Class Admin_Form
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Admin_Form))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.RegistrationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
@@ -198,7 +199,7 @@ Partial Class Admin_Form
         Me.TableLayoutPanel1.Controls.Add(Me.btn_EmbroideryDepartment, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_job, 1, 2)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(8, 38)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
@@ -228,7 +229,8 @@ Partial Class Admin_Form
         Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Admin_Form"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

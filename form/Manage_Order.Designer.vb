@@ -22,6 +22,7 @@ Partial Class Manage_Order
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manage_Order))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.btn_newOrder = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
@@ -254,6 +255,7 @@ Partial Class Manage_Order
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(21, 28, 21, 28)
         Me.MinimumSize = New System.Drawing.Size(1024, 768)
         Me.Name = "Manage_Order"

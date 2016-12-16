@@ -25,6 +25,7 @@ Partial Class Sewing_Department
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sewing_Department))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.btn_logout = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_passUpdate = New System.Windows.Forms.ToolStripMenuItem()
@@ -88,7 +89,7 @@ Partial Class Sewing_Department
         '
         Me.txt_search.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.txt_search.Location = New System.Drawing.Point(8, 27)
-        Me.txt_search.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_search.MaxLength = 10
         Me.txt_search.Name = "txt_search"
         Me.txt_search.Size = New System.Drawing.Size(203, 20)
@@ -133,7 +134,7 @@ Partial Class Sewing_Department
         Me.dgv_details.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgv_details.Enabled = False
         Me.dgv_details.Location = New System.Drawing.Point(8, 53)
-        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dgv_details.Margin = New System.Windows.Forms.Padding(2)
         Me.dgv_details.MultiSelect = False
         Me.dgv_details.Name = "dgv_details"
         Me.dgv_details.ReadOnly = True
@@ -222,7 +223,7 @@ Partial Class Sewing_Department
         Me.btn_next.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_next.Enabled = False
         Me.btn_next.Location = New System.Drawing.Point(195, 435)
-        Me.btn_next.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_next.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_next.Name = "btn_next"
         Me.btn_next.Size = New System.Drawing.Size(91, 20)
         Me.btn_next.TabIndex = 5
@@ -234,7 +235,7 @@ Partial Class Sewing_Department
         Me.btn_previous.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_previous.Enabled = False
         Me.btn_previous.Location = New System.Drawing.Point(8, 435)
-        Me.btn_previous.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_previous.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_previous.Name = "btn_previous"
         Me.btn_previous.Size = New System.Drawing.Size(91, 20)
         Me.btn_previous.TabIndex = 4
@@ -253,7 +254,8 @@ Partial Class Sewing_Department
         Me.Controls.Add(Me.btn_refresh)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.txt_search)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Sewing_Department"
         Me.Text = "Sewing Department"

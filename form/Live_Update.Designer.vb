@@ -23,6 +23,7 @@ Partial Class Live_Update
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Live_Update))
         Me.bgw_liveUpdate = New System.ComponentModel.BackgroundWorker()
         Me.crv_job = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.bs_job = New System.Windows.Forms.BindingSource(Me.components)
@@ -30,13 +31,13 @@ Partial Class Live_Update
         Me.num_record = New System.Windows.Forms.NumericUpDown()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txt_filter = New System.Windows.Forms.TextBox()
         Me.btn_apply = New System.Windows.Forms.Button()
         Me.cmb_filter = New System.Windows.Forms.ComboBox()
         Me.dtp_end = New System.Windows.Forms.DateTimePicker()
         Me.dtp_start = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.txt_filter = New System.Windows.Forms.TextBox()
         CType(Me.bs_job, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ds_job, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.num_record, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,6 +105,13 @@ Partial Class Live_Update
         Me.Panel1.Size = New System.Drawing.Size(672, 36)
         Me.Panel1.TabIndex = 3
         '
+        'txt_filter
+        '
+        Me.txt_filter.Location = New System.Drawing.Point(164, 8)
+        Me.txt_filter.Name = "txt_filter"
+        Me.txt_filter.Size = New System.Drawing.Size(194, 20)
+        Me.txt_filter.TabIndex = 4
+        '
         'btn_apply
         '
         Me.btn_apply.Location = New System.Drawing.Point(410, 6)
@@ -159,13 +167,6 @@ Partial Class Live_Update
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Filter"
         '
-        'txt_filter
-        '
-        Me.txt_filter.Location = New System.Drawing.Point(164, 8)
-        Me.txt_filter.Name = "txt_filter"
-        Me.txt_filter.Size = New System.Drawing.Size(194, 20)
-        Me.txt_filter.TabIndex = 4
-        '
         'Live_Update
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -173,6 +174,7 @@ Partial Class Live_Update
         Me.ClientSize = New System.Drawing.Size(672, 474)
         Me.Controls.Add(Me.crv_job)
         Me.Controls.Add(Me.Panel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(688, 513)
         Me.Name = "Live_Update"
