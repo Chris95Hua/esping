@@ -5,6 +5,10 @@
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
 
+        If Session.department_id = _PROCESS.ADMIN Then
+            btn_logout.Visible = False
+        End If
+
         txt_welcome.Text = "Welcome: " + Session.first_name
         loadInventoryList()
 
@@ -89,6 +93,7 @@
         nud_quantity.Value = 1
     End Sub
 
+    ' Assign item to order
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         If txt_barcode.Text Is String.Empty Then
             MessageBox.Show("Please enter job sheet number", "Operation Failed")
@@ -117,6 +122,7 @@
 
     End Sub
 
+    ' Load existing items/Insert item to order
     Private Sub bgw_LoadSubmit_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_LoadSubmit.DoWork
         If loadItems Then
             e.Result = Database.SelectAllRows(_TABLE.INVENTORY, {"*"})
@@ -131,6 +137,7 @@
         End If
     End Sub
 
+    ' Result of async task
     Private Sub bgw_LoadSubmit_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_LoadSubmit.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -164,6 +171,7 @@
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
@@ -174,6 +182,7 @@
         End If
     End Sub
 
+    ' Update password
     Private Sub btn_passUpdate_Click(sender As Object, e As EventArgs) Handles btn_passUpdate.Click
         Dim passUpdateForm As New Update_Password
         passUpdateForm.ShowDialog()

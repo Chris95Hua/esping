@@ -100,6 +100,7 @@ Public Class Live_Update
         End If
     End Sub
 
+    ' Load data
     Private Sub bgw_liveUpdate_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_liveUpdate.DoWork
         Dim limitFilter As String = String.Empty
         Dim filter As String = String.Empty
@@ -168,6 +169,7 @@ Public Class Live_Update
         e.Result = Database.GetDataTable(sqlStmt)
     End Sub
 
+    ' Result
     Private Sub bgw_liveUpdate_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_liveUpdate.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -179,6 +181,7 @@ Public Class Live_Update
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
@@ -189,11 +192,13 @@ Public Class Live_Update
         End If
     End Sub
 
+    ' Reload report
     Private Sub ReloadReport()
         bgw_liveUpdate.RunWorkerAsync()
         ShowLoadingOverlay(True)
     End Sub
 
+    ' Put place holder text
     Private Sub PutPlaceHolderText()
         txt_filter.ForeColor = Color.Gray
 

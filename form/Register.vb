@@ -10,6 +10,7 @@
         cb_role.SelectedIndex = 0
     End Sub
 
+    ' Submit new user info
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         If Not Method.IsName(txt_firstName.Text) Or Not Method.IsName(txt_lastName.Text) Then
             MessageBox.Show("Name fields cannot be empty and can only contain alphanumeric, space, single quote and hyphen", "Account Registration Failed")
@@ -67,6 +68,7 @@
         End Select
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

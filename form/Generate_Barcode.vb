@@ -5,8 +5,6 @@
     Dim orderID As String
 
     Sub New(ByVal orderID As String)
-        ' This call is required by the designer
-
         InitializeComponent()
 
         Me.orderID = orderID
@@ -18,6 +16,7 @@
         ppd_barcode.Document = pd_barcode
     End Sub
 
+    ' Generate document to print
     Private Sub PrintBarcode(ByVal sender As Object, ByVal e As Printing.PrintPageEventArgs) Handles pd_barcode.PrintPage
         ' text format
         Dim formatCenter As New StringFormat()
@@ -28,10 +27,12 @@
         e.Graphics.DrawString("*" & orderID & "*", New Font(fontFamily, fontSizeNormal), New SolidBrush(Color.Black), (pd_barcode.DefaultPageSettings.PaperSize.Width() / 2) + 1, textLocation, formatCenter)
     End Sub
 
+    ' Print preview
     Private Sub btn_preview_Click(sender As Object, e As EventArgs) Handles btn_preview.Click
         ppd_barcode.ShowDialog()
     End Sub
 
+    ' Printer settings
     Private Sub btn_printer_Click(sender As Object, e As EventArgs) Handles btn_printer.Click
         pdg_settings.AllowPrintToFile = False
 
@@ -41,6 +42,7 @@
         End If
     End Sub
 
+    ' Print
     Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
         pd_barcode.Print()
     End Sub

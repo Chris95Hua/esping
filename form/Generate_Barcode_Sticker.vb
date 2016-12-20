@@ -53,6 +53,7 @@
         ppd_preview.Document = pd_barcodeSticker
     End Sub
 
+    ' Validate and set page settings
     Private Function ValidatePageSettings() As Boolean
         ' get no. of sticker can be fit in a page horizontally and vertically
         ' TODO: take sticker margin into consideration
@@ -68,11 +69,13 @@
         End If
     End Function
 
+    ' Print
     Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
         ' max 26 barcode digit for default size
         pd_barcodeSticker.Print()
     End Sub
 
+    ' Generate document to print
     Private Sub PrintBarcodeSticker(ByVal sender As Object, ByVal e As Printing.PrintPageEventArgs) Handles pd_barcodeSticker.PrintPage
         Dim xOrigin As Integer = Math.Floor((pd_barcodeSticker.DefaultPageSettings.PaperSize.Width() - pd_barcodeSticker.DefaultPageSettings.PrintableArea.Width()) / 2)
         Dim yOrigin As Integer = Math.Floor((pd_barcodeSticker.DefaultPageSettings.PaperSize.Height() - pd_barcodeSticker.DefaultPageSettings.PrintableArea.Height()) / 2)
@@ -194,6 +197,7 @@
         Next
     End Sub
 
+    ' Draw rounded rectangle
     Private Function RoundedRectangle(ByVal rectangle As Rectangle, ByVal radius As Integer) As Drawing2D.GraphicsPath
         Dim path As New Drawing2D.GraphicsPath()
         Dim diameter As Integer = radius * 2
@@ -215,6 +219,7 @@
         Return path
     End Function
 
+    ' Printer settings
     Private Sub btn_printer_Click(sender As Object, e As EventArgs) Handles btn_printer.Click
         pdg_settings.AllowPrintToFile = False
 
@@ -224,6 +229,7 @@
         End If
     End Sub
 
+    ' Print preview
     Private Sub btn_preview_Click(sender As Object, e As EventArgs) Handles btn_preview.Click
         stickerCount = 0
         ValidatePageSettings()

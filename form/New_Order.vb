@@ -6,10 +6,12 @@
         d_delivery.Value = Date.Now()
     End Sub
 
+    ' close button
     Private Sub btn_close_Click(sender As Object, e As EventArgs) Handles btn_close.Click
         Me.Close()
     End Sub
 
+    ' submit order
     Private Sub btn_submit_Click(sender As Object, e As EventArgs) Handles btn_submit.Click
         If txt_cusName.Text Is String.Empty Or txt_orderName.Text Is String.Empty Or
             (cb_fabricCL.Checked = False And cb_split.Checked = False) Or
@@ -26,6 +28,7 @@
 
     End Sub
 
+    ' async task to populate and insert order to table
     Private Sub bgw_OrderLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_createOrder.DoWork
         Dim order As New Dictionary(Of String, Object)
 
@@ -230,6 +233,7 @@
         e.Result = Method.CreateOrder(order)
     End Sub
 
+    ' result
     Private Sub bgw_OrderLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_createOrder.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -244,6 +248,7 @@
         End If
     End Sub
 
+    ' loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
@@ -254,6 +259,7 @@
         End If
     End Sub
 
+    ' artwork path
     Private Sub btn_artwork_Click(sender As Object, e As EventArgs) Handles btn_artwork.Click
         Dim artwork As String() = Method.DialogGetFile(_FILE.TYPE.IMAGE, True)
         Dim tempArtwork As String
@@ -290,6 +296,7 @@
         End If
     End Sub
 
+    ' document path
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
         Dim document As String = Method.DialogGetFile(_FILE.TYPE.IMAGE).First
 
@@ -303,6 +310,7 @@
         End If
     End Sub
 
+    ' clear form
     Private Sub ClearForm()
         ' clear form
         txt_cusName.Clear()
@@ -345,6 +353,7 @@
         txt_docPath.ResetText()
     End Sub
 
+    ' pickup radio buttons
     Private Sub rb_pickedUp_Click(sender As Object, e As EventArgs) Handles rb_pickedUp.Click
         rb_delivery.Checked = False
     End Sub

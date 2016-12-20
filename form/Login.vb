@@ -1,20 +1,24 @@
 ﻿Public Class Login
     Private loadingOverlay As Loading_Overlay
 
-    Private Sub LogIn_Click(sender As Object, e As EventArgs) Handles btn_login.Click
-        Me.LogInFunction()
-    End Sub
-
+    ' Clear session
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Session.Clear()
     End Sub
 
+    ' Login button click
+    Private Sub LogIn_Click(sender As Object, e As EventArgs) Handles btn_login.Click
+        Me.LogInFunction()
+    End Sub
+
+    ' Enter keydown login
     Private Sub txt_password_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_username.KeyDown, txt_password.KeyDown
         If e.KeyCode = Keys.Enter Then
             Me.LogInFunction()
         End If
     End Sub
 
+    ' Login
     Private Sub LogInFunction()
         Dim credentials As New Dictionary(Of String, String)
         credentials.Add(_USER.USERNAME, txt_username.Text)
@@ -104,6 +108,7 @@
         End Select
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

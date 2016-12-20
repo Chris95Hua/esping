@@ -3,7 +3,7 @@
     Private newSalt As String
     Private hashedNewPass As String
 
-    ' TODO: async task
+    ' check password
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
         Dim hashedOldPass As String = Security.Hash(txt_oldPass.Text, Session.salt.ToString)
 
@@ -51,6 +51,7 @@
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

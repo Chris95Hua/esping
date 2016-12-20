@@ -124,6 +124,7 @@ Public Class Order_Details
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
@@ -427,6 +428,7 @@ Public Class Order_Details
         End If
     End Sub
 
+    ' button close
     Private Sub btn_close_Click(sender As Object, e As EventArgs) Handles btn_close.Click
         Me.Close()
     End Sub
@@ -437,47 +439,55 @@ Public Class Order_Details
         ShowLoadingOverlay(True)
     End Sub
 
+    ' view document/payment detail image
     Private Sub lbl_docPath_Click(sender As Object, e As EventArgs) Handles lbl_docPath.Click
         Dim showImg As New View_image(My.Settings.PAYMENT_DIR, paymentImg)
         showImg.ShowDialog()
     End Sub
 
+    ' view artwork 1
     Private Sub pic_artwork1_Click(sender As Object, e As EventArgs) Handles pic_artwork1.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg1)
         showImg.Show()
     End Sub
 
+    ' view artwork 2
     Private Sub pic_artwork2_Click(sender As Object, e As EventArgs) Handles pic_artwork2.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg2)
         showImg.Show()
     End Sub
 
+    ' view artwork 3
     Private Sub pic_artwork3_Click(sender As Object, e As EventArgs) Handles pic_artwork3.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg3)
         showImg.Show()
     End Sub
 
+    ' view artwork 4
     Private Sub pic_artwork4_Click(sender As Object, e As EventArgs) Handles pic_artwork4.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg4)
         showImg.Show()
     End Sub
 
+    ' view artwork 5
     Private Sub pic_artwork5_Click(sender As Object, e As EventArgs) Handles pic_artwork5.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg5)
         showImg.Show()
     End Sub
 
+    ' view artwork 6
     Private Sub pic_artwork6_Click(sender As Object, e As EventArgs) Handles pic_artwork6.Click
         Dim showImg As New View_image(My.Settings.ARTWORK_DIR, artworkImg6)
         showImg.Show()
     End Sub
 
+    ' show Job Log form (order tracking)
     Private Sub btn_track_Click(sender As Object, e As EventArgs) Handles btn_track.Click
         Dim log As New Job_Log(orderID)
         log.ShowDialog()
     End Sub
 
-    ' Generate barcode
+    ' Show Generate barcode form
     Private Sub btn_barcode_Click(sender As Object, e As EventArgs) Handles btn_barcode.Click
         Select Case Session.department_id
             Case _PROCESS.ORDER

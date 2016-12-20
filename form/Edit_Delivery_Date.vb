@@ -7,6 +7,7 @@
         d_newDeliveryDate.Value = oldDate
     End Sub
 
+    ' Return result to Order Management form
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
         Me.DialogResult = DialogResult.OK
     End Sub

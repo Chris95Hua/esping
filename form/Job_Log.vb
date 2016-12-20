@@ -23,6 +23,7 @@
 
     End Sub
 
+    ' Load the log
     Private Sub bgw_JobLogLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_JobLogLoader.DoWork
         Dim sqlStmt As String = String.Concat("SELECT ",
                                               _TABLE.ORDER_LOG, ".", _ORDER_LOG.DATETIME, ", ",
@@ -36,6 +37,7 @@
         e.Result = Database.GetDataTable(sqlStmt.ToString())
     End Sub
 
+    ' Result
     Private Sub bgw_JobLogLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_JobLogLoader.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -46,16 +48,19 @@
         dgv_job_log.Enabled = True
     End Sub
 
+    ' Refresh
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
         LoadDataGridData()
     End Sub
 
+    ' Load datagrid's data
     Private Sub LoadDataGridData()
         dgv_job_log.Enabled = False
         bgw_JobLogLoader.RunWorkerAsync()
         ShowLoadingOverlay(True)
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

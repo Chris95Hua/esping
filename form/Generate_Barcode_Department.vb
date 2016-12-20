@@ -31,7 +31,7 @@ Public Class Generate_Barcode_Department
         ShowLoadingOverlay(True)
     End Sub
 
-    ' generate document to print
+    ' Generate document to print
     Private Sub PrintBarcode(ByVal sender As Object, ByVal e As Printing.PrintPageEventArgs) Handles pd_barcode.PrintPage
 
         ' text format
@@ -59,10 +59,12 @@ Public Class Generate_Barcode_Department
         e.HasMorePages = (stickerCount < stickerToPrint)
     End Sub
 
+    ' Print
     Private Sub btn_print_Click(sender As Object, e As EventArgs) Handles btn_print.Click
         PrintAndSave()
     End Sub
 
+    ' Printer settings
     Private Sub btn_printer_Click(sender As Object, e As EventArgs) Handles btn_printer.Click
         pdg_settings.AllowPrintToFile = False
 
@@ -72,6 +74,7 @@ Public Class Generate_Barcode_Department
         End If
     End Sub
 
+    ' Print preview
     Private Sub btn_preview_Click(sender As Object, e As EventArgs) Handles btn_preview.Click
         stickerCount = 0
         curPrintStickerCount = 0
@@ -80,6 +83,7 @@ Public Class Generate_Barcode_Department
         ppd_barcode.ShowDialog()
     End Sub
 
+    ' Save department info to database and print the barcode
     Private Sub PrintAndSave()
         curPrintStickerCount = 0
         curBarcodeIndex = 0
@@ -256,6 +260,7 @@ Public Class Generate_Barcode_Department
         ShowLoadingOverlay(False)
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

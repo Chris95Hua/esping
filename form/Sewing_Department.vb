@@ -10,6 +10,7 @@
 
         ' for admin
         If Session.department_id = _PROCESS.ADMIN Then
+            btn_logout.Visible = False
             Session.department_id = _PROCESS.SEWING
         End If
 
@@ -281,6 +282,7 @@
         ShowLoadingOverlay(True)
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
@@ -291,16 +293,19 @@
         End If
     End Sub
 
+    ' Pagination - previous page
     Private Sub btn_previous_Click(sender As Object, e As EventArgs) Handles btn_previous.Click
         currentPageNumber -= 1
         LoadDataGridData()
     End Sub
 
+    ' Pagination - next page
     Private Sub btn_next_Click(sender As Object, e As EventArgs) Handles btn_next.Click
         currentPageNumber += 1
         LoadDataGridData()
     End Sub
 
+    ' Pagination - calculate total page available
     Private Sub CalculatePageNumber()
         Dim cuttingID As Integer = _PROCESS.CUTTING
         Dim embroideryID As Integer = _PROCESS.EMBROIDERY

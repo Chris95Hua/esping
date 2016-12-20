@@ -1,6 +1,7 @@
 ﻿Public Class New_Inventory
     Private loadingOverlay As Loading_Overlay
 
+    ' Add inventory to to database
     Private Sub btn_add_Click(sender As Object, e As EventArgs) Handles btn_add.Click
         If txt_inventory.Text Is String.Empty Then
             MessageBox.Show("Please enter the name of the item", "Operation Failed")
@@ -12,6 +13,7 @@
         End If
     End Sub
 
+    ' async task to insert item to database
     Private Sub bgw_InsertItem_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_InsertItem.DoWork
         Dim invList As List(Of Dictionary(Of String, Object))
 
@@ -31,6 +33,7 @@
         End If
     End Sub
 
+    ' Result
     Private Sub bgw_InsertItem_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_InsertItem.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -47,6 +50,7 @@
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay

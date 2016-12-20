@@ -17,10 +17,12 @@
         ShowLoadingOverlay(True)
     End Sub
 
+    ' Download image using given directory and filename
     Private Sub bgw_ImgLoader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_ImgLoader.DoWork
         e.Result = Method.FtpDownload(imgDir, imgFilePath)
     End Sub
 
+    ' Result
     Private Sub bgw_ImgLoader_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_ImgLoader.RunWorkerCompleted
         ShowLoadingOverlay(False)
 
@@ -34,6 +36,7 @@
         End If
     End Sub
 
+    ' Loading overlay
     Private Sub ShowLoadingOverlay(ByVal show As Boolean)
         If show Then
             loadingOverlay = New Loading_Overlay
