@@ -35,8 +35,5 @@
     <Setting Name="PAGINATION_LIMIT" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="REPORT_DIR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\user\Documents\Visual Studio 2015\Projects\esping\report\</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

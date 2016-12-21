@@ -106,3 +106,8 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\esping\obj\Debug\esping.vbpr
 C:\Users\user\Documents\Visual Studio 2015\Projects\esping\obj\Debug\espring.exe
 C:\Users\user\Documents\Visual Studio 2015\Projects\esping\obj\Debug\espring.xml
 C:\Users\user\Documents\Visual Studio 2015\Projects\esping\obj\Debug\espring.pdb
+C:\Users\user\Desktop\espring\bin\Debug\espring.exe.config
+C:\Users\user\Desktop\espring\obj\Debug\espring.exe
+C:\Users\user\Desktop\espring\obj\Debug\espring.xml
+C:\Users\user\Desktop\espring\obj\Debug\espring.pdb
+C:\Users\user\Desktop\espring\bin\Debug\esping.exe.config

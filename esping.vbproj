@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1C4CBEBC-4CFA-49E6-8FAF-A9B3147FACB4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>espring.My.MyApplication</StartupObject>
-    <RootNamespace>espring</RootNamespace>
-    <AssemblyName>espring</AssemblyName>
+    <StartupObject>esping.My.MyApplication</StartupObject>
+    <RootNamespace>esping</RootNamespace>
+    <AssemblyName>esping</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -35,7 +35,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>espring.xml</DocumentationFile>
+    <DocumentationFile>esping.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -45,7 +45,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>espring.xml</DocumentationFile>
+    <DocumentationFile>esping.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

@@ -45,7 +45,7 @@ Public Class Job
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "espring.Job.rpt"
+            Return "esping.Job.rpt"
         End Get
         Set
             'Do nothing

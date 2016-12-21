@@ -1,0 +1,24 @@
+# =========================================================================== #
+| Setup and Installation                                                      |
+# =========================================================================== #
+1. Install FileZilla and host MySQL database (e.g: XAMPP)
+2. Deploy MySQL database:
+    2.1 Create a new database call "esping"
+    2.2 Import "esping.sql" tables
+3. Setup FileZilla:
+    3.1 Create new user group in FileZilla Server (Edit->Users->General)
+    3.2 Name it "esping" and use password "1234"
+    3.3 Create a shared folder (e.g: C:\FileZilla)
+    3.4 Setup the shared folder for user created(Edit->Users->Shared folders)
+    3.5 Ensure the user has Read, Write, Delete permission
+    3.6 Create 2 directories in the shared folder - "artwork", "payment"
+4. Install the program
+5. Go to installation directory (C:\Program Files\SoftEngine by default)
+6. Modify the settings in "esping.exe.XML" as necessary
+7. Ensure Apache and FileZilla server is running before starting the program
+
+# =========================================================================== #
+| Admin Account                                                               |
+# =========================================================================== #
+Username: admin
+Password: 123456

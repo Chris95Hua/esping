@@ -25,7 +25,7 @@ Public Class Live_Update
         HideDateFilterControls()
         HideTextFilterControl()
 
-        jobReport.Load(My.Settings.REPORT_DIR & "Job.rpt")
+        jobReport.Load("Job.rpt")
         jobReport.SetDataSource(dataset)
         crv_job.ReportSource = jobReport
     End Sub
